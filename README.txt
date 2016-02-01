@@ -1,1 +1,1 @@
-THIS IS A TEST
+This is the initial README file for CSC3710 Project 1, the Printer Simulation.
