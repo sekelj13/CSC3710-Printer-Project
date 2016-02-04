@@ -1,5 +1,5 @@
 /*
- * Group: D.J. Bozentka, Johnathan Sekel, Matthew Carnaghi
+ * Group: D.J. Bozentka, Johnathan Sekela, Matthew Carnaghi
  * Date: January 26, 2016
  * Class: 3710-01
  * Location: Zip File(Under: Sim Folder)
