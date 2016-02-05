@@ -70,11 +70,29 @@ public:
       //Function to return the job number.
       //Postcondition: The value of jobNumber is returned.
 
+    void setTier();
+      //sets tier according to value of pages
+      //postcondition: tier is set to either 1,2, or 3
+
+    int getTier();
+      //returns tier member variable
+      //postcondition: tier is returned
+
+    void setPages(int val);
+      //sets pages to val
+      //postcondition: pages is set to val
+
+    int getPages();
+      //returns number of pages
+      //postcondition: pages is returned
+
 private:
     int jobNumber;
     int arrivalTime;
     int waitingTime; 
     int printTime;
+    int tier;
+    int pages;
 };
 
 

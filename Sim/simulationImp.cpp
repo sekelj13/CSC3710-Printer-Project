@@ -56,6 +56,23 @@ int jobType::getJobNumber() const
     return jobNumber;
 }
 
+void setTier() {
+    if (pages < 11)
+        tier=1;
+    else if (pages < 21)
+        tier=2;
+    else
+        tier=3;
+}
+
+int getTier() {
+    return tier;
+}
+
+void setPages(int val) {
+    pages = val;
+}
+
 
 //**************** printerType **********
 
