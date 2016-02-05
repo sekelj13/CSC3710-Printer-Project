@@ -16,10 +16,10 @@ void jobType::setJobInfo(int customerN, int arrvTime,
     jobNumber = customerN;
     arrivalTime = arrvTime;
     waitingTime = wTime;
-    transactionTime = tTime;
+    printTime = tTime;
 }
 
-jobType::customerType(int customerN, int arrvTime, 
+jobType::jobType(int customerN, int arrvTime, 
                            int wTime, int tTime)
 {
     setJobInfo(jobN, arrvTime, wTime, tTime);
@@ -46,9 +46,9 @@ int jobType::getArrivalTime() const
     return arrivalTime;
 }
 
-int jobType::getTransactionTime() const
+int jobType::getPrintTime() const
 {
-    return transactionTime;
+    return printTime;
 }
 
 int jobType::getJobNumber() const
@@ -62,7 +62,7 @@ int jobType::getJobNumber() const
 printerType::serverType()
 {
     status = "free";
-    transactionTime = 0;
+    printTime = 0;
 }
 
 bool printerType::isFree() const
@@ -80,28 +80,36 @@ void printerType::setFree()
     status = "free";
 }
 
-void printerType::setTransactionTime(int t)
-{
-    transactionTime = t;
+void setPrintRate(int pr) {
+    printRate = pr;
 }
 
-void printerType::setTransactionTime()
+int getPrintRate() {
+    return printRate;
+}
+
+void printerType::setPrintTime(int t)
+{
+    printTime = t;
+}
+
+void printerType::setPrintTime()
 {
     int time;
 
-    time = currentJob.getTransactionTime();
+    time = currentJob.getPrintTime();
 
-    transactionTime = time;
+    printTime = time;
 }
 
-void printerType::decreaseTransactionTime()
+void printerType::decreasePrintTime()
 {
-    transactionTime--;
+    printTime--;
 }
 
-int printerType::getRemainingTransactionTime() const
+int printerType::getRemainingPrintTime() const
 {
-    return transactionTime;
+    return printTime;
 }
 
 void printerType::setCurrentJob(jobType cCustomer)
@@ -124,9 +132,9 @@ int printerType::getCurrentJobWaitingTime() const
     return currentJob.getWaitingTime();
 }
 
-int printerType::getCurrentJobTransactionTime() const
+int printerType::getCurrentJobPrintTime() const
 {
-    return currentJob.getTransactionTime();
+    return currentJob.getPrintTime();
 }
 
 
@@ -177,7 +185,7 @@ void printerListType::setPrinterBusy(int serverID,
                                    int tTime)
 {
     printers[serverID].setBusy();
-    printers[serverID].setTransactionTime(tTime);
+    printers[serverID].setPrintTime(tTime);
     printers[serverID].setCurrentJob(cCustomer);
 }
 
@@ -186,10 +194,10 @@ void printerListType::setPrinterBusy(int serverID,
 {
     int time;
 
-    time = cJob.getTransactionTime();
+    time = cJob.getPrintTime();
 
     printers[serverID].setBusy();
-    printers[serverID].setTransactionTime(time);
+    printers[serverID].setPrintTime(time);
     printers[serverID].setCurrentJob(cCustomer);
 }
 
@@ -200,9 +208,9 @@ void printerListType::updatePrinters(ostream& outFile)
     for (i = 0; i < numOfPrinters; i++)
         if (!printers[i].isFree())
         {
-            printers[i].decreaseTransactionTime();
+            printers[i].decreasePrintTime();
 
-            if (printers[i].getRemainingTransactionTime() == 0)
+            if (printers[i].getRemainingPrintTime() == 0)
             {
                 outFile << "From printer number  " << (i + 1) 
                         << " job number "
@@ -213,7 +221,7 @@ void printerListType::updatePrinters(ostream& outFile)
                            + printers[i].
                               getCurrentJobWaitingTime() 
                            + printers[i].
-                              getCurrentJobTransactionTime()
+                              getCurrentJobPrintTime()
                         << endl;
                 printers[i].setFree();
             }

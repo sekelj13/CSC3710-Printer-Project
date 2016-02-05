@@ -4,7 +4,7 @@
  * Class: 3710-01
  * Location: Zip File(Under: Sim Folder)
  * Statement: The program takes user input for simulation time, 
- *    number of printers, transaction time, and time b/w job
+ *    number of printers, print time, and time b/w job
  *    arrival. Outputs businesses stats related to the amount
  *    of jobs dealing with total number of printers to help
  *    client understand how much printers should have on staff
@@ -35,7 +35,7 @@ public:
       //Postcondition: jobNumber = cN;
       //               arrivalTime = arrvTime;
       //               waitingTime = wTime;
-      //               transactionTime = tTime
+      //               printTime = tTime
 
     void setJobInfo(int jobN = 0, int inTime = 0, 
                          int wTime = 0, int tTime = 0);
@@ -44,7 +44,7 @@ public:
       //Postcondition: jobNumber = customerN;
       //               arrivalTime = arrvTime;
       //               waitingTime = wTime;
-      //               transactionTime = tTime;
+      //               printTime = tTime;
 
     int getWaitingTime() const;
       //Function to return the waiting time of a job.
@@ -62,9 +62,9 @@ public:
       //Function to return the arrival time of a job.
       //Postcondition: The value of arrivalTime is returned.
 
-    int getTransactionTime() const;
-      //Function to return the transaction time of a job.
-      //Postcondition: The value of transactionTime is returned.
+    int getPrintTime() const;
+      //Function to return the print time of a job.
+      //Postcondition: The value of printTime is returned.
 
     int getJobNumber() const;
       //Function to return the job number.
@@ -74,7 +74,7 @@ private:
     int jobNumber;
     int arrivalTime;
     int waitingTime; 
-    int transactionTime;
+    int printTime;
 };
 
 
@@ -88,12 +88,20 @@ public:
       //values.
       //Postcondition: currentJob is initialized by its
       //               default constructor; status = "free"; and
-      //               the transaction time is initialized to 0.
+      //               the print time is initialized to 0.
 
     bool isFree() const;
       //Function to determine if the printer is free.
       //Postcondition: Returns true if the printer is free, 
       //               otherwise returns false.
+
+    void setPrintRate (int pr);
+      //Sets printRate
+      //postcondition: printRate is set
+
+    int getPrintRate();
+      //returns printRate
+      //postcondition: printRate is returned
 
     void setBusy();
       //Function to set the status of the printer to busy.
@@ -103,24 +111,24 @@ public:
       //Function to set the status of the printer to "free".
       //Postcondition: status = "free";
 
-    void setTransactionTime(int t);
-      //Function to set the transaction time according to the 
+    void setPrintTime(int t);
+      //Function to set the print time according to the 
       //parameter t.
-      //Postcondition: transactionTime = t;
+      //Postcondition: printTime = t;
 
-    void setTransactionTime();
-      //Function to set the transaction time according to 
-      //the transaction time of the current job.
+    void setPrintTime();
+      //Function to set the print time according to 
+      //the print time of the current job.
       //Postcondition: 
-      //   transactionTime = currentJob.transactionTime;
+      //   printTime = currentJob.transactionTime;
 
-    int getRemainingTransactionTime() const;
-      //Function to return the remaining transaction time.
-      //Postcondition: The value of transactionTime is returned.
+    int getRemainingPrintTime() const;
+      //Function to return the remaining print time.
+      //Postcondition: The value of printTime is returned.
 
-    void decreaseTransactionTime();
-      //Function to decrease the transactionTime by 1 unit.
-      //Postcondition: transactionTime--;
+    void decreasePrintTime();
+      //Function to decrease the printTime by 1 unit.
+      //Postcondition: printTime--;
 
     void setCurrentJob(jobType cCustomer);
       //Function to set the info of the current job 
@@ -142,19 +150,20 @@ public:
     int getCurrentJobWaitingTime() const;
       //Function to return the current waiting time of the 
       //current job.
-      //Postcondition: The value of transactionTime is 
+      //Postcondition: The value of printTime is 
       //               returned.
 
-    int getCurrentJobTransactionTime() const;
-      //Function to return the transaction time of the 
+    int getCurrentJobPrintTime() const;
+      //Function to return the print time of the 
       //current job. 
-      //Postcondition: The value of transactionTime of the 
+      //Postcondition: The value of printTime of the 
       //               current job is returned.
 
 private:
     jobType currentJob;
     string status;
-    int transactionTime; 
+    int pagesLeft;
+    int printRate;
 };
 
 
@@ -188,7 +197,7 @@ public:
       //Postcondition: The printer specified by serverID is set
       //               to "busy", to serve the job 
       //               specified by cJob, and the 
-      //               transaction time is set according to the 
+      //               print time is set according to the 
       //               parameter tTime.
 
     void setPrinterBusy(int printerID, jobType cJob);
@@ -199,9 +208,9 @@ public:
 
     void updatePrinters(ostream& outFile);
       //Function to update the status of a printer.
-      //Postcondition: The transaction time of each busy 
+      //Postcondition: The print time of each busy 
       //               printer is decremented by one unit. If 
-      //               the transaction time of a busy printer 
+      //               the print time of a busy printer 
       //               is reduced to zero, the printer is set 
       //               to "free". Moreover, if the actual 
       //               parameter corresponding to outFile is 
