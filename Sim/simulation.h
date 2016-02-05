@@ -4,14 +4,14 @@
  * Class: 3710-01
  * Location: Zip File(Under: Sim Folder)
  * Statement: The program takes user input for simulation time, 
- *    number of servers, transaction time, and time b/w customer
+ *    number of printers, transaction time, and time b/w job
  *    arrival. Outputs businesses stats related to the amount
- *    of customers dealing with total number of servers to help
- *    client understand how much servers should have on staff
+ *    of jobs dealing with total number of printers to help
+ *    client understand how much printers should have on staff
  *    that is economically helpful. 
  *   
  *    Added new function(queueWaitTime) which takes waitTime
- *      by reference and returns amount of customers still
+ *      by reference and returns amount of jobs still
  *      in queue & simulation & their total wait times. 
  *
  */
@@ -22,36 +22,36 @@
 using namespace std; 
  
 
-  //**************** customerType  ****************
-class customerType
+  //**************** jobType  ****************
+class jobType
 {
 public:
-    customerType(int cN = 0, int arrvTime = 0, int wTime = 0, 
+    jobType(int cN = 0, int arrvTime = 0, int wTime = 0, 
                  int tTime = 0);
       //Constructor to initialize the instance variables
       //according to the parameters
       //If no value is specified in the object declaration, 
       //the default values are assigned.
-      //Postcondition: customerNumber = cN;
+      //Postcondition: jobNumber = cN;
       //               arrivalTime = arrvTime;
       //               waitingTime = wTime;
       //               transactionTime = tTime
 
-    void setCustomerInfo(int customerN = 0, int inTime = 0, 
+    void setJobInfo(int jobN = 0, int inTime = 0, 
                          int wTime = 0, int tTime = 0);
       //Function to initialize the instance variables.
       //Instance variables are set according to the parameters.
-      //Postcondition: customerNumber = customerN;
+      //Postcondition: jobNumber = customerN;
       //               arrivalTime = arrvTime;
       //               waitingTime = wTime;
       //               transactionTime = tTime;
 
     int getWaitingTime() const;
-      //Function to return the waiting time of a customer.
+      //Function to return the waiting time of a job.
       //Postcondition: The value of waitingTime is returned.
 
     void setWaitingTime(int time);
-      //Function to set the waiting time of a customer.
+      //Function to set the waiting time of a job.
       //Postcondition: waitingTime = time;
 
     void incrementWaitingTime();
@@ -59,48 +59,48 @@ public:
       //Postcondition: waitingTime++;
 
     int getArrivalTime() const;
-      //Function to return the arrival time of a customer.
+      //Function to return the arrival time of a job.
       //Postcondition: The value of arrivalTime is returned.
 
     int getTransactionTime() const;
-      //Function to return the transaction time of a customer.
+      //Function to return the transaction time of a job.
       //Postcondition: The value of transactionTime is returned.
 
-    int getCustomerNumber() const;
-      //Function to return the customer number.
-      //Postcondition: The value of customerNumber is returned.
+    int getJobNumber() const;
+      //Function to return the job number.
+      //Postcondition: The value of jobNumber is returned.
 
 private:
-    int customerNumber;
+    int jobNumber;
     int arrivalTime;
     int waitingTime; 
     int transactionTime;
 };
 
 
-	//*************  serverType  ****************
-class serverType
+	//*************  printerType  ****************
+class printerType
 {
 public:
-    serverType();
+    printerType();
       //Default constructor
       //Sets the values of the instance variables to their default
       //values.
-      //Postcondition: currentCustomer is initialized by its
+      //Postcondition: currentJob is initialized by its
       //               default constructor; status = "free"; and
       //               the transaction time is initialized to 0.
 
     bool isFree() const;
-      //Function to determine if the server is free.
-      //Postcondition: Returns true if the server is free, 
+      //Function to determine if the printer is free.
+      //Postcondition: Returns true if the printer is free, 
       //               otherwise returns false.
 
     void setBusy();
-      //Function to set the status of the server to busy.
+      //Function to set the status of the printer to busy.
       //Postcondition: status = "busy";
 
     void setFree();
-      //Function to set the status of the server to "free".
+      //Function to set the status of the printer to "free".
       //Postcondition: status = "free";
 
     void setTransactionTime(int t);
@@ -110,9 +110,9 @@ public:
 
     void setTransactionTime();
       //Function to set the transaction time according to 
-      //the transaction time of the current customer.
+      //the transaction time of the current job.
       //Postcondition: 
-      //   transactionTime = currentCustomer.transactionTime;
+      //   transactionTime = currentJob.transactionTime;
 
     int getRemainingTransactionTime() const;
       //Function to return the remaining transaction time.
@@ -122,108 +122,108 @@ public:
       //Function to decrease the transactionTime by 1 unit.
       //Postcondition: transactionTime--;
 
-    void setCurrentCustomer(customerType cCustomer);
-      //Function to set the info of the current customer 
-      //according to the parameter cCustomer.
-      //Postcondition: currentCustomer = cCustomer;
+    void setCurrentJob(jobType cCustomer);
+      //Function to set the info of the current job 
+      //according to the parameter cJob.
+      //Postcondition: currentJob = cCustomer;
 
-    int getCurrentCustomerNumber() const;
-      //Function to return the customer number of the current
-      //customer.
-      //Postcondition: The value of customerNumber of the 
-      //               current customer is returned.
+    int getCurrentJobNumber() const;
+      //Function to return the job number of the current
+      //job.
+      //Postcondition: The value of jobNumber of the 
+      //               current job is returned.
 
-    int getCurrentCustomerArrivalTime() const;
+    int getCurrentJobArrivalTime() const;
       //Function to return the arrival time of the current 
-      //customer.
+      //job.
       //Postcondition: The value of arrivalTime of the current 
-      //               customer is returned.
+      //               job is returned.
 
-    int getCurrentCustomerWaitingTime() const;
+    int getCurrentJobWaitingTime() const;
       //Function to return the current waiting time of the 
-      //current customer.
+      //current job.
       //Postcondition: The value of transactionTime is 
       //               returned.
 
-    int getCurrentCustomerTransactionTime() const;
+    int getCurrentJobTransactionTime() const;
       //Function to return the transaction time of the 
-      //current customer. 
+      //current job. 
       //Postcondition: The value of transactionTime of the 
-      //               current customer is returned.
+      //               current job is returned.
 
 private:
-    customerType currentCustomer;
+    jobType currentJob;
     string status;
     int transactionTime; 
 };
 
 
-//*************  serverListType  ****************
-class serverListType
+//*************  printerListType  ****************
+class printerListType
 {
 public:
-    serverListType(int num = 1);
-      //Constructor to initialize a list of servers
-      //Postcondition: numOfServers = num
-      //               A list of servers, specified by num, 
-      //               is created and each server is 
+    printerListType(int num = 1);
+      //Constructor to initialize a list of printers
+      //Postcondition: numOfPrinters = num
+      //               A list of printers, specified by num, 
+      //               is created and each printer is 
       //               initialized to "free". 
 
-    ~serverListType();
+    ~printerListType();
       //Destructor
-      //Postcondition: The list of servers is destroyed.
+      //Postcondition: The list of printers is destroyed.
 
-    int getFreeServerID() const;
-      //Function to search the list of servers. 
-      //Postcondition: If a free server is found, returns 
+    int getFreePrinterID() const;
+      //Function to search the list of printers. 
+      //Postcondition: If a free printer is found, returns 
       //               its ID; otherwise, returns -1.
 
-    int getNumberOfBusyServers() const;
-      //Function to return the number of busy servers.
-      //Postcondition: The number of busy servers is returned.
+    int getNumberOfBusyPrinters() const;
+      //Function to return the number of busy printers.
+      //Postcondition: The number of busy printers is returned.
 
-    void setServerBusy(int serverID, customerType cCustomer,
+    void setPrinterBusy(int printerID, jobType cJob,
                        int tTime);
-      //Function to set a server as busy. 
-      //Postcondition: The server specified by serverID is set
-      //               to "busy", to serve the customer 
-      //               specified by cCustomer, and the 
+      //Function to set a printer as busy. 
+      //Postcondition: The printer specified by serverID is set
+      //               to "busy", to serve the job 
+      //               specified by cJob, and the 
       //               transaction time is set according to the 
       //               parameter tTime.
 
-    void setServerBusy(int serverID, customerType cCustomer);
-      //Function to set a server as busy.
-      //Postcondition: The server specified by serverID is set
-      //               to "busy", to serve the customer 
-      //               specified by cCustomer. 
+    void setPrinterBusy(int printerID, jobType cJob);
+      //Function to set a printer as busy.
+      //Postcondition: The printer specified by serverID is set
+      //               to "busy", to serve the job 
+      //               specified by cJob. 
 
-    void updateServers(ostream& outFile);
-      //Function to update the status of a server.
+    void updatePrinters(ostream& outFile);
+      //Function to update the status of a printer.
       //Postcondition: The transaction time of each busy 
-      //               server is decremented by one unit. If 
-      //               the transaction time of a busy server 
-      //               is reduced to zero, the server is set 
+      //               printer is decremented by one unit. If 
+      //               the transaction time of a busy printer 
+      //               is reduced to zero, the printer is set 
       //               to "free". Moreover, if the actual 
       //               parameter corresponding to outFile is 
-      //               cout, a message indicating which customer
+      //               cout, a message indicating which job
       //               has been served is printed on the screen, 
-      //               together with the customer's departing 
+      //               together with the job's departing 
       //               time. Otherwise, the output is sent to 
       //               a file specified by the user.
 
 private:
-    int numOfServers;
-    serverType *servers;
+    int numOfPrinters;
+    printerType *printers;
 };
 
 
 //**************** waitQueue  *************
 //Deriving queueType, only need operationg of incremeting wait time
-//for each customer in the queue
-class waitingCustomerQueueType: public queueType<customerType>
+//for each job in the queue
+class waitingJobQueueType: public queueType<jobType>
 {
 public:
-    waitingCustomerQueueType(int size = 100);
+    waitingJobQueueType(int size = 100);
       //Constructor
       //Postcondition: The queue is initialized according to 
       //               the parameter size. The value of size 
@@ -231,12 +231,12 @@ public:
 
     void updateWaitingQueue();
       //Function to increment the waiting time of each 
-      //customer in the queue by one time unit.
+      //job in the queue by one time unit.
     
     int queueWaitTime(int& waitTime);
-      //Function to find total waiting time of customers still in queue
+      //Function to find total waiting time of jobs still in queue
       //precondition: queue contains or does not contain elements
-      //postcondition: waittime now has total waiting time of customers in queue as well
+      //postcondition: waittime now has total waiting time of jobs in queue as well
     
 };
 

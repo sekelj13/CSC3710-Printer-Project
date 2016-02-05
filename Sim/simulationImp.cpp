@@ -8,214 +8,214 @@
 using namespace std;
  
 
-//*************** customerType ************
+//*************** jobType ************
 
-void customerType::setCustomerInfo(int customerN, int arrvTime, 
+void jobType::setJobInfo(int customerN, int arrvTime, 
                                    int wTime, int tTime)
 {
-    customerNumber = customerN;
+    jobNumber = customerN;
     arrivalTime = arrvTime;
     waitingTime = wTime;
     transactionTime = tTime;
 }
 
-customerType::customerType(int customerN, int arrvTime, 
+jobType::customerType(int customerN, int arrvTime, 
                            int wTime, int tTime)
 {
-    setCustomerInfo(customerN, arrvTime, wTime, tTime);
+    setJobInfo(jobN, arrvTime, wTime, tTime);
 }
 
 
-int customerType::getWaitingTime() const
+int jobType::getWaitingTime() const
 {
     return waitingTime;
 }
 
-void customerType::incrementWaitingTime()
+void jobType::incrementWaitingTime()
 {
     waitingTime++;
 }
 
-void customerType::setWaitingTime(int time)
+void jobType::setWaitingTime(int time)
 {
     waitingTime = time;
 }
 
-int customerType::getArrivalTime() const
+int jobType::getArrivalTime() const
 {
     return arrivalTime;
 }
 
-int customerType::getTransactionTime() const
+int jobType::getTransactionTime() const
 {
     return transactionTime;
 }
 
-int customerType::getCustomerNumber() const
+int jobType::getJobNumber() const
 {
-    return customerNumber;
+    return jobNumber;
 }
 
 
-//**************** serverType **********
+//**************** printerType **********
 
-serverType::serverType()
+printerType::serverType()
 {
     status = "free";
     transactionTime = 0;
 }
 
-bool serverType::isFree() const
+bool printerType::isFree() const
 {
     return (status == "free");
 }
 
-void serverType::setBusy()
+void printerType::setBusy()
 {
     status = "busy";
 }
 
-void serverType::setFree()
+void printerType::setFree()
 {
     status = "free";
 }
 
-void serverType::setTransactionTime(int t)
+void printerType::setTransactionTime(int t)
 {
     transactionTime = t;
 }
 
-void serverType::setTransactionTime()
+void printerType::setTransactionTime()
 {
     int time;
 
-    time = currentCustomer.getTransactionTime();
+    time = currentJob.getTransactionTime();
 
     transactionTime = time;
 }
 
-void serverType::decreaseTransactionTime()
+void printerType::decreaseTransactionTime()
 {
     transactionTime--;
 }
 
-int serverType::getRemainingTransactionTime() const
+int printerType::getRemainingTransactionTime() const
 {
     return transactionTime;
 }
 
-void serverType::setCurrentCustomer(customerType cCustomer)
+void printerType::setCurrentJob(jobType cCustomer)
 {
-    currentCustomer = cCustomer;
+    currentJob = cCustomer;
 }
 
-int serverType::getCurrentCustomerNumber() const
+int printerType::getCurrentJobNumber() const
 {
-    return currentCustomer.getCustomerNumber();
+    return currentJob.getCustomerNumber();
 }
 
-int serverType::getCurrentCustomerArrivalTime() const
+int printerType::getCurrentJobArrivalTime() const
 {
-    return currentCustomer.getArrivalTime();
+    return currentJob.getArrivalTime();
 }
 
-int serverType::getCurrentCustomerWaitingTime() const
+int printerType::getCurrentJobWaitingTime() const
 {
-    return currentCustomer.getWaitingTime();
+    return currentJob.getWaitingTime();
 }
 
-int serverType::getCurrentCustomerTransactionTime() const
+int printerType::getCurrentJobTransactionTime() const
 {
-    return currentCustomer.getTransactionTime();
+    return currentJob.getTransactionTime();
 }
 
 
-//************** serverListType ***********
+//************** printerListType ***********
 
-serverListType::serverListType(int num)
+printerListType::serverListType(int num)
 {
-    numOfServers = num;
-    servers = new serverType[num];
+    numOfPrinters = num;
+    printers = new serverType[num];
 }
 
-serverListType::~serverListType()
+printerListType::~serverListType()
 {
-    delete [] servers;
+    delete [] printers;
 }
 
-int serverListType::getFreeServerID() const
+int printerListType::getFreePrinterID() const
 {
-    int serverID = -1;
+    int printerID = -1;
 
     int i;
 
-    for (i = 0; i < numOfServers; i++)
-        if (servers[i].isFree())
+    for (i = 0; i < numOfPrinters; i++)
+        if (printers[i].isFree())
         {
-            serverID = i;
+            printerID = i;
             break;
         }
 
-    return serverID;
+    return printerID;
 }
 
-int serverListType::getNumberOfBusyServers() const
+int printerListType::getNumberOfBusyPrinters() const
 {
-    int busyServers = 0;
+    int busyPrinters = 0;
 
     int i;
 
-    for (i = 0; i < numOfServers; i++)
-        if (!servers[i].isFree())
-            busyServers++;
+    for (i = 0; i < numOfPrinters; i++)
+        if (!printers[i].isFree())
+            busyPrinters++;
 
-    return busyServers;
+    return busyPrinters;
 }
 
-void serverListType::setServerBusy(int serverID, 
-                                   customerType cCustomer, 
+void printerListType::setPrinterBusy(int serverID, 
+                                   jobType cJob, 
                                    int tTime)
 {
-    servers[serverID].setBusy();
-    servers[serverID].setTransactionTime(tTime);
-    servers[serverID].setCurrentCustomer(cCustomer);
+    printers[serverID].setBusy();
+    printers[serverID].setTransactionTime(tTime);
+    printers[serverID].setCurrentJob(cCustomer);
 }
 
-void serverListType::setServerBusy(int serverID, 
-                                   customerType cCustomer)
+void printerListType::setPrinterBusy(int serverID, 
+                                   jobType cJob)
 {
     int time;
 
-    time = cCustomer.getTransactionTime();
+    time = cJob.getTransactionTime();
 
-    servers[serverID].setBusy();
-    servers[serverID].setTransactionTime(time);
-    servers[serverID].setCurrentCustomer(cCustomer);
+    printers[serverID].setBusy();
+    printers[serverID].setTransactionTime(time);
+    printers[serverID].setCurrentJob(cCustomer);
 }
 
-void serverListType::updateServers(ostream& outFile)
+void printerListType::updatePrinters(ostream& outFile)
 {
     int i;
 
-    for (i = 0; i < numOfServers; i++)
-        if (!servers[i].isFree())
+    for (i = 0; i < numOfPrinters; i++)
+        if (!printers[i].isFree())
         {
-            servers[i].decreaseTransactionTime();
+            printers[i].decreaseTransactionTime();
 
-            if (servers[i].getRemainingTransactionTime() == 0)
+            if (printers[i].getRemainingTransactionTime() == 0)
             {
-                outFile << "From server number  " << (i + 1) 
-                        << " customer number "
-                        << servers[i].getCurrentCustomerNumber()
+                outFile << "From printer number  " << (i + 1) 
+                        << " job number "
+                        << printers[i].getCurrentJobNumber()
                         << "\n     departed at time unit "
-                        << servers[i].
-                              getCurrentCustomerArrivalTime()
-                           + servers[i].
-                              getCurrentCustomerWaitingTime() 
-                           + servers[i].
-                              getCurrentCustomerTransactionTime()
+                        << printers[i].
+                              getCurrentJobArrivalTime()
+                           + printers[i].
+                              getCurrentJobWaitingTime() 
+                           + printers[i].
+                              getCurrentJobTransactionTime()
                         << endl;
-                servers[i].setFree();
+                printers[i].setFree();
             }
         }
 }
@@ -223,23 +223,23 @@ void serverListType::updateServers(ostream& outFile)
 //*************** waitQueue ************
 
 
-waitingCustomerQueueType::waitingCustomerQueueType(int size)
-                          :queueType<customerType>(size)
+waitingJobQueueType::waitingCustomerQueueType(int size)
+                          :queueType<jobType>(size)
 {
 }
 
-//Creating dummy customer with -1 in order to figure out where queue ends & begins
-//inserting dummy customer @ -1, when -1 hit again, do not process customer
+//Creating dummy job with -1 in order to figure out where queue ends & begins
+//inserting dummy job @ -1, when -1 hit again, do not process customer
 //Now queue full & ready
-void waitingCustomerQueueType::updateWaitingQueue()
+void waitingJobQueueType::updateWaitingQueue()
 {
-    customerType cust;
+    jobType cust;
 
     cust.setWaitingTime(-1);  
     int wTime = 0;
 	
 	addQueue(cust);
-//Doesn't process -1 customer
+//Doesn't process -1 job
     while (wTime != -1)
     {
         cust = front();
@@ -253,13 +253,13 @@ void waitingCustomerQueueType::updateWaitingQueue()
 	}
 }
 
-int waitingCustomerQueueType::queueWaitTime(int& waitTime)
+int waitingJobQueueType::queueWaitTime(int& waitTime)
 {
-    int numQueuedCustomers = 0;
-    while (!isEmptyQueue() && front().getCustomerNumber() != -1){
-        numQueuedCustomers++;
+    int numQueuedJobs = 0;
+    while (!isEmptyQueue() && front().getJobNumber() != -1){
+        numQueuedJobs++;
         waitTime += front().getWaitingTime();
         deleteQueue();
     }
-    return numQueuedCustomers;
+    return numQueuedJobs;
 }
