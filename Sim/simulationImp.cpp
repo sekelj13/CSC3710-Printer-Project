@@ -76,7 +76,7 @@ void setPages(int val) {
 
 //**************** printerType **********
 
-printerType::serverType()
+printerType::printerType()
 {
     status = "free";
     printTime = 0;
@@ -134,6 +134,8 @@ void printerType::setCurrentJob(jobType cCustomer)
     currentJob = cCustomer;
 }
 
+/*
+these functions aren't needed
 int printerType::getCurrentJobNumber() const
 {
     return currentJob.getCustomerNumber();
@@ -154,16 +156,17 @@ int printerType::getCurrentJobPrintTime() const
     return currentJob.getPrintTime();
 }
 
+*/
 
 //************** printerListType ***********
 
-printerListType::serverListType(int num)
+printerListType::printerListType(int num)
 {
     numOfPrinters = num;
-    printers = new serverType[num];
+    printers = new printerType[num];
 }
 
-printerListType::~serverListType()
+printerListType::~printerListType()
 {
     delete [] printers;
 }
@@ -197,25 +200,25 @@ int printerListType::getNumberOfBusyPrinters() const
     return busyPrinters;
 }
 
-void printerListType::setPrinterBusy(int serverID, 
+void printerListType::setPrinterBusy(int printerID, 
                                    jobType cJob, 
                                    int tTime)
 {
-    printers[serverID].setBusy();
-    printers[serverID].setPrintTime(tTime);
-    printers[serverID].setCurrentJob(cCustomer);
+    printers[printerID].setBusy();
+    printers[printerID].setPrintTime(tTime);
+    printers[printerID].setCurrentJob(cCustomer);
 }
 
-void printerListType::setPrinterBusy(int serverID, 
+void printerListType::setPrinterBusy(int printerID, 
                                    jobType cJob)
 {
     int time;
 
     time = cJob.getPrintTime();
 
-    printers[serverID].setBusy();
-    printers[serverID].setPrintTime(time);
-    printers[serverID].setCurrentJob(cCustomer);
+    printers[printerID].setBusy();
+    printers[printerID].setPrintTime(time);
+    printers[printerID].setCurrentJob(cCustomer);
 }
 
 void printerListType::updatePrinters(ostream& outFile)

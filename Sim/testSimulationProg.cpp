@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void setSimulationParameters(int& sTime, int& numOfServers,
+void setSimulationParameters(int& sTime, int& numOfPrinters,
                              int& transTime,
                              int& tBetweenCArrival);
 
@@ -27,25 +27,34 @@ int main()
  */
 
 //Sets Sim Params
-void setSimulationParameters(int& sTime, int& numOfServers,
-							 int& transTime,
-							 int& tBetweenCArrival)
+void setSimulationParameters(int& numJobs, int& numOfPrinters)
 {
-    cout << "Enter the simulation time: ";
-    cin >> sTime;
-    cout << endl;
+    cout << "Enter the number of jobs to print: ";
+    cin >> numJobs;
 
-    cout << "Enter the number of servers: ";
-    cin >> numOfServers;
+    cout << "Enter the number of printers: ";
+    cin >> numOfPrinters;
     cout << endl;
+}
 
-    cout << "Enter the transaction time: ";
-    cin >> transTime;
-    cout << endl;
+void printSimResults(int sTime,int numOfPrinters,int waitTime,int custNum) {
 
-    cout << "Enter the time between customer arrivals: ";
-    cin >> tBetweenCArrival;
-    cout << endl;
+    int numQueuedJobs = jobQueue.queueWaitTime(waitTime);
+
+    int transactingJobs = printerList.getNumberOfBusyPrinters();
+    int finishedJobs = custNum-transactingCustomers-numQueuedCustomers;
+    cout    << endl << "Simulation Completed.\n"
+            << "Simulation time: " << sTime << endl
+            << "Number of printers: " << numOfPrinters << endl
+            << "transaction time: " << transTime << endl
+            << "Time between job arrivals: " << tBetweenCArrival << endl
+            << "Total Wait Time: "  << waitTime << endl
+            << "Total Jobs: "  << custNum << endl
+            << "Average Wait Time: " << (float)waitTime/custNum << endl
+            << "Jobs still in queue: " << numQueuedCustomers << endl
+            << "Jobs still in transaction: " << transactingCustomers << endl
+            << "Jobs who finished receiving service: " << finishedCustomers << endl;
+	    //display total waiting time and average waiting time
 }
 
 //Runs Simulation
@@ -53,74 +62,58 @@ void runSimulation()
 {
     /*
      * sTime = Simluation Time
-     * numOfServers = Total Number of Servers
+     * numOfPrinters = Total Number of Printers
      * transtime = Transaction Time
-     * tBetweenCArrival = Time b/w customer arrival
+     * tBetweenCArrival = Time b/w job arrival
      *
      */
-    int sTime, numOfServers, transTime, tBetweenCArrival = 0;
+    int numOfPrinters, transTime, tBetweenCArrival = 0;
  
-    setSimulationParameters(sTime, numOfServers, transTime, tBetweenCArrival);
+    setSimulationParameters(numJobs, numOfPrinters);
     
     srand(time(NULL));
     int random = 0;
     int custNum = 0;
 
-    serverListType serverList(numOfServers);
+    printerListType serverList(numOfPrinters);
     
-    //Customer Queue
-    waitingCustomerQueueType customerQueue;
+    //Job Queue
+    waitingJobQueueType jobQueue;
 
-    customerType customer;
+    jobType customer;
     
     int waitTime = 0;
 
     // Need new random every clock tick
     for (int clock = 1; clock <= sTime; clock++){
 
-    	//update server list & decrements
-    	serverList.updateServers(cout);
+    	//update printer list & decrements
+    	printerList.updatePrinters(cout);
         
-        //customer queue update
-        customerQueue.updateWaitingQueue();
+        //job queue update
+        jobQueue.updateWaitingQueue();
 
-        //if customer arrives, increment numcustomers and add customer
+        //if job arrives, increment numcustomers and add customer
         random = rand() % tBetweenCArrival;
-        if (!random) { //New Customer Arrived if 0
+        if (!random) { //New Job Arrived if 0
             
-            custNum++; //incremented customer by 1
-            //Create Customer
-            customer.setCustomerInfo(custNum, clock, 0, transTime);
-            customerQueue.addQueue(customer);
+            custNum++; //incremented job by 1
+            //Create Job
+            job.setJobInfo(custNum, clock, 0, transTime);
+            jobQueue.addQueue(customer);
 
         }
-        //if server is free and queue nonempty, pair customer with server
-        if (serverList.getFreeServerID()!= -1 && !customerQueue.isEmptyQueue()){
-            if (customerQueue.front().getCustomerNumber() != -1) {
-                waitTime += customer.getWaitingTime();
-                serverList.setServerBusy(serverList.getFreeServerID(), customer, transTime);
-                customerQueue.deleteQueue();
+        //if printer is free and queue nonempty, pair job with printer
+        if (printerList.getFreePrinterID()!= -1 && !jobQueue.isEmptyQueue()){
+            if (jobQueue.front().getJobNumber() != -1) {
+                waitTime += job.getWaitingTime();
+                printerList.setPrinterBusy(serverList.getFreeServerID(), job, transTime);
+                jobQueue.deleteQueue();
             }
         }
         
     }
     
-    //iterate through customer queue to find remaining wait times
-    int numQueuedCustomers = customerQueue.queueWaitTime(waitTime);
-
-    int transactingCustomers = serverList.getNumberOfBusyServers();
-    int finishedCustomers = custNum-transactingCustomers-numQueuedCustomers;
+    printSimResults(sTime,numOfPrinters,waitTime,custNum);
     
-    cout    << endl << "Simulation Completed.\n"
-            << "Simulation time: " << sTime << endl
-            << "Number of servers: " << numOfServers << endl
-            << "transaction time: " << transTime << endl
-            << "Time between customer arrivals: " << tBetweenCArrival << endl
-            << "Total Wait Time: "  << waitTime << endl
-            << "Total Customers: "  << custNum << endl
-            << "Average Wait Time: " << (float)waitTime/custNum << endl
-            << "Customers still in queue: " << numQueuedCustomers << endl
-            << "Customers still in transaction: " << transactingCustomers << endl
-            << "Customers who finished receiving service: " << finishedCustomers << endl;
-            //display total waiting time and average waiting time
 }
