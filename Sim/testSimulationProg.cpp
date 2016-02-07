@@ -67,12 +67,11 @@ void runSimulation()
      * tBetweenCArrival = Time b/w job arrival
      *
      */
-    int numOfPrinters, transTime, tBetweenCArrival = 0;
+    int sTime = 0, numOfPrinters, transTime;
  
     setSimulationParameters(numJobs, numOfPrinters);
     
     srand(time(NULL));
-    int random = 0;
     int custNum = 0;
 
     printerListType serverList(numOfPrinters);
@@ -85,24 +84,26 @@ void runSimulation()
     int waitTime = 0;
 
     // Need new random every clock tick
-    for (int clock = 1; clock <= sTime; clock++){
+    // for loop to create new job every clock tick
+    for (int clock = 1; clock <= numJobs; clock++){
 
+        //increment sTime
+	sTime++;
     	//update printer list & decrements
     	printerList.updatePrinters(cout);
         
         //job queue update
         jobQueue.updateWaitingQueue();
 
-        //if job arrives, increment numcustomers and add customer
-        random = rand() % tBetweenCArrival;
-        if (!random) { //New Job Arrived if 0
+        //increment numcustomers and add customer
+	//want equal possibility for each tier: t1 is 0-9, t2 is 10-19, t3 is 20-29.
+        transTime = rand() % 30;
             
-            custNum++; //incremented job by 1
-            //Create Job
-            job.setJobInfo(custNum, clock, 0, transTime);
-            jobQueue.addQueue(customer);
+        custNum++; //incremented job by 1
+        //Create Job
+        job.setJobInfo(custNum, clock, 0, transTime);
+        jobQueue.addQueue(customer);
 
-        }
         //if printer is free and queue nonempty, pair job with printer
         if (printerList.getFreePrinterID()!= -1 && !jobQueue.isEmptyQueue()){
             if (jobQueue.front().getJobNumber() != -1) {
@@ -112,6 +113,29 @@ void runSimulation()
             }
         }
         
+    }
+
+    //while loop to continue until jobQueue empty and printerList empty as well
+    while (printerList.getNumberOfFreePrinters() != numOfPrinters && !jobQueue.isEmptyQueue()) {
+
+        //increment sTime
+	sTime++;
+	
+	//update printer list & decrement current job times
+        printerList.updatePrinters(cout);
+
+	//job queue update
+	jobQueue.updaitWaitingQueue();
+        
+	//if printer is free and queue nonempty, pair job with printer
+        if (printerList.getFreePrinterID()!= -1 && !jobQueue.isEmptyQueue()){
+            if (jobQueue.front().getJobNumber() != -1) {
+                waitTime += job.getWaitingTime();
+                printerList.setPrinterBusy(serverList.getFreeServerID(), job, transTime);
+                jobQueue.deleteQueue();
+            }
+	}
+
     }
     
     printSimResults(sTime,numOfPrinters,waitTime,custNum);
