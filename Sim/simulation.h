@@ -153,6 +153,7 @@ public:
       //according to the parameter cJob.
       //Postcondition: currentJob = cCustomer;
 
+/*
     int getCurrentJobNumber() const;
       //Function to return the job number of the current
       //job.
@@ -176,7 +177,7 @@ public:
       //current job. 
       //Postcondition: The value of printTime of the 
       //               current job is returned.
-
+*/
 private:
     jobType currentJob;
     string status;
