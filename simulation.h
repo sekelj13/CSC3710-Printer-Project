@@ -45,6 +45,7 @@ public:
       //               arrivalTime = arrvTime;
       //               waitingTime = wTime;
       //               printTime = tTime;
+      //               maxPages = max;
 
     int getWaitingTime() const;
       //Function to return the waiting time of a job.
