@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		22D913991C682C700063B9F8 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D913981C682C700063B9F8 /* main.cpp */; };
+		22D913A51C682CD90063B9F8 /* simulationImp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D913A31C682CD90063B9F8 /* simulationImp.cpp */; };
+		22D913A61C682CD90063B9F8 /* testSimulationProg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D913A41C682CD90063B9F8 /* testSimulationProg.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,12 @@
 /* Begin PBXFileReference section */
 		22D913951C682C700063B9F8 /* printerProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = printerProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D913981C682C700063B9F8 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		22D9139F1C682CC70063B9F8 /* linkedQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = linkedQueue.h; sourceTree = SOURCE_ROOT; };
+		22D913A01C682CD40063B9F8 /* queueADT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = queueADT.h; sourceTree = SOURCE_ROOT; };
+		22D913A11C682CD40063B9F8 /* queueAsArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = queueAsArray.h; sourceTree = SOURCE_ROOT; };
+		22D913A21C682CD90063B9F8 /* simulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simulation.h; sourceTree = SOURCE_ROOT; };
+		22D913A31C682CD90063B9F8 /* simulationImp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simulationImp.cpp; sourceTree = SOURCE_ROOT; };
+		22D913A41C682CD90063B9F8 /* testSimulationProg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testSimulationProg.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +65,12 @@
 		22D913971C682C700063B9F8 /* printerProject */ = {
 			isa = PBXGroup;
 			children = (
+				22D9139F1C682CC70063B9F8 /* linkedQueue.h */,
+				22D913A01C682CD40063B9F8 /* queueADT.h */,
+				22D913A21C682CD90063B9F8 /* simulation.h */,
+				22D913A31C682CD90063B9F8 /* simulationImp.cpp */,
+				22D913A41C682CD90063B9F8 /* testSimulationProg.cpp */,
+				22D913A11C682CD40063B9F8 /* queueAsArray.h */,
 				22D913981C682C700063B9F8 /* main.cpp */,
 			);
 			path = printerProject;
@@ -119,6 +133,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				22D913991C682C700063B9F8 /* main.cpp in Sources */,
+				22D913A61C682CD90063B9F8 /* testSimulationProg.cpp in Sources */,
+				22D913A51C682CD90063B9F8 /* simulationImp.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +253,7 @@
 				22D9139E1C682C700063B9F8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
