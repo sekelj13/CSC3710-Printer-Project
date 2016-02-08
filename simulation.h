@@ -45,6 +45,7 @@ public:
       //               arrivalTime = arrvTime;
       //               waitingTime = wTime;
       //               printTime = tTime;
+      //               maxPages = max;
 
     int getWaitingTime() const;
       //Function to return the waiting time of a job.
@@ -116,12 +117,36 @@ public:
     jobType removeJob(int x);
 
     int getNumJobsCreated();
-
+    
+    int getJobTimes();
+    
 private:
+<<<<<<< HEAD:Sim/simulation.h
     int numJobs; //jobs currently in queue
     int numJobsCreated; //total jobs placed in this queue
     int waitTime;  //total time of every job spent waiting
 }
+=======
+    int numJobsCreated;
+    jobType job;
+};
+
+    //************* jobQueueArray **************
+class jobQueueArray {
+public:
+    jobQueueArray();
+    
+    int getTotalTime();
+    
+
+private:
+    //@TODO: Make the set or get const not the actual variable?
+    int maxJobs;
+    int jobCounter;
+    jobQueue jobQArr[3];
+    jobType job;
+};
+>>>>>>> 9a084410f31f231df74357cd1a667d64e3b721c7:simulation.h
 
 	//*************  printerType  ****************
 class printerType
