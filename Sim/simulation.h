@@ -101,11 +101,13 @@ private:
 };
 
 	//*************  jobQueue  ****************
-class jobQueue{
+class jobQueue: public queueType<jobType>{
 public:
     jobQueue();
 
     int getNumJobs();
+
+    void updateWaitTime();
 
     void addJob(jobType job);
 
@@ -116,7 +118,9 @@ public:
     int getNumJobsCreated();
 
 private:
-    int numJobsCreated;
+    int numJobs; //jobs currently in queue
+    int numJobsCreated; //total jobs placed in this queue
+    int waitTime;  //total time of every job spent waiting
 }
 
 	//*************  printerType  ****************

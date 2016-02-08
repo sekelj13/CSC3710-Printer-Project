@@ -84,16 +84,38 @@ jobQueue::jobQueue(){
     numJobsCreated=0;
 }
 
-int getNumJobs():{
-    //cycle through jobs using dummy job as placeholder
+int getNumJobs(){
+    return numJobs;
+}
+
+void updateWaitTime(){
+   numJobs=0;
+   jobType job;
+   job.setWaitingTime(-1);
+   int wTime=0;
+
+    while(wTime!=-1){
+        job=front();
+        deleteQueue();
+        wTime=job.getWaitingTime();
+        if(wTime!=-1){
+            job.incrementWaitingTime();
+            waitTime++;
+            numJobs++;
+            addQueue(job);
+        }
+     }
 }
 
 void addJob(jobType job){
     numJobsCreated++;
+    addQueue(job);
 }
 
 jobType removeJob(){
-
+    jobType job=front();
+    deleteQueue();
+    return job;
 }
 
 int getNumJobsCreated(){
