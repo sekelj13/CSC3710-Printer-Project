@@ -37,7 +37,7 @@ void setSimulationParameters(int& numJobs, int& numOfPrinters, int maxPages)
     cin >> numOfPrinters;
     cout << endl;
 
-    cout << "Enter the maximum number of pages a job may have: "
+    cout << "Enter the maximum number of pages a job may have: ";
     cin >> maxPages;
     cout << endl;
 }

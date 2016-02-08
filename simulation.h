@@ -114,10 +114,29 @@ public:
     jobType removeJob(int x);
 
     int getNumJobsCreated();
-
+    
+    int getJobTimes();
+    
 private:
     int numJobsCreated;
-}
+    jobType job;
+};
+
+    //************* jobQueueArray **************
+class jobQueueArray {
+public:
+    jobQueueArray();
+    
+    int getTotalTime();
+    
+
+private:
+    //@TODO: Make the set or get const not the actual variable?
+    int maxJobs;
+    int jobCounter;
+    jobQueue jobQArr[3];
+    jobType job;
+};
 
 	//*************  printerType  ****************
 class printerType

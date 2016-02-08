@@ -2,7 +2,7 @@
 #include <string>
 #include <cstdlib>
  
-#include "Simulation.h"
+#include "simulation.h"
 #include "queueAsArray.h"
 
 using namespace std;
@@ -23,6 +23,7 @@ void jobType::setJobInfo(int customerN, int arrvTime,
 jobType::jobType(int customerN, int arrvTime, 
                            int wTime, int max)
 {
+    //@TODO: Define jobN
     setJobInfo(jobN, arrvTime, wTime, max);
 }
 
@@ -61,13 +62,14 @@ int jobType::getJobNumber() const
     return jobNumber;
 }
 
-void setTier() {
+void setTier()
+{
     if (pages < 11)
-        tier=1;
+        tier = 1;
     else if (pages < 21)
-        tier=2;
+        tier = 2;
     else
-        tier=3;
+        tier = 3;
 }
 
 int getTier() {
@@ -78,13 +80,17 @@ void setPages(int val) {
     pages = val;
 }
 
+int getNumPages() {
+    return pages;
+}
+
 //**************** jobQueue **********
 
 jobQueue::jobQueue(){
     numJobsCreated=0;
 }
 
-int getNumJobs():{
+int getNumJobs(){
     //cycle through jobs using dummy job as placeholder
 }
 
@@ -96,9 +102,44 @@ jobType removeJob(){
 
 }
 
-int getNumJobsCreated(){
+int getNumJobsCreated() {
     return numJobsCreated;
 }
+
+//@TODO: Fill out Get Job Times in the current queue, return total time
+int getJobTimes() {
+    
+}
+
+//**************** jobQueueArray *************
+
+jobQueueArray::jobQueueArray(jobType job)
+{
+    //Create Job Queue Array
+    //@TODO: Change to more modular type
+    
+    
+    if(job.getTier() == 1){
+        jobQArr[0] = job;
+    } else if (job.getTier() == 2) {
+        
+    } else if (job.getTier() == 3) {
+        
+    } else {
+        //throw exception
+    }
+    
+}
+
+jobQueueArray::getTotalTime()
+{
+    //@TODO: Change 3 to n for modular amount of tiers
+    for(int i = 0; i < 3; i++) {
+        //Have an array that we return with the values of each queue time
+        //i.e., int total = jobQArr[i].getJobTimes();
+    }
+}
+
 
 //**************** printerType **********
 
