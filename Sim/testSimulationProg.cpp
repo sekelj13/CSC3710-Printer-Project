@@ -31,9 +31,14 @@ void setSimulationParameters(int& numJobs, int& numOfPrinters, int maxPages)
 {
     cout << "Enter the number of jobs to print: ";
     cin >> numJobs;
+    cout << endl;
 
     cout << "Enter the number of printers: ";
     cin >> numOfPrinters;
+    cout << endl;
+
+    cout << "Enter the maximum number of pages a job may have: "
+    cin >> maxPages;
     cout << endl;
 }
 
@@ -101,7 +106,7 @@ void runSimulation()
             
         custNum++; //incremented job by 1
         //Create Job
-        job.setJobInfo(custNum, clock, 0, transTime);
+        job.setJobInfo(custNum, clock, 0, transTime, maxPages);
         jobQueue.addQueue(customer);
 
         //if printer is free and queue nonempty, pair job with printer
