@@ -78,6 +78,27 @@ void setPages(int val) {
     pages = val;
 }
 
+//**************** jobQueue **********
+
+jobQueue::jobQueue(){
+    numJobsCreated=0;
+}
+
+int getNumJobs():{
+    //cycle through jobs using dummy job as placeholder
+}
+
+void addJob(jobType job){
+    numJobsCreated++;
+}
+
+jobType removeJob(){
+
+}
+
+int getNumJobsCreated(){
+    return numJobsCreated;
+}
 
 //**************** printerType **********
 

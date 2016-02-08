@@ -105,9 +105,9 @@ class jobQueue{
 public:
     jobQueue();
 
-    int getNumJonbs();
+    int getNumJobs();
 
-    jobType addJob(int jobNum);
+    void addJob(jobType job);
 
     jobType removeJob();
 
