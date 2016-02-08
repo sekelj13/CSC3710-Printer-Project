@@ -104,6 +104,19 @@ private:
 class jobQueue{
 public:
     jobQueue();
+
+    int getNumJonbs();
+
+    jobType addJob(int jobNum);
+
+    jobType removeJob();
+
+    jobType removeJob(int x);
+
+    int getNumJobsCreated();
+
+private:
+    int numJobsCreated;
 }
 
 	//*************  printerType  ****************
