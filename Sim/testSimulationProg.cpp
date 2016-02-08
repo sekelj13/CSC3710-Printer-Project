@@ -27,7 +27,7 @@ int main()
  */
 
 //Sets Sim Params
-void setSimulationParameters(int& numJobs, int& numOfPrinters)
+void setSimulationParameters(int& numJobs, int& numOfPrinters, int maxPages)
 {
     cout << "Enter the number of jobs to print: ";
     cin >> numJobs;
@@ -67,9 +67,9 @@ void runSimulation()
      * tBetweenCArrival = Time b/w job arrival
      *
      */
-    int sTime = 0, numOfPrinters, transTime;
+    int sTime = 0, numOfPrinters, transTime, maxPages;
  
-    setSimulationParameters(numJobs, numOfPrinters);
+    setSimulationParameters(numJobs, numOfPrinters, maxPages);
     
     srand(time(NULL));
     int custNum = 0;
@@ -97,7 +97,7 @@ void runSimulation()
 
         //increment numcustomers and add customer
 	//want equal possibility for each tier: t1 is 0-9, t2 is 10-19, t3 is 20-29.
-        transTime = rand() % 30;
+        transTime = (rand() % maxPages) + 1;//+1 so minimum number of pages is now 1, not 0
             
         custNum++; //incremented job by 1
         //Create Job
