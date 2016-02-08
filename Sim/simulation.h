@@ -27,7 +27,7 @@ class jobType
 {
 public:
     jobType(int cN = 0, int arrvTime = 0, int wTime = 0, 
-                 int tTime = 0);
+                 int max = 0);
       //Constructor to initialize the instance variables
       //according to the parameters
       //If no value is specified in the object declaration, 
@@ -38,7 +38,7 @@ public:
       //               printTime = tTime
 
     void setJobInfo(int jobN = 0, int inTime = 0, 
-                         int wTime = 0, int tTime = 0);
+                         int wTime = 0, int max = 30);
       //Function to initialize the instance variables.
       //Instance variables are set according to the parameters.
       //Postcondition: jobNumber = customerN;
@@ -57,6 +57,10 @@ public:
     void incrementWaitingTime();
       //Function to increment the waiting time by one time unit.
       //Postcondition: waitingTime++;
+
+    void incrementPrintTime();
+      //Function to increment the print time by one time unit.
+      //Postcondition: printTime++;
 
     int getArrivalTime() const;
       //Function to return the arrival time of a job.
@@ -90,11 +94,17 @@ private:
     int jobNumber;
     int arrivalTime;
     int waitingTime; 
-    int printTime;
+    int printTime; //Time it takes to print
     int tier;
-    int pages;
+    int pages;     //pages in job
+    int maxPages;  //Maximum pages allowed
 };
 
+	//*************  jobQueue  ****************
+class jobQueue{
+public:
+    jobQueue();
+}
 
 	//*************  printerType  ****************
 class printerType

@@ -11,18 +11,19 @@ using namespace std;
 //*************** jobType ************
 
 void jobType::setJobInfo(int customerN, int arrvTime, 
-                                   int wTime, int tTime)
+                                   int wTime, int max)
 {
     jobNumber = customerN;
     arrivalTime = arrvTime;
     waitingTime = wTime;
-    printTime = tTime;
+    maxPages = max;
+    pages=rand()%maxPages+1;
 }
 
 jobType::jobType(int customerN, int arrvTime, 
-                           int wTime, int tTime)
+                           int wTime, int max)
 {
-    setJobInfo(jobN, arrvTime, wTime, tTime);
+    setJobInfo(jobN, arrvTime, wTime, max);
 }
 
 
@@ -34,6 +35,10 @@ int jobType::getWaitingTime() const
 void jobType::incrementWaitingTime()
 {
     waitingTime++;
+}
+
+void jobType::incrementPrintTime(){
+    printTime++;
 }
 
 void jobType::setWaitingTime(int time)
