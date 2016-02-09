@@ -38,7 +38,7 @@ public:
       //               printTime = tTime
 
     void setJobInfo(int jobN = 0, int inTime = 0, 
-                         int wTime = 0, int max = 30);
+                         int wTime = 0, int max = 30, int random);
       //Function to initialize the instance variables.
       //Instance variables are set according to the parameters.
       //Postcondition: jobNumber = customerN;

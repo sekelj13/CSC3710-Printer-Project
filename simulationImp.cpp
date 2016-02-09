@@ -17,7 +17,7 @@ jobType::jobType(int jobN, int arrvTime,
 }
 
 void jobType::setJobInfo(int customerN, int arrvTime,
-                         int wTime, int max)
+                         int wTime, int max,int random)
 {
     
     
@@ -25,7 +25,8 @@ void jobType::setJobInfo(int customerN, int arrvTime,
     arrivalTime = arrvTime;
     waitingTime = wTime;
     maxPages = max;
-    pages=rand()%maxPages;
+
+    pages = random % maxPages;
 }
 
 int jobType::getWaitingTime() const

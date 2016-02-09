@@ -43,20 +43,24 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
      *
      */
 
+    //seed random
     cout << "Give a seed: ";
     int seed;
     cin >> seed;
-    int sTime = 0;
- 
     srand(seed);
+
+    int sTime = 0;
+
     int custNum = 0;
 
+    //create printerList
     printerListType printerList(numOfPrinters);
 
     //Create a jobQueueArray Object to pass jobs
     jobQueueArray jqArr;
 
-    jobType customer;
+    //create a job to give to jobQueue whenever needed
+    jobType job;
     
     int waitTime = 0;
     
@@ -79,8 +83,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
         
         custNum++; //incremented job by 1
         //Create Job -- job number and arrival time will be the same here
-        jobType job;
-        job.setJobInfo(clock, clock, 0, maxPages);
+        job.setJobInfo(clock, clock, 0, maxPages, rand());
         jqArr.sendJob(job);
 
         //if printer is free and queue nonempty, pair job with printer
@@ -112,13 +115,13 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
                 printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob());
             }
         }
-	}
+    }
     
     cout    << endl << "Simulation Completed.\n"
             << "Simulation time: " << sTime << endl
             << "Number of printers: " << numOfPrinters << endl
             << "Time between job arrivals: " << 1 << endl
-            << "Total Wait Time: "  << waitTime << endl
+            << "Total Wait Time between all jobs: "  << waitTime << endl
             << "Total Jobs: "  << custNum << endl
             << "Average Wait Time: " << (float)waitTime/custNum << endl;
     
