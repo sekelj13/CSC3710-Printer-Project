@@ -124,7 +124,6 @@ private:
     int numJobs; //jobs currently in queue
     int numJobsCreated; //total jobs placed in this queue
     int waitTime;  //total time of every job spent waiting
-    int numJobsCreated;
     jobType job;
 };
 
@@ -132,7 +131,8 @@ private:
 class jobQueueArray {
 public:
     //@TODO: Comment This
-    
+    //- Take Job, Add to Tier Queue Array
+    //-
     
     //Constructor
     jobQueueArray();
@@ -144,7 +144,7 @@ public:
     jobType getNextJob();
     
     //For each job queue in the array, update the waiting queue time
-    void updateWaitingQueues
+    void updateWaitingQueues();
     
 
 private:

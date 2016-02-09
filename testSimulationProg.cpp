@@ -13,9 +13,17 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages);
 //argv[1] = numJobs
 //argv[2] = numOfPrinters
 //argv[3] = maxPages
-int main(argc,argv[])
+//@TODO: Can re-add, but wasn't working last night.
+int main()
 {
-    int numJobs = atoi(argv[1]), numOfPrinters = atoi(argv[2]), maxPages = atoi(argv[3]);
+    //int numJobs = atoi(argv[1]), numOfPrinters = atoi(argv[2]), maxPages = atoi(argv[3]);
+    int numJobs, numOfPrinters, maxPages = 0;
+    cout << "Enter Number of Jobs: " << endl;
+    cin >> numJobs;
+    cout << "Specify the Number of Printers: " << endl;
+    cin >> numOfPrinters;
+    cout << "Input the Maximum Pages Able To Print: " << endl;
+    cin >> maxPages;
     runSimulation(numJobs,numOfPrinters,maxPages);
 
     return 0;
