@@ -31,26 +31,7 @@ int main()
 //--------------------------- Main Ends -----------------------------------
 /*
  * Functions Begin
- *
  */
-
-/*
-//Sets Sim Params
-void setSimulationParameters(int& numJobs, int& numOfPrinters, int maxPages)
-{
-    cout << "Enter the number of jobs to print: ";
-    cin >> numJobs;
-    cout << endl;
-
-    cout << "Enter the number of printers: ";
-    cin >> numOfPrinters;
-    cout << endl;
-
-    cout << "Enter the maximum number of pages a job may have: ";
-    cin >> maxPages;
-    cout << endl;
-}
-*/
 
 //Runs Simulation
 void runSimulation(int numOfPrinters, int numJobs, int maxPages)
@@ -61,9 +42,13 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
      * transtime = Transaction Time
      *
      */
+
+    cout << "Give a seed: ";
+    int seed;
+    cin >> seed;
     int sTime = 0;
  
-    srand(time(NULL));
+    srand(seed);
     int custNum = 0;
 
     printerListType printerList(numOfPrinters);
@@ -132,7 +117,6 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
     cout    << endl << "Simulation Completed.\n"
             << "Simulation time: " << sTime << endl
             << "Number of printers: " << numOfPrinters << endl
-            << "Total simulation time: " << sTime << endl
             << "Time between job arrivals: " << 1 << endl
             << "Total Wait Time: "  << waitTime << endl
             << "Total Jobs: "  << custNum << endl
