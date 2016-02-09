@@ -23,7 +23,7 @@ void jobType::setJobInfo(int customerN, int arrvTime,
     arrivalTime = arrvTime;
     waitingTime = wTime;
     maxPages = max;
-    pages=rand()%maxPages+1;
+    pages=(rand()%maxPages)+1;
 }
 
 int jobType::getWaitingTime() const
@@ -321,11 +321,12 @@ void printerType::setCurrentJob(jobType cCustomer)
     currentJob = cCustomer;
 }
 
-/*
-these functions aren't needed
+
+//these functions aren't needed
 int printerType::getCurrentJobNumber() const
 {
-    return currentJob.getCustomerNumber();
+    
+    return currentJob.getJobNumber();
 }
 
 int printerType::getCurrentJobArrivalTime() const
@@ -343,7 +344,7 @@ int printerType::getCurrentJobPrintTime() const
     return currentJob.getPrintTime();
 }
 
-*/
+
 
 //************** printerListType ***********
 
@@ -374,7 +375,7 @@ int printerListType::getFreePrinterID() const
     return printerID;
 }
 
-int printerListType::getNumberOfBusyPrinters() const
+int printerListType::getNumberOfBusyPrinters() 
 {
     int busyPrinters = 0;
 
@@ -387,16 +388,29 @@ int printerListType::getNumberOfBusyPrinters() const
     return busyPrinters;
 }
 
-void printerListType::setPrinterBusy(int printerID, 
-                                     jobType cJob, 
-                                     int tTime)
+int printerListType::getNumberOfFreePrinters()
+{
+    int freePrinters = 0;
+    
+    int i;
+    
+    for (i = 0;i < numOfPrinters;i++) {
+        if (printers[i].isFree()) {
+            freePrinters++;
+        }
+    }
+    
+    return freePrinters;
+}
+
+/*void printerListType::setPrinterBusy(int printerID, jobType cJob, int tTime)
 {
     printers[printerID].setBusy();
     printers[printerID].setPrintTime(tTime);
     printers[printerID].setCurrentJob(cJob);
-}
+}*/
 
-void printerListType::setPrinterBusy(int printerID, 
+void printerListType::setPrinterBusy(int printerID,
                                    jobType cJob)
 {
     int time;

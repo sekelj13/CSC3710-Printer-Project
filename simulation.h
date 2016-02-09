@@ -279,12 +279,14 @@ public:
       //Postcondition: If a free printer is found, returns 
       //               its ID; otherwise, returns -1.
 
-    int getNumberOfBusyPrinters() const;
+    int getNumberOfBusyPrinters() ;
       //Function to return the number of busy printers.
       //Postcondition: The number of busy printers is returned.
+    
+    int getNumberOfFreePrinters() ;
+    //Returns number of Free Printers available
 
-    void setPrinterBusy(int printerID, jobType cJob,
-                       int tTime);
+    //void setPrinterBusy(int printerID, jobType cJob, int tTime);
       //Function to set a printer as busy. 
       //Postcondition: The printer specified by serverID is set
       //               to "busy", to serve the job 
@@ -311,7 +313,7 @@ public:
       //               together with the job's departing 
       //               time. Otherwise, the output is sent to 
       //               a file specified by the user.
-
+    
 private:
     int numOfPrinters;
     printerType *printers;

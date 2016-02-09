@@ -102,14 +102,14 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
         if (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
             if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
                 waitTime += job.getWaitingTime();
-                printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob(), clock);
+                printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob());
             }
         }
         
     }
 
     //while loop to continue until jobQueue empty and printerList empty as well
-    while (printerList.getNumberOfFreePrinters() != numOfPrinters && !jobQueue.isEmptyQueue()) {
+    while (printerList.getNumberOfFreePrinters() != numOfPrinters && !jqArr.isEmpty()) {
 
         //increment sTime
         sTime++;
@@ -122,8 +122,9 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
         //if printer is free and queue nonempty, pair job with printer
         if (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
             if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
+                jobType job;
                 waitTime += job.getWaitingTime();
-                printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob(), clock);
+                printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob());
             }
         }
 	}
