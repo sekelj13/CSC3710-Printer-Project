@@ -84,7 +84,9 @@ int jobType::getNumPages() {
 
 //**************** jobQueue **********
 
-jobQueue::jobQueue(){
+jobQueue::jobQueue()
+         :queueType<jobType>(size)
+{
     numJobsCreated=0;
 }
 
