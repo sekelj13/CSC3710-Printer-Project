@@ -8,11 +8,7 @@
 
 using namespace std;
 
-void setSimulationParameters(int& sTime, int& numOfPrinters,
-                             int& transTime,
-                             int& tBetweenCArrival);
-
-void runSimulation();
+void runSimulation(int numOfPrinters, int numJobs, int maxPages);
 
 //argv[1] = numJobs
 //argv[2] = numOfPrinters
@@ -73,7 +69,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
 
     // Need new random every clock tick
     // for loop to create new job every clock tick
-    for (int clock = 1; clock <= numJobs; clock++){
+    for (int clock = 1; clock <= numJobs; clock++) {
 
         //increment sTime
 	sTime++;
