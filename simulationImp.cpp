@@ -357,14 +357,13 @@ printerListType::printerListType(int num, int pr)
 cout << "swag\n";
     printers = new printerType[num];
 cout << "Swag\n";
-    iout << "Matthew sucks deez nutz as well\n";
 
     for (int i=0;i < num;i++) {
         printers[i].setPrintRate(pr);
     }
 }
 
-prinTerListType::~printerListType()
+printerListType::~printerListType()
 {
     delete [] printers;
 }
