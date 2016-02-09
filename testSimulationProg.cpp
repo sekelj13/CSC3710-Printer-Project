@@ -13,10 +13,14 @@ void setSimulationParameters(int& sTime, int& numOfPrinters,
                              int& tBetweenCArrival);
 
 void runSimulation();
- 
-int main()
+
+//argv[1] = numJobs
+//argv[2] = numOfPrinters
+//argv[3] = maxPages
+int main(argc,argv[])
 {
-    runSimulation();
+    int numJobs = atoi(argv[1]), numOfPrinters = atoi(argv[2]), maxPages = atoi(argv[3]);
+    runSimulation(numJobs,numOfPrinters,maxPages);
 
     return 0;
 }
@@ -26,6 +30,7 @@ int main()
  *
  */
 
+/*
 //Sets Sim Params
 void setSimulationParameters(int& numJobs, int& numOfPrinters, int maxPages)
 {
@@ -41,6 +46,7 @@ void setSimulationParameters(int& numJobs, int& numOfPrinters, int maxPages)
     cin >> maxPages;
     cout << endl;
 }
+*/
 
 //Prints simulation results
 void printSimResults(int sTime,int numOfPrinters,int waitTime,int custNum) {
@@ -64,26 +70,23 @@ void printSimResults(int sTime,int numOfPrinters,int waitTime,int custNum) {
 }
 
 //Runs Simulation
-void runSimulation()
+void runSimulation(int numOfPrinters, int numJobs, int maxPages)
 {
     /*
      * sTime = Simluation Time
      * numOfPrinters = Total Number of Printers
      * transtime = Transaction Time
-     * tBetweenCArrival = Time b/w job arrival
      *
      */
-    int sTime = 0, numOfPrinters, transTime, maxPages;
+    int sTime = 0;
  
-    setSimulationParameters(numJobs, numOfPrinters, maxPages);
-    
     srand(time(NULL));
     int custNum = 0;
 
     printerListType serverList(numOfPrinters);
-    
-    //Job Queue
-    waitingJobQueueType jobQueue;
+
+    //create jobQueueArray to hold EVERYTHING
+    jobQueueArray jqArr[3];
 
     jobType customer;
     
