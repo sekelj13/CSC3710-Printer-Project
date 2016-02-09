@@ -60,7 +60,7 @@ int jobType::getJobNumber() const
     return jobNumber;
 }
 
-void setTier()
+void jobType::setTier()
 {
     if (pages < 11)
         tier = 1;
@@ -70,15 +70,15 @@ void setTier()
         tier = 3;
 }
 
-int getTier() {
+int jobType::getTier() {
     return tier;
 }
 
-void setPages(int val) {
+void jobType::setPages(int val) {
     pages = val;
 }
 
-int getNumPages() {
+int jobType::getNumPages() {
     return pages;
 }
 
@@ -112,7 +112,7 @@ void jobQueue::updateWaitingQueue()
     }
 }
 
-int JobQueue::queueWaitTime(int& waitTime)
+int jobQueue::queueWaitTime(int& waitTime)
 {
     int numQueuedJobs = 0;
     while (!isEmptyQueue() && front().getJobNumber() != -1){
@@ -123,12 +123,12 @@ int JobQueue::queueWaitTime(int& waitTime)
     return numQueuedJobs;
 }
     
-int getNumJobs()
+int jobQueue::getNumJobs()
 {
     return numJobs;
 }
 
-void updateWaitTime()
+void jobQueue::updateWaitTime()
 {
    numJobs=0;
    jobType job;
@@ -149,20 +149,20 @@ void updateWaitTime()
     //cycle through jobs using dummy job as placeholder
 }
 
-void addJob(jobType job)
+void jobQueue::addJob(jobType job)
 {
     numJobsCreated++;
     addQueue(job);
 }
 
-jobType removeJob()
+jobQueue::removeJob()
 {
     jobType job=front();
     deleteQueue();
     return job;
 }
 
-int getNumJobsCreated()
+int jobQueue::getNumJobsCreated()
 {
     return numJobsCreated;
 }
@@ -206,7 +206,7 @@ jobQueueArray::getNextJob()
     
 }
 
-void sendJob(jobType job)
+void jobQueueArray::sendJob(jobType job)
 {
     if(job.getTier() == 1){
         jobQArr[0].addQueue(job);
@@ -219,15 +219,13 @@ void sendJob(jobType job)
     }
 }
 
-void updateWaitingQueues()
+void jobQueueArray::updateWaitingQueues()
 {
     for(int i = 0; i < 3; i++)
     {
-        jobQArr[i].
+        //jobQArr[i].
     }
 }
-
-
 
 
 //**************** printerType **********

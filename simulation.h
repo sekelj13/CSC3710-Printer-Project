@@ -87,12 +87,15 @@ public:
       //sets pages to val
       //postcondition: pages is set to val
 
-    int getPages();
+    int getNumPages();
       //returns number of pages
       //postcondition: pages is returned
+    
+    int tier; //Tier Level, wont declare @ private level for some reason?
+    //@TODO: Fix tier to work privately
+    
 
 private:
-    int tier;       //Tier Level
     int jobNumber;
     int arrivalTime;
     int waitingTime; 
@@ -124,7 +127,7 @@ public:
       //taken from jobWaitingQueueType at the bottom
       //increments waiting time of every job in the queue
 
-    int queueWaitTime();
+    int queueWaitTime(int& waitTime);
 
     
 private:
