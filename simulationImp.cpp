@@ -116,7 +116,7 @@ void JobQueue::updateWaitingQueue()
     }
 }
 
-int waitingJobQueueType::queueWaitTime(int& waitTime)
+int JobQueue::queueWaitTime(int& waitTime)
 {
     int numQueuedJobs = 0;
     while (!isEmptyQueue() && front().getJobNumber() != -1){
