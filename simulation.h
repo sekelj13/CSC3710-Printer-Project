@@ -38,7 +38,7 @@ public:
       //               printTime = tTime
 
     void setJobInfo(int jobN = 0, int inTime = 0, 
-                         int wTime = 0, int max = 30, int random);
+                         int wTime = 0, int max = 30, int random=1);
       //Function to initialize the instance variables.
       //Instance variables are set according to the parameters.
       //Postcondition: jobNumber = customerN;
@@ -263,7 +263,7 @@ private:
 class printerListType
 {
 public:
-    printerListType(int num = 1);
+    printerListType(int num = 1, int pr = 1);
       //Constructor to initialize a list of printers
       //Postcondition: numOfPrinters = num
       //               A list of printers, specified by num, 

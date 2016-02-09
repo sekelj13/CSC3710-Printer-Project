@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void runSimulation(int numOfPrinters, int numJobs, int maxPages);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate);
 
 //argv[1] = numJobs
 //argv[2] = numOfPrinters
@@ -17,14 +17,18 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages);
 int main()
 {
     //int numJobs = atoi(argv[1]), numOfPrinters = atoi(argv[2]), maxPages = atoi(argv[3]);
-    int numJobs, numOfPrinters, maxPages = 0;
+
+	//CHANGE THIS BACK WHEN DONE TESTING
+    int numJobs = 100, numOfPrinters = 3,printRate = 5, maxPages = 30;
     cout << "Enter Number of Jobs: " << endl;
-    cin >> numJobs;
+//    cin >> numJobs;
     cout << "Specify the Number of Printers: " << endl;
-    cin >> numOfPrinters;
+//    cin >> numOfPrinters;
+    cout << "Specify Print Speed: " << endl;
+//    cin >> printRate;
     cout << "Input the Maximum Pages Able To Print: " << endl;
-    cin >> maxPages;
-    runSimulation(numJobs,numOfPrinters,maxPages);
+//    cin >> maxPages;
+    runSimulation(numJobs,numOfPrinters,maxPages,printRate);
 
     return 0;
 }
@@ -34,7 +38,7 @@ int main()
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate)
 {
     /*
      * sTime = Simluation Time
@@ -52,9 +56,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
     int sTime = 0;
 
     int custNum = 0;
-
     //create printerList
-    printerListType printerList(numOfPrinters);
+    printerListType printerList(numOfPrinters,printRate);
 
     //Create a jobQueueArray Object to pass jobs
     jobQueueArray jqArr;
