@@ -130,10 +130,6 @@ int getNumJobsCreated() {
     return numJobsCreated;
 }
 
-//@TODO: Fill out Get Job Times in the current queue, return total time
-int getJobTimes() {
-    
-}
 
 //**************** jobQueueArray *************
 
@@ -142,27 +138,56 @@ jobQueueArray::jobQueueArray(jobType job)
     //Create Job Queue Array
     //@TODO: Change to more modular type
     
-    
     if(job.getTier() == 1){
         jobQArr[0] = job;
     } else if (job.getTier() == 2) {
-        
+        jobQArr[1] = job;
     } else if (job.getTier() == 3) {
-        
+        jobQArr[2] = job;
     } else {
-        //throw exception
+        cerr << "Tier Error in jobQueueArray";
     }
     
 }
 
-jobQueueArray::getTotalTime()
+
+jobQueueArray::getNextJob()
 {
-    //@TODO: Change 3 to n for modular amount of tiers
-    for(int i = 0; i < 3; i++) {
-        //Have an array that we return with the values of each queue time
-        //i.e., int total = jobQArr[i].getJobTimes();
+    if(!jobQArr[0].isEmptyQueue()){
+        job = jobQArr[0].front();
+        jobQArr[0].deleteQueue();
+        return job;
+    } else if(!jobQArr[1].isEmptyQueue()){
+        job = jobQArr[1].front();
+        jobQArr[1].deleteQueue();
+        return job;
+    } else if(!jobQArr[2].isEmptyQueue()){
+        job = jobQArr[2].front();
+        jobQArr[2].deleteQueue();
+        return job;
+    }
+    
+}
+
+void sendJob(jobType job)
+{
+    if(job.getTier() == 1){
+        jobQArr[0].addQueue(job);
+    } else if (job.getTier() == 2) {
+        jobQArr[1].addQueue(job);
+    } else if (job.getTier() == 3) {
+        jobQArr[2].addQueue(job);
+    } else {
+        cerr << "Tier Error in jobQueueArray";
     }
 }
+
+void updateWaitingQueues()
+{
+    
+}
+
+
 
 
 //**************** printerType **********

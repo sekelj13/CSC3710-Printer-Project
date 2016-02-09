@@ -121,12 +121,9 @@ public:
     int getJobTimes();
     
 private:
-<<<<<<< HEAD:Sim/simulation.h
     int numJobs; //jobs currently in queue
     int numJobsCreated; //total jobs placed in this queue
     int waitTime;  //total time of every job spent waiting
-}
-=======
     int numJobsCreated;
     jobType job;
 };
@@ -134,9 +131,20 @@ private:
     //************* jobQueueArray **************
 class jobQueueArray {
 public:
+    //@TODO: Comment This
+    
+    
+    //Constructor
     jobQueueArray();
     
-    int getTotalTime();
+    //Send job to Queue
+    void sendJob(jobType job);
+    
+    //getNextJob in list of queues
+    jobType getNextJob();
+    
+    //For each job queue in the array, update the waiting queue time
+    void updateWaitingQueues
     
 
 private:
@@ -146,8 +154,6 @@ private:
     jobQueue jobQArr[3];
     jobType job;
 };
->>>>>>> 9a084410f31f231df74357cd1a667d64e3b721c7:simulation.h
-
 	//*************  printerType  ****************
 class printerType
 {
