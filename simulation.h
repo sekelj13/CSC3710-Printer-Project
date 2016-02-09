@@ -92,17 +92,17 @@ public:
       //postcondition: pages is returned
 
 private:
+    int tier;       //Tier Level
     int jobNumber;
     int arrivalTime;
     int waitingTime; 
     int printTime; //Time it takes to print
-    int tier;
     int pages;     //pages in job
     int maxPages;  //Maximum pages allowed
 };
 
 	//*************  jobQueue  ****************
-class jobQueue: public queueType<jobType>{
+class jobQueue{ //: public queueType<jobType>
 public:
     jobQueue();
 

@@ -66,10 +66,10 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
     srand(time(NULL));
     int custNum = 0;
 
-    printerListType serverList(numOfPrinters);
+    printerListType printerList(numOfPrinters);
 
-    //create jobQueueArray to hold EVERYTHING
-    jobQueueArray jqArr[3];
+    //Create a jobQueueArray Object to pass jobs
+    jobQueueArray jqArr;
 
     jobType customer;
     
@@ -80,12 +80,12 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
     for (int clock = 1; clock <= numJobs; clock++) {
 
         //increment sTime
-	sTime++;
+        sTime++;
     	//update printer list & decrements
     	printerList.updatePrinters(cout);
         
         //job queue array update
-        jobQueue.updateWaitingQueue();
+        jobqArr.updateWaitingQueue();
 
         //increment numcustomers and add customer
 	//want equal possibility for each tier: t1 is 0-9, t2 is 10-19, t3 is 20-29.

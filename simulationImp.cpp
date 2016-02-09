@@ -9,9 +9,15 @@ using namespace std;
  
 
 //*************** jobType ************
+jobType::jobType(int jobN, int arrvTime,
+                           int wTime, int max)
+{
+    setJobInfo(jobN, arrvTime, wTime, max);
+    setTier();
+}
 
-void jobType::setJobInfo(int customerN, int arrvTime, 
-                                   int wTime, int max)
+void jobType::setJobInfo(int customerN, int arrvTime,
+                         int wTime, int max)
 {
     jobNumber = customerN;
     arrivalTime = arrvTime;
@@ -19,15 +25,6 @@ void jobType::setJobInfo(int customerN, int arrvTime,
     maxPages = max;
     pages=rand()%maxPages+1;
 }
-
-jobType::jobType(int customerN, int arrvTime, 
-                           int wTime, int max)
-{
-    //@TODO: Define jobN
-    setJobInfo(jobN, arrvTime, wTime, max);
-    setTier();
-}
-
 
 int jobType::getWaitingTime() const
 {
@@ -94,25 +91,24 @@ jobQueue::jobQueue(){
 //Creating dummy job with -1 in order to figure out where queue ends & begins
 //inserting dummy job @ -1, when -1 hit again, do not process customer
 //Now queue full & ready
-void JobQueue::updateWaitingQueue()
+void jobQueue::updateWaitingQueue()
 {
-    jobType cust;
-
-    cust.setWaitingTime(-1);  
+    
+    job.setWaitingTime(-1);
     int wTime = 0;
 	
-	addQueue(cust);
+	addQueue(job);
 //Doesn't process -1 job
     while (wTime != -1)
     {
-        cust = front();
+        job = front();
         deleteQueue();
 
-        wTime = cust.getWaitingTime();
+        wTime = job.getWaitingTime();
         if (wTime == -1)
             break;
-        cust.incrementWaitingTime();
-        addQueue(cust);
+        job.incrementWaitingTime();
+        addQueue(job);
     }
 }
 
@@ -125,11 +121,15 @@ int JobQueue::queueWaitTime(int& waitTime)
         deleteQueue();
     }
     return numQueuedJobs;
-int getNumJobs(){
+}
+    
+int getNumJobs()
+{
     return numJobs;
 }
 
-void updateWaitTime(){
+void updateWaitTime()
+{
    numJobs=0;
    jobType job;
    job.setWaitingTime(-1);
@@ -149,18 +149,21 @@ void updateWaitTime(){
     //cycle through jobs using dummy job as placeholder
 }
 
-void addJob(jobType job){
+void addJob(jobType job)
+{
     numJobsCreated++;
     addQueue(job);
 }
 
-jobType removeJob(){
+jobType removeJob()
+{
     jobType job=front();
     deleteQueue();
     return job;
 }
 
-int getNumJobsCreated() {
+int getNumJobsCreated()
+{
     return numJobsCreated;
 }
 
@@ -218,7 +221,10 @@ void sendJob(jobType job)
 
 void updateWaitingQueues()
 {
-    
+    for(int i = 0; i < 3; i++)
+    {
+        jobQArr[i].
+    }
 }
 
 
