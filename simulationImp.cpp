@@ -342,7 +342,7 @@ void printerListType::updatePrinters(ostream& outFile)
 //*************** waitQueue ************
 
 
-waitingJobQueueType::waitingCustomerQueueType(int size)
+waitingJobQueueType::waitingJobQueueType(int size)
                           :queueType<jobType>(size)
 {
 }

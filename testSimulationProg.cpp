@@ -48,27 +48,6 @@ void setSimulationParameters(int& numJobs, int& numOfPrinters, int maxPages)
 }
 */
 
-//Prints simulation results
-void printSimResults(int sTime,int numOfPrinters,int waitTime,int custNum) {
-
-    int numQueuedJobs = jobQueue.queueWaitTime(waitTime);
-
-    int transactingJobs = printerList.getNumberOfBusyPrinters();
-    int finishedJobs = custNum-transactingCustomers-numQueuedCustomers;
-    cout    << endl << "Simulation Completed.\n"
-            << "Simulation time: " << sTime << endl
-            << "Number of printers: " << numOfPrinters << endl
-            << "transaction time: " << transTime << endl
-            << "Time between job arrivals: " << tBetweenCArrival << endl
-            << "Total Wait Time: "  << waitTime << endl
-            << "Total Jobs: "  << custNum << endl
-            << "Average Wait Time: " << (float)waitTime/custNum << endl
-            << "Jobs still in queue: " << numQueuedCustomers << endl
-            << "Jobs still in transaction: " << transactingCustomers << endl
-            << "Jobs who finished receiving service: " << finishedCustomers << endl;
-	    //display total waiting time and average waiting time
-}
-
 //Runs Simulation
 void runSimulation(int numOfPrinters, int numJobs, int maxPages)
 {
@@ -101,7 +80,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
     	//update printer list & decrements
     	printerList.updatePrinters(cout);
         
-        //job queue update
+        //job queue array update
         jobQueue.updateWaitingQueue();
 
         //increment numcustomers and add customer
@@ -110,14 +89,14 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
             
         custNum++; //incremented job by 1
         //Create Job
-        job.setJobInfo(custNum, clock, 0, transTime, maxPages);
-        jobQueue.addQueue(customer);
+        job.setJobInfo(jobNum, clock, 0, transTime, maxPages);
+        jqArr.addJob(job);
 
         //if printer is free and queue nonempty, pair job with printer
         if (printerList.getFreePrinterID()!= -1 && !jobQueue.isEmptyQueue()){
             if (jobQueue.front().getJobNumber() != -1) {
                 waitTime += job.getWaitingTime();
-                printerList.setPrinterBusy(serverList.getFreeServerID(), job, transTime);
+                printerList.setPrinterBusy(printerList.getFreePrinterID(), job, transTime);
                 jobQueue.deleteQueue();
             }
         }
@@ -147,6 +126,13 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
 
     }
     
-    printSimResults(sTime,numOfPrinters,waitTime,custNum);
+    cout    << endl << "Simulation Completed.\n"
+            << "Simulation time: " << sTime << endl
+            << "Number of printers: " << numOfPrinters << endl
+            << "transaction time: " << transTime << endl
+            << "Time between job arrivals: " << tBetweenCArrival << endl
+            << "Total Wait Time: "  << waitTime << endl
+            << "Total Jobs: "  << custNum << endl
+            << "Average Wait Time: " << (float)waitTime/custNum << endl;
     
 }
