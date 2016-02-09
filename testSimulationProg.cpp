@@ -74,6 +74,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
     jobType customer;
     
     int waitTime = 0;
+    
+    int printPages;
 
     // Need new random every clock tick
     // for loop to create new job every clock tick
@@ -85,23 +87,22 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
     	printerList.updatePrinters(cout);
         
         //job queue array update
-        jobqArr.updateWaitingQueue();
+        jqArr.updateWaitingQueues();
 
         //increment numcustomers and add customer
-	//want equal possibility for each tier: t1 is 0-9, t2 is 10-19, t3 is 20-29.
-        transTime = (rand() % maxPages) + 1;//+1 so minimum number of pages is now 1, not 0
-            
+        //want equal possibility for each tier: t1 is 0-9, t2 is 10-19, t3 is 20-29.
+        
         custNum++; //incremented job by 1
-        //Create Job
-        job.setJobInfo(jobNum, clock, 0, transTime, maxPages);
-        jqArr.addJob(job);
+        //Create Job -- job number and arrival time will be the same here
+        jobType job;
+        job.setJobInfo(clock, clock, 0, maxPages);
+        jqArr.sendJob(job);
 
         //if printer is free and queue nonempty, pair job with printer
-        if (printerList.getFreePrinterID()!= -1 && !jobQueue.isEmptyQueue()){
-            if (jobQueue.front().getJobNumber() != -1) {
+        if (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
+            if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
                 waitTime += job.getWaitingTime();
-                printerList.setPrinterBusy(printerList.getFreePrinterID(), job, transTime);
-                jobQueue.deleteQueue();
+                printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob(), clock);
             }
         }
         
@@ -111,30 +112,27 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
     while (printerList.getNumberOfFreePrinters() != numOfPrinters && !jobQueue.isEmptyQueue()) {
 
         //increment sTime
-	sTime++;
-	
-	//update printer list & decrement current job times
+        sTime++;
+        //update printer list & decrements
         printerList.updatePrinters(cout);
-
-	//job queue update
-	jobQueue.updaitWaitingQueue();
         
-	//if printer is free and queue nonempty, pair job with printer
-        if (printerList.getFreePrinterID()!= -1 && !jobQueue.isEmptyQueue()){
-            if (jobQueue.front().getJobNumber() != -1) {
+        //job queue array update
+        jqArr.updateWaitingQueues();
+        
+        //if printer is free and queue nonempty, pair job with printer
+        if (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
+            if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
                 waitTime += job.getWaitingTime();
-                printerList.setPrinterBusy(serverList.getFreeServerID(), job, transTime);
-                jobQueue.deleteQueue();
+                printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob(), clock);
             }
+        }
 	}
-
-    }
     
     cout    << endl << "Simulation Completed.\n"
             << "Simulation time: " << sTime << endl
             << "Number of printers: " << numOfPrinters << endl
-            << "transaction time: " << transTime << endl
-            << "Time between job arrivals: " << tBetweenCArrival << endl
+            << "Total simulation time: " << sTime << endl
+            << "Time between job arrivals: " << 1 << endl
             << "Total Wait Time: "  << waitTime << endl
             << "Total Jobs: "  << custNum << endl
             << "Average Wait Time: " << (float)waitTime/custNum << endl;

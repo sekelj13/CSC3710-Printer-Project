@@ -85,7 +85,6 @@ int jobType::getNumPages() {
 //**************** jobQueue **********
 
 jobQueue::jobQueue()
-         :queueType<jobType>(size)
 {
     numJobsCreated=0;
 }
@@ -157,7 +156,7 @@ void jobQueue::addJob(jobType job)
     addQueue(job);
 }
 
-jobQueue::removeJob()
+jobType jobQueue::removeJob()
 {
     jobType job=front();
     deleteQueue();
@@ -172,25 +171,25 @@ int jobQueue::getNumJobsCreated()
 
 //**************** jobQueueArray *************
 
-jobQueueArray::jobQueueArray(jobType job)
+jobQueueArray::jobQueueArray()
 {
     //Create Job Queue Array
     //@TODO: Change to more modular type
-    
+    /*
     if(job.getTier() == 1){
-        jobQArr[0] = job;
+        jobQArr[0].addQueue(job);
     } else if (job.getTier() == 2) {
-        jobQArr[1] = job;
+        jobQArr[1].addQueue(job);
     } else if (job.getTier() == 3) {
-        jobQArr[2] = job;
+        jobQArr[2].addQueue(job);
     } else {
         cerr << "Tier Error in jobQueueArray";
-    }
+    }*/
     
 }
 
 
-jobQueueArray::getNextJob()
+jobType jobQueueArray::getNextJob()
 {
     if(!jobQArr[0].isEmptyQueue()){
         job = jobQArr[0].front();
@@ -204,8 +203,30 @@ jobQueueArray::getNextJob()
         job = jobQArr[2].front();
         jobQArr[2].deleteQueue();
         return job;
+    } else {
+        jobType dummyJob;
+        dummyJob.setJobInfo(-1,-1,-1, -1);
+        return dummyJob;
     }
     
+}
+
+jobType jobQueueArray::checkNextJob()
+{
+    if(!jobQArr[0].isEmptyQueue()){
+        job = jobQArr[0].front();
+        return job;
+    } else if(!jobQArr[1].isEmptyQueue()){
+        job = jobQArr[1].front();
+        return job;
+    } else if(!jobQArr[2].isEmptyQueue()){
+        job = jobQArr[2].front();
+        return job;
+    } else {
+        jobType dummyJob;
+        dummyJob.setJobInfo(-1,-1,-1, -1);
+        return dummyJob;
+    }
 }
 
 void jobQueueArray::sendJob(jobType job)
@@ -219,6 +240,16 @@ void jobQueueArray::sendJob(jobType job)
     } else {
         cerr << "Tier Error in jobQueueArray";
     }
+}
+
+bool jobQueueArray::isEmpty()
+{
+    for(int i = 0; i < 3; i++){
+        if(!jobQArr[i].isEmptyQueue()){
+            return false;
+        }
+    }
+    return true;
 }
 
 void jobQueueArray::updateWaitingQueues()
@@ -253,11 +284,11 @@ void printerType::setFree()
     status = "free";
 }
 
-void setPrintRate(int pr) {
+void printerType::setPrintRate(int pr) {
     printRate = pr;
 }
 
-int getPrintRate() {
+int printerType::getPrintRate() {
     return printRate;
 }
 
@@ -362,7 +393,7 @@ void printerListType::setPrinterBusy(int printerID,
 {
     printers[printerID].setBusy();
     printers[printerID].setPrintTime(tTime);
-    printers[printerID].setCurrentJob(cCustomer);
+    printers[printerID].setCurrentJob(cJob);
 }
 
 void printerListType::setPrinterBusy(int printerID, 
