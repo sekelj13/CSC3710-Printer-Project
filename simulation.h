@@ -119,6 +119,13 @@ public:
     int getNumJobsCreated();
     
     int getJobTimes();
+
+    void updateWaitingQueue();
+      //taken from jobWaitingQueueType at the bottom
+      //increments waiting time of every job in the queue
+
+    int queueWaitTime();
+
     
 private:
     int numJobs; //jobs currently in queue
