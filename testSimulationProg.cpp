@@ -60,7 +60,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages)
     
     int waitTime = 0;
     
-    int printPages;
+    int printPages = 0;
 
     // Need new random every clock tick
     // for loop to create new job every clock tick
