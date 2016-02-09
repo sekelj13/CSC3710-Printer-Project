@@ -91,6 +91,40 @@ jobQueue::jobQueue(){
     numJobsCreated=0;
 }
 
+//Creating dummy job with -1 in order to figure out where queue ends & begins
+//inserting dummy job @ -1, when -1 hit again, do not process customer
+//Now queue full & ready
+void JobQueue::updateWaitingQueue()
+{
+    jobType cust;
+
+    cust.setWaitingTime(-1);  
+    int wTime = 0;
+	
+	addQueue(cust);
+//Doesn't process -1 job
+    while (wTime != -1)
+    {
+        cust = front();
+        deleteQueue();
+
+        wTime = cust.getWaitingTime();
+        if (wTime == -1)
+            break;
+        cust.incrementWaitingTime();
+        addQueue(cust);
+    }
+}
+
+int waitingJobQueueType::queueWaitTime(int& waitTime)
+{
+    int numQueuedJobs = 0;
+    while (!isEmptyQueue() && front().getJobNumber() != -1){
+        numQueuedJobs++;
+        waitTime += front().getWaitingTime();
+        deleteQueue();
+    }
+    return numQueuedJobs;
 int getNumJobs(){
     return numJobs;
 }
