@@ -91,7 +91,6 @@ jobQueue::jobQueue(){
 }
 
 int getNumJobs(){
-<<<<<<< HEAD:Sim/simulationImp.cpp
     return numJobs;
 }
 
@@ -112,9 +111,7 @@ void updateWaitTime(){
             addQueue(job);
         }
      }
-=======
     //cycle through jobs using dummy job as placeholder
->>>>>>> 9a084410f31f231df74357cd1a667d64e3b721c7:simulationImp.cpp
 }
 
 void addJob(jobType job){
