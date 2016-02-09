@@ -25,6 +25,7 @@ jobType::jobType(int customerN, int arrvTime,
 {
     //@TODO: Define jobN
     setJobInfo(jobN, arrvTime, wTime, max);
+    setTier();
 }
 
 
@@ -268,8 +269,8 @@ int printerListType::getNumberOfBusyPrinters() const
 }
 
 void printerListType::setPrinterBusy(int printerID, 
-                                   jobType cJob, 
-                                   int tTime)
+                                     jobType cJob, 
+                                     int tTime)
 {
     printers[printerID].setBusy();
     printers[printerID].setPrintTime(tTime);
@@ -285,7 +286,7 @@ void printerListType::setPrinterBusy(int printerID,
 
     printers[printerID].setBusy();
     printers[printerID].setPrintTime(time);
-    printers[printerID].setCurrentJob(cCustomer);
+    printers[printerID].setCurrentJob(cJob);
 }
 
 void printerListType::updatePrinters(ostream& outFile)

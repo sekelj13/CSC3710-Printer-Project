@@ -42,6 +42,7 @@ void setSimulationParameters(int& numJobs, int& numOfPrinters, int maxPages)
     cout << endl;
 }
 
+//Prints simulation results
 void printSimResults(int sTime,int numOfPrinters,int waitTime,int custNum) {
 
     int numQueuedJobs = jobQueue.queueWaitTime(waitTime);
