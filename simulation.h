@@ -143,6 +143,9 @@ public:
     //getNextJob in list of queues
     jobType getNextJob();
     
+    //For each job queue in the array, update the waiting queue time
+    void updateWaitingQueues
+    
 
 private:
     //@TODO: Make the set or get const not the actual variable?

@@ -182,6 +182,13 @@ void sendJob(jobType job)
     }
 }
 
+void updateWaitingQueues()
+{
+    
+}
+
+
+
 
 //**************** printerType **********
 
