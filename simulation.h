@@ -15,6 +15,10 @@
  *      in queue & simulation & their total wait times. 
  *
  */
+
+#ifndef SIMULATION_H
+#define SIMULATION_H
+
 #include <fstream>
 #include <string>
 #include "queueAsArray.h"
@@ -343,4 +347,4 @@ public:
     
 };
 
-
+#endif
