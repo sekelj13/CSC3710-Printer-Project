@@ -22,6 +22,7 @@
 #include <fstream>
 #include <string>
 #include "queueAsArray.h"
+#include "linkedQueue.h"
 
 using namespace std; 
  
@@ -31,7 +32,7 @@ class jobType
 {
 public:
     jobType(int cN = 0, int arrvTime = 0, int wTime = 0, 
-                 int max = 0);
+                 int max = 30);
       //Constructor to initialize the instance variables
       //according to the parameters
       //If no value is specified in the object declaration, 
@@ -42,7 +43,7 @@ public:
       //               printTime = tTime
 
     void setJobInfo(int jobN = 0, int inTime = 0, 
-                         int wTime = 0, int max = 30, int random=1);
+                         int wTime = 0, int max = 30);
       //Function to initialize the instance variables.
       //Instance variables are set according to the parameters.
       //Postcondition: jobNumber = customerN;
@@ -109,7 +110,7 @@ private:
 };
 
 	//*************  jobQueue  ****************
-class jobQueue : public queueType<jobType> {
+class jobQueue : public linkedQueueType<jobType> {
 public:
     jobQueue();
 
@@ -205,16 +206,10 @@ public:
       //Function to set the status of the printer to "free".
       //Postcondition: status = "free";
 
-    void setPrintTime(int t);
+    void setPrintTime(int t=1);
       //Function to set the print time according to the 
       //parameter t.
       //Postcondition: printTime = t;
-
-    void setPrintTime();
-      //Function to set the print time according to 
-      //the print time of the current job.
-      //Postcondition: 
-      //   printTime = currentJob.transactionTime;
 
     int getRemainingPrintTime() const;
       //Function to return the remaining print time.

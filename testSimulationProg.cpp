@@ -19,7 +19,7 @@ int main()
     //int numJobs = atoi(argv[1]), numOfPrinters = atoi(argv[2]), maxPages = atoi(argv[3]);
 
 	//CHANGE THIS BACK WHEN DONE TESTING
-    int numJobs = 100, numOfPrinters = 3,printRate = 5, maxPages = 30;
+    int numJobs = 10, numOfPrinters = 3,printRate = 5, maxPages = 30;
     cout << "Enter Number of Jobs: " << endl;
 //    cin >> numJobs;
     cout << "Specify the Number of Printers: " << endl;
@@ -28,7 +28,7 @@ int main()
 //    cin >> printRate;
     cout << "Input the Maximum Pages Able To Print: " << endl;
 //    cin >> maxPages;
-    runSimulation(numJobs,numOfPrinters,maxPages,printRate);
+    runSimulation(numOfPrinters,numJobs,maxPages,printRate);
 
     return 0;
 }
@@ -57,7 +57,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate)
 
     int custNum = 0;
     //create printerList
-    printerListType printerList(numOfPrinters,printRate);
+    printerListType printerList(/*numOfPrinters,*/printRate);
 
     //Create a jobQueueArray Object to pass jobs
     jobQueueArray jqArr;
@@ -75,6 +75,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate)
 
         //increment sTime
         sTime++;
+        cout << endl << "At time unit "<< sTime << endl;
     	//update printer list & decrements
     	printerList.updatePrinters(cout);
         
@@ -86,7 +87,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate)
         
         custNum++; //incremented job by 1
         //Create Job -- job number and arrival time will be the same here
-        job.setJobInfo(clock, clock, 0, maxPages, rand());
+        job.setJobInfo(custNum, clock, 0, maxPages);
+        cout << "Job number " << job.getJobNumber() << "\nPages Created "<< job.getNumPages() << endl;
         jqArr.sendJob(job);
 
         //if printer is free and queue nonempty, pair job with printer
@@ -98,12 +100,13 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate)
         }
         
     }
-
+    cout << "DONE!!!"<<endl;
     //while loop to continue until jobQueue empty and printerList empty as well
-    while (printerList.getNumberOfFreePrinters() != numOfPrinters && !jqArr.isEmpty()) {
+    while (printerList.getNumberOfBusyPrinters() != 0 || !jqArr.isEmpty()) {
 
         //increment sTime
         sTime++;
+        cout << endl << "At time unit "<< sTime << endl;
         //update printer list & decrements
         printerList.updatePrinters(cout);
         

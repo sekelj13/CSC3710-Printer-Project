@@ -17,16 +17,21 @@ jobType::jobType(int jobN, int arrvTime,
 }
 
 void jobType::setJobInfo(int customerN, int arrvTime,
-                         int wTime, int max,int random)
+                         int wTime, int max)
 {
     
     
     jobNumber = customerN;
     arrivalTime = arrvTime;
     waitingTime = wTime;
-    maxPages = max;
 
-    pages = random % maxPages;
+    if(max==0){
+       maxPages=30;
+
+    }else
+       maxPages = max;
+   
+    pages = (rand() % maxPages) + 1;
 }
 
 int jobType::getWaitingTime() const
@@ -208,7 +213,7 @@ jobType jobQueueArray::getNextJob()
         return job;
     } else {
         jobType dummyJob;
-        dummyJob.setJobInfo(-1,-1,-1, -1,-1);
+        dummyJob.setJobInfo(-1,-1,-1, -1);
         return dummyJob;
     }
     
@@ -227,7 +232,7 @@ jobType jobQueueArray::checkNextJob()
         return job;
     } else {
         jobType dummyJob;
-        dummyJob.setJobInfo(-1,-1,-1, -1,-1);
+        dummyJob.setJobInfo(-1,-1,-1, -1);
         return dummyJob;
     }
 }
@@ -297,21 +302,19 @@ int printerType::getPrintRate() {
 
 void printerType::setPrintTime(int t)
 {
-    printTime = t;
-}
-
-void printerType::setPrintTime()
-{
     int time;
 
-    time = currentJob.getPrintTime();
+    time = currentJob.getNumPages();
+
+    cout << "In job " << currentJob.getJobNumber() << " Pages left to print: " << time << endl;
 
     printTime = time;
 }
 
 void printerType::decreasePrintTime()
 {
-    printTime--;
+    printTime-=printRate;
+    cout << "Print time left in job number " << currentJob.getJobNumber() << ": " << printTime << endl;
 }
 
 int printerType::getRemainingPrintTime() const
@@ -353,7 +356,7 @@ int printerType::getCurrentJobPrintTime() const
 
 printerListType::printerListType(int pr)
 {
-
+    numOfPrinters=3;
     for (int i=0;i < 3;i++) {
         printers[i].setPrintRate(pr);
     }
@@ -362,7 +365,7 @@ printerListType::printerListType(int pr)
 
 printerListType::~printerListType()
 {
-    delete [] printers;
+//    delete [] printers;
 }
 
 int printerListType::getFreePrinterID() const
@@ -423,9 +426,11 @@ void printerListType::setPrinterBusy(int printerID,
 
     time = cJob.getPrintTime();
 
+    cout << "Printer " << printerID+1 << " gets job " << cJob.getJobNumber() << endl;
+
+    printers[printerID].setCurrentJob(cJob);
     printers[printerID].setBusy();
     printers[printerID].setPrintTime(time);
-    printers[printerID].setCurrentJob(cJob);
 }
 
 void printerListType::updatePrinters(ostream& outFile)
@@ -437,7 +442,7 @@ void printerListType::updatePrinters(ostream& outFile)
         {
             printers[i].decreasePrintTime();
 
-            if (printers[i].getRemainingPrintTime() == 0)
+            if (printers[i].getRemainingPrintTime() <= 0)
             {
                 outFile << "From printer number  " << (i + 1) 
                         << " job number "
