@@ -351,16 +351,13 @@ int printerType::getCurrentJobPrintTime() const
 
 //************** printerListType ***********
 
-printerListType::printerListType(int num, int pr)
+printerListType::printerListType(int pr)
 {
-    numOfPrinters = num;
-cout << "swag\n";
-    printers = new printerType[num];
-cout << "Swag\n";
 
-    for (int i=0;i < num;i++) {
+    for (int i=0;i < 3;i++) {
         printers[i].setPrintRate(pr);
     }
+
 }
 
 printerListType::~printerListType()
