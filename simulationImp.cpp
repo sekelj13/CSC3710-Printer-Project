@@ -16,12 +16,12 @@ jobType::jobType(int jobN, int arrvTime,
     setTier();
 }
 
-void jobType::setJobInfo(int customerN, int arrvTime,
+void jobType::setJobInfo(int jobN, int arrvTime,
                          int wTime, int max)
 {
     
     
-    jobNumber = customerN;
+    jobNumber = jobN;
     arrivalTime = arrvTime;
     waitingTime = wTime;
 
@@ -98,7 +98,7 @@ jobQueue::jobQueue()
 }
 
 //Creating dummy job with -1 in order to figure out where queue ends & begins
-//inserting dummy job @ -1, when -1 hit again, do not process customer
+//inserting dummy job @ -1, when -1 hit again, do not process job
 //Now queue full & ready
 void jobQueue::updateWaitingQueue()
 {
@@ -322,9 +322,9 @@ int printerType::getRemainingPrintTime() const
     return printTime;
 }
 
-void printerType::setCurrentJob(jobType cCustomer)
+void printerType::setCurrentJob(jobType cJob)
 {
-    currentJob = cCustomer;
+    currentJob = cJob;
 }
 
 
@@ -354,10 +354,12 @@ int printerType::getCurrentJobPrintTime() const
 
 //************** printerListType ***********
 
-printerListType::printerListType(int pr)
+printerListType::printerListType(int numPrinters,int pr)
 {
-    numOfPrinters=3;
-    for (int i=0;i < 3;i++) {
+//in simulation.h, printers is delcared as printers[numOfPrinters]. This should
+//  take care of allocation.
+    numOfPrinters=numPrinters;
+    for (int i=0;i < numOfPrinters;i++) {
         printers[i].setPrintRate(pr);
     }
 
@@ -412,15 +414,8 @@ int printerListType::getNumberOfFreePrinters()
     return freePrinters;
 }
 
-/*void printerListType::setPrinterBusy(int printerID, jobType cJob, int tTime)
-{
-    printers[printerID].setBusy();
-    printers[printerID].setPrintTime(tTime);
-    printers[printerID].setCurrentJob(cJob);
-}*/
-
 void printerListType::setPrinterBusy(int printerID,
-                                   jobType cJob)
+                                     jobType cJob)
 {
     int time;
 

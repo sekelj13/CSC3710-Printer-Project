@@ -46,7 +46,7 @@ public:
                          int wTime = 0, int max = 30);
       //Function to initialize the instance variables.
       //Instance variables are set according to the parameters.
-      //Postcondition: jobNumber = customerN;
+      //Postcondition: jobNumber = jobN;
       //               arrivalTime = arrvTime;
       //               waitingTime = wTime;
       //               printTime = tTime;
@@ -219,10 +219,10 @@ public:
       //Function to decrease the printTime by 1 unit.
       //Postcondition: printTime--;
 
-    void setCurrentJob(jobType cCustomer);
+    void setCurrentJob(jobType cJob);
       //Function to set the info of the current job 
       //according to the parameter cJob.
-      //Postcondition: currentJob = cCustomer;
+      //Postcondition: currentJob = cJob;
 
 
     int getCurrentJobNumber() const;
@@ -262,7 +262,7 @@ private:
 class printerListType
 {
 public:
-    printerListType(int pr = 1);
+    printerListType(int numPrinters = 3,int pr = 1);
       //Constructor to initialize a list of printers
       //Postcondition: numOfPrinters = num
       //               A list of printers, specified by num, 
@@ -315,5 +315,5 @@ public:
     
 private:
     int numOfPrinters;
-    printerType printers[3];
+    printerType printers[numOfPrinters];
 };
