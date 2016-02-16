@@ -317,29 +317,3 @@ private:
     int numOfPrinters;
     printerType printers[3];
 };
-
-
-//**************** waitQueue  *************
-//Deriving queueType, only need operationg of incremeting wait time
-//for each job in the queue
-class waitingJobQueueType: public queueType<jobType>
-{
-public:
-    waitingJobQueueType(int size = 100);
-      //Constructor
-      //Postcondition: The queue is initialized according to 
-      //               the parameter size. The value of size 
-      //               is passed to the constructor of queueType.
-
-    void updateWaitingQueue();
-      //Function to increment the waiting time of each 
-      //job in the queue by one time unit.
-    
-    int queueWaitTime(int& waitTime);
-      //Function to find total waiting time of jobs still in queue
-      //precondition: queue contains or does not contain elements
-      //postcondition: waittime now has total waiting time of jobs in queue as well
-    
-};
-
-#endif
