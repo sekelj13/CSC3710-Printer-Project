@@ -16,10 +16,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate);
 //@TODO: Can re-add, but wasn't working last night.
 int main()
 {
-    //int numJobs = atoi(argv[1]), numOfPrinters = atoi(argv[2]), maxPages = atoi(argv[3]);
-
-	//CHANGE THIS BACK WHEN DONE TESTING
-    int numJobs = 10, numOfPrinters = 3,printRate = 5, maxPages = 30;
+//CHANGE THIS BACK WHEN DONE TESTING
+    int numJobs = 100, numOfPrinters = 3,printRate = 5, maxPages = 50, numTiers = 3;
     cout << "Enter Number of Jobs: " << endl;
     cin >> numJobs;
     cout << "Specify the Number of Printers: " << endl;
@@ -28,6 +26,7 @@ int main()
     cin >> printRate;
     cout << "Input the Maximum Pages Able To Print: " << endl;
     cin >> maxPages;
+    cout << "Input number of tiers for print jobs: "
     runSimulation(numOfPrinters,numJobs,maxPages,printRate);
 
     return 0;
