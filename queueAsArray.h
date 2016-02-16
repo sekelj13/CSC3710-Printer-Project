@@ -46,7 +46,7 @@ public:
 
     void addQueue(const Type& queueElement);
       //Function to add queueElement to the queue.
-      //Precondition: The queue exists and is not full.
+      //Precondition: The queue exists and is not full.gi
       //Postcondition: The queue is changed and queueElement
       //               is added to the queue.
 

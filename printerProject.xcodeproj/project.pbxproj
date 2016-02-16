@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22D913A51C682CD90063B9F8 /* simulationImp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D913A31C682CD90063B9F8 /* simulationImp.cpp */; };
+		22CABDED1C73B4F000AB9574 /* jobQueue.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CABDEC1C73B4F000AB9574 /* jobQueue.cpp */; };
+		22CABDEF1C73B5CA00AB9574 /* jobType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CABDEE1C73B5CA00AB9574 /* jobType.cpp */; };
+		22CABDF11C73B66200AB9574 /* jobQueueArray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CABDF01C73B66200AB9574 /* jobQueueArray.cpp */; };
+		22CABDF31C73B69900AB9574 /* printerType.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CABDF21C73B69900AB9574 /* printerType.cpp */; };
+		22CABDF51C73B6F800AB9574 /* printerTypeList.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22CABDF41C73B6F800AB9574 /* printerTypeList.cpp */; };
 		22D913A61C682CD90063B9F8 /* testSimulationProg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 22D913A41C682CD90063B9F8 /* testSimulationProg.cpp */; };
 /* End PBXBuildFile section */
 
@@ -24,12 +28,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		22CABDEC1C73B4F000AB9574 /* jobQueue.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jobQueue.cpp; sourceTree = SOURCE_ROOT; };
+		22CABDEE1C73B5CA00AB9574 /* jobType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jobType.cpp; sourceTree = SOURCE_ROOT; };
+		22CABDF01C73B66200AB9574 /* jobQueueArray.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = jobQueueArray.cpp; sourceTree = SOURCE_ROOT; };
+		22CABDF21C73B69900AB9574 /* printerType.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = printerType.cpp; sourceTree = SOURCE_ROOT; };
+		22CABDF41C73B6F800AB9574 /* printerTypeList.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = printerTypeList.cpp; sourceTree = SOURCE_ROOT; };
 		22D913951C682C700063B9F8 /* printerProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = printerProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		22D9139F1C682CC70063B9F8 /* linkedQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = linkedQueue.h; sourceTree = SOURCE_ROOT; };
 		22D913A01C682CD40063B9F8 /* queueADT.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = queueADT.h; sourceTree = SOURCE_ROOT; };
 		22D913A11C682CD40063B9F8 /* queueAsArray.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = queueAsArray.h; sourceTree = SOURCE_ROOT; };
 		22D913A21C682CD90063B9F8 /* simulation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = simulation.h; sourceTree = SOURCE_ROOT; };
-		22D913A31C682CD90063B9F8 /* simulationImp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = simulationImp.cpp; sourceTree = SOURCE_ROOT; };
 		22D913A41C682CD90063B9F8 /* testSimulationProg.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testSimulationProg.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
@@ -63,10 +71,14 @@
 		22D913971C682C700063B9F8 /* printerProject */ = {
 			isa = PBXGroup;
 			children = (
+				22CABDEC1C73B4F000AB9574 /* jobQueue.cpp */,
+				22CABDEE1C73B5CA00AB9574 /* jobType.cpp */,
+				22CABDF01C73B66200AB9574 /* jobQueueArray.cpp */,
+				22CABDF21C73B69900AB9574 /* printerType.cpp */,
+				22CABDF41C73B6F800AB9574 /* printerTypeList.cpp */,
 				22D9139F1C682CC70063B9F8 /* linkedQueue.h */,
 				22D913A01C682CD40063B9F8 /* queueADT.h */,
 				22D913A21C682CD90063B9F8 /* simulation.h */,
-				22D913A31C682CD90063B9F8 /* simulationImp.cpp */,
 				22D913A41C682CD90063B9F8 /* testSimulationProg.cpp */,
 				22D913A11C682CD40063B9F8 /* queueAsArray.h */,
 			);
@@ -129,8 +141,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				22CABDF51C73B6F800AB9574 /* printerTypeList.cpp in Sources */,
+				22CABDF11C73B66200AB9574 /* jobQueueArray.cpp in Sources */,
 				22D913A61C682CD90063B9F8 /* testSimulationProg.cpp in Sources */,
-				22D913A51C682CD90063B9F8 /* simulationImp.cpp in Sources */,
+				22CABDF31C73B69900AB9574 /* printerType.cpp in Sources */,
+				22CABDEF1C73B5CA00AB9574 /* jobType.cpp in Sources */,
+				22CABDED1C73B4F000AB9574 /* jobQueue.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
