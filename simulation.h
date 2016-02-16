@@ -27,7 +27,7 @@
 using namespace std; 
  
 
-  //**************** jobType  ****************
+/* =========================== jobType =========================== */
 class jobType
 {
 public:
@@ -96,9 +96,6 @@ public:
       //returns number of pages
       //postcondition: pages is returned
     
-    int tier; //Tier Level, wont declare @ private level for some reason?
-    //@TODO: Fix tier to work privately
-    
 
 private:
     int jobNumber;
@@ -107,13 +104,16 @@ private:
     int printTime; //Time it takes to print
     int pages;     //pages in job
     int maxPages;  //Maximum pages allowed
+    int tier;
 };
 
-	//*************  jobQueue  ****************
+/* =========================== jobQueue =========================== */
 class jobQueue : public linkedQueueType<jobType> {
 public:
     jobQueue();
-
+    //Initalizies number of jobs created to 0
+    //
+    
     int getNumJobs();
 
     void updateWaitTime();
@@ -315,5 +315,7 @@ public:
     
 private:
     int numOfPrinters;
-    printerType printers[numOfPrinters];
+    printerType printers[];
 };
+
+#endif

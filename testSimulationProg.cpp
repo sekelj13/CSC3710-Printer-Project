@@ -26,7 +26,7 @@ int main()
     cin >> printRate;
     cout << "Input the Maximum Pages Able To Print: " << endl;
     cin >> maxPages;
-    cout << "Input number of tiers for print jobs: "
+    cout << "Input number of tiers for print jobs: ";
     runSimulation(numOfPrinters,numJobs,maxPages,printRate);
 
     return 0;

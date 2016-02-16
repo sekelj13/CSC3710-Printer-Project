@@ -365,10 +365,10 @@ printerListType::printerListType(int numPrinters,int pr)
 
 }
 
-printerListType::~printerListType()
+/*printerListType::~printerListType()
 {
 //    delete [] printers;
-}
+}*/
 
 int printerListType::getFreePrinterID() const
 {
