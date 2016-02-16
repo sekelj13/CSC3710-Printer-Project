@@ -315,5 +315,5 @@ public:
     
 private:
     int numOfPrinters;
-    printerType printers[numOfPrinters];
+    printerType *printers;
 };
