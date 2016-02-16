@@ -359,16 +359,17 @@ printerListType::printerListType(int numPrinters,int pr)
 //in simulation.h, printers is delcared as printers[numOfPrinters]. This should
 //  take care of allocation.
     numOfPrinters=numPrinters;
-    for (int i=0;i < numOfPrinters;i++) {
+    printers = new printerType[numPrinters];
+    for (int i=0;i < numPrinters;i++) {
         printers[i].setPrintRate(pr);
     }
 
 }
 
-/*printerListType::~printerListType()
+printerListType::~printerListType()
 {
-//    delete [] printers;
-}*/
+    delete [] printers;
+}
 
 int printerListType::getFreePrinterID() const
 {

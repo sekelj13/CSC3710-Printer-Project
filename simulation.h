@@ -190,7 +190,7 @@ public:
       //Postcondition: Returns true if the printer is free, 
       //               otherwise returns false.
 
-    void setPrintRate (int pr);
+    void setPrintRate (int pr = 1);
       //Sets printRate
       //postcondition: printRate is set
 
@@ -315,7 +315,7 @@ public:
     
 private:
     int numOfPrinters;
-    printerType printers[];
+    printerType *printers;
 };
 
 #endif
