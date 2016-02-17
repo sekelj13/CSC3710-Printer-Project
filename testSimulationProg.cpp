@@ -28,7 +28,7 @@ int main()
     cin >> maxPages;
     cout << "Input number of tiers for print jobs: ";
     cin >> numTiers;
-    runSimulation(numOfPrinters,numJobs,maxPages,printRate);
+    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers);
 
     return 0;
 }
@@ -38,7 +38,7 @@ int main()
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate,int numTiers)
 {
     /*
      * sTime = Simluation Time
@@ -69,28 +69,29 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate)
     
     int printPages = 0;
 
-    // Need new random every clock tick
-    // for loop to create new job every clock tick
+    //currently, all jobs are created and enqueued before any of them get printed.
+    //for loop to create all new jobs
     for (int clock = 1; clock <= numJobs; clock++) {
 
-        //increment sTime
+/*
         sTime++;
         cout << endl << "At time unit "<< sTime << endl;
     	//update printer list & decrements
-    	printerList.updatePrinters(cout);
+        printerList.updatePrinters(cout);
         
         //job queue array update
         jqArr.updateWaitingQueues();
 
         //increment numjobs and add job
         //want equal possibility for each tier: t1 is 0-9, t2 is 10-19, t3 is 20-29.
-        
+*/        
         jobNum++; //incremented job by 1
         //Create Job -- job number and arrival time will be the same here
         job.setJobInfo(jobNum, clock, 0, maxPages);
         cout << "Job number " << job.getJobNumber() << "\nPages Created "<< job.getNumPages() << endl;
         jqArr.sendJob(job);
 
+/*
         //if printer is free and queue nonempty, pair job with printer
         if (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
             if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
@@ -98,9 +99,10 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate)
                 printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob());
             }
         }
+*/
         
     }
-    cout << "DONE!!!"<<endl;
+    cout << endl << "All jobs created and enqueued." << endl << endl;
     //while loop to continue until jobQueue empty and printerList empty as well
     while (printerList.getNumberOfBusyPrinters() != 0 || !jqArr.isEmpty()) {
 
