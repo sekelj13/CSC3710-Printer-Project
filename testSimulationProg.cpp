@@ -8,16 +8,12 @@
 
 using namespace std;
 
-void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers,int jpm);
 
-//argv[1] = numJobs
-//argv[2] = numOfPrinters
-//argv[3] = maxPages
-//@TODO: Can re-add, but wasn't working last night.
 int main()
 {
-//CHANGE THIS BACK WHEN DONE TESTING
-    int numJobs = 100, numOfPrinters = 3,printRate = 5, maxPages = 50, numTiers = 3;
+    int numJobs = 100, numOfPrinters = 3,printRate = 5, maxPages = 50, numTiers = 3, jpm = 1;
+    string jobFrequency = "aa";
     cout << "Enter Number of Jobs: " << endl;
     cin >> numJobs;
     cout << "Specify the Number of Printers: " << endl;
@@ -28,7 +24,26 @@ int main()
     cin >> maxPages;
     cout << "Input number of tiers for print jobs: ";
     cin >> numTiers;
-    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers);
+    //@TODO: need to figure out displacement of tiers as well
+
+    //Figure out the average number of jobs per minute
+    while (toupper(jobFrequency.c_str() != "JM" and toupper(jobFrequency.c_str() != "MJ") {
+        cout << "Will there be an average of multiple jobs per minute coming in?" << endl
+             << "OR" << endl
+             << "Will there be an average of one job every several minutes?" << endl
+             << "Input 'JM' for jobs per minute or 'MJ' for minutes per job: ";
+        cin >> jobFrequency;
+    }
+    jobFrequency = toupper(jobFrequency.c_str();
+    if (jobFrequency == "JM") {
+        cout << "Enter the average number of jobs per minute: ";
+        cin >> jpm;
+    } else {
+        cout << "Enter the average number of minutes per job: ";
+	cin >> jpm;
+	jpm = 1/jpm;
+    }
+    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,jpm);
 
     return 0;
 }
