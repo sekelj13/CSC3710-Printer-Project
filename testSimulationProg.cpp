@@ -8,20 +8,38 @@
 
 using namespace std;
 
-void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers,int jpm);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers,int jpm,int cpp,int printCapacity,int downTime);
 
 int main()
 {
-    int numJobs = 100, numOfPrinters = 3,printRate = 5, maxPages = 50, numTiers = 3, jpm = 1;
+    int numJobs = 100, numOfPrinters = 3,printRate = 5, maxPages = 50, numTiers = 3, jpm = 1,cpp = .3,printCapacity = 300,downTime = 10;
     string jobFrequency = "aa";
+    //get numJobs
     cout << "Enter Number of Jobs: " << endl;
     cin >> numJobs;
+    //get numOfPrinters
     cout << "Specify the Number of Printers: " << endl;
     cin >> numOfPrinters;
-    cout << "Specify Print Speed: " << endl;
-    cin >> printRate;
+    //do printers all print at same rate?
+    cout << "Do all printers print at the same rate? (y/n) "; << endl;
+    char ans;
+    cin >> ans;
+    if (toupper(ans) == "Y") {
+        //get printRate
+        cout << "Specify Print Rate: " << endl;
+	//@TODO: I think we need a dynamically-allocated array for pr as well here.
+    } else {
+        //for each printer, get print rate
+        for (int i = 0;i < numOfPrinters;i++) {
+            cout << "Specify printer " << i+1 << "'s print rate: ";
+	    cin >> 
+            
+        }
+    }
+    //get maxPages
     cout << "Input the Maximum Pages Able To Print: " << endl;
     cin >> maxPages;
+    //get numTiers
     cout << "Input number of tiers for print jobs: ";
     cin >> numTiers;
     //@TODO: need to figure out displacement of tiers as well
@@ -43,7 +61,16 @@ int main()
 	cin >> jpm;
 	jpm = 1/jpm;
     }
-    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,jpm);
+    //get cost per page in dollars
+    cout << "Enter the approximate cost per page in dollars: ";
+    cin >> cpp;
+    //get printing capacity before requiring maintenance
+    cout << "Enter number of pages the printers can print before requiring maintenance: ";
+    cin >> printCapacity;
+    //get amount of time printer is offline
+    cout << "Enter amount of time printer is down for maintenance in minutes: ";
+    cin >> downTime;
+    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,jpm,cpp,printCapacity,downTime);
 
     return 0;
 }
