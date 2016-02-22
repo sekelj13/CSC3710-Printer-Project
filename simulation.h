@@ -249,12 +249,21 @@ public:
       //Postcondition: The value of printTime of the 
       //               current job is returned.
 
+    bool checkFail(double fail = .05);
+      //Function to check if printer fails. If no prob is given, %5 chance
+      //to fail.
+      //Postcondition: Bool failure will be true if there is a failure, else
+      // failure will be false.
+
 private:
     jobType currentJob;
     string status;
     int pagesLeft;
     int printRate;
     int printTime;
+    double probOfFailure; //Chance that printer fails
+    bool failure; //True if printer broke, false if still running
+    int costPerPage; //How much each page costs to print with current printer
 };
 
 
