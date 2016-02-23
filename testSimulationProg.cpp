@@ -9,6 +9,7 @@
 
 using namespace std;
 
+<<<<<<< HEAD
 void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers, int jobsPerMinute, double costPerPage,int printCapacity,int downTime);
 
 int main()
@@ -25,12 +26,23 @@ int main()
     
     //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
     //Get the number of jobs
+=======
+void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers,int eachTier[],int jpm,int cpp,int printCapacity,int downTime);
+
+int main()
+{
+    int numJobs = 100, numOfPrinters = 3, maxPages = 50, numTiers = 3, jpm = 1,cpp = .3,printCapacity = 300,downTime = 10;
+    string jobFrequency = "aa";
+
+    //get numJobs
+>>>>>>> e49688d6fc617e5b9dab1dc4fe248aff26b35420
     cout << "Enter Number of Jobs: " << endl;
     cin >> numJobs;
     
     //Get the number of printers
     cout << "Specify the Number of Printers: " << endl;
     cin >> numOfPrinters;
+<<<<<<< HEAD
     
     //Printers print randomly or linearly
     cout << "Do all printers print at the same rate? (y/n) " << endl;
@@ -44,6 +56,24 @@ int main()
         for (int i = 0;i < numOfPrinters;i++) {
             cout << "Specify printer " << i+1 << "'s print rate: ";
             //@TODO: Fill in printer array
+=======
+    int printRate[numOfPrinters];
+    //do printers all print at same rate?
+    cout << "Do all printers print at the same rate? (y/n) "; << endl;
+    char ans;
+    cin >> ans;
+    int pr;
+    if (toupper(ans) == "Y") {//get printRate
+        cout << "Specify Print Rate in pages per unit time: " << endl;
+        cin >> pr;
+	for (int i=0;i < numOfPrinters;i++)
+            printRate[i] = pr;
+    } else {//for each printer, get print rate
+        for (int i = 0;i < numOfPrinters;i++) {
+            cout << "Specify printer " << i+1 << "'s print rate in pages per unit time: ";
+            cin >> pr;
+            printRate[i] = pr;
+>>>>>>> e49688d6fc617e5b9dab1dc4fe248aff26b35420
         }
     }
     
@@ -55,7 +85,12 @@ int main()
     //Get the total number of tiers in the waiting list queue
     cout << "Enter the amount total amount of printer tiers: ";
     cin >> numTiers;
-    //@TODO: need to figure out displacement of tiers as well
+    //get each tier's cutoff point
+    int eachTier[numTiers];
+    for (int i=0;i < numTiers;i++) {
+        cout << "Enter the cutoff point for tier " << i+1 << ": ";
+        cin >> eachTier[i];
+    }
 
 
     /*
@@ -118,7 +153,7 @@ int main()
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate,int numTiers)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate, int numTiers, int eachTier[], int jpm, int cpp, int printCapacity, int downTime)
 {
     /*
      * sTime = Simluation Time
@@ -165,6 +200,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate,i
         //increment sTime
         sTime++;
         cout << endl << "At time unit "<< sTime << endl;
+
         //update printer list & decrements
         printerList.updatePrinters(cout);
         
