@@ -296,7 +296,7 @@ private:
 class printerListType
 {
 public:
-    printerListType(int numPrinters = 3,int pr[]);
+    printerListType(int numPrinters = 3, int pr[] = 0);
       //Constructor to initialize a list of printers
       //Postcondition: numOfPrinters = num
       //               A list of printers, specified by num, 

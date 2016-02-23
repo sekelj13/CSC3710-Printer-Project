@@ -4,6 +4,8 @@
 #include <ctime>
 #include <cstring>
 #include <cmath>
+#include <cctype>
+#include <clocale>
 
 #include "simulation.h"
 #include "queueAsArray.h" 
@@ -13,15 +15,27 @@ using namespace std;
 /*
  * Run the simulation function(main will populate the run simulation parameters)
  */
-void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers, int jobsPerMinute, double costPerPage, int printCapacity,int downTime);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, int eachTier[], int jpm, int costPerPage, int printCapacity, int downTime);
 
-int poisson(double *cutoffs, int jpm) {
+/*
+ *
+ */
+int poisson(double *cutoffs, int jpm);
 
-void poissonJobs(int k, double *cutoffs,int *jobNum,jobType job,int clock,int maxPages);
+/*
+ *
+ */
+void poissonJobs(int k, double *cutoffs, int *jobNum, jobType *job, int clock, int maxPages);
 
+
+/*
+ *
+ */
 int factorial(int n);
 
-int main()
+
+/*  ============================ Main Starts ============================ */
+int main(void)
 {
     int numJobs = 100, numOfPrinters = 3, maxPages = 50, numTiers = 3, jobsPerMinute = 1,
         printCapacity = 300, downTime = 10, pr = 0;
@@ -30,7 +44,7 @@ int main()
     
     char boolPrintRate = 'x';
     
-    string jobFrequency = "aa";
+    char jobFrequency = 'a';
     
     //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
 
@@ -76,21 +90,20 @@ int main()
         cout << "Enter the cutoff point for tier " << i+1 << ": ";
         cin >> eachTier[i];
     }
-
-
+    
     //this while loop is a bit of error-checking to make sure jobFrequency gets one
     //of the 2 values it needs.
-    while (toupper(jobFrequency) != "JM" &&
-           toupper(jobFrequency) != "MJ")
+    while (toupper(jobFrequency) != 'J' &&
+           toupper(jobFrequency) != 'M')
     {
         cout << "Will there be an average of multiple jobs per minute coming in?" << endl
              << "Or" << endl
              << "Will there be an average of one job every several minutes?" << endl
-             << "Input 'JM' for jobs per minute or 'MJ' for minutes per job: ";
+             << "Input 'J' for jobs per minute or 'M' for minutes per job: ";
         cin >> jobFrequency;
     }
     
-    if (toupper(jobFrequency.c_str()) == "JM") {
+    if (toupper(jobFrequency) == 'J') {
         cout << "Enter the average number of jobs per minute: ";
         cin >> jobsPerMinute;
     
@@ -115,7 +128,7 @@ int main()
     
     //@TODO: Thought, could stash all data in a hash map(key => value pair) array and parse through it, would look cleaner
     //Run the simulation now that data has all been collected
-    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,jobsPerMinute,costPerPage,printCapacity,downTime);
+    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,eachTier,jobsPerMinute,costPerPage,printCapacity,downTime);
 
     return 0;
 }
@@ -127,7 +140,7 @@ int main()
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, int eachTier[], int jpm, int cpp, int printCapacity, int downTime)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, int eachTier[], int jpm, int costPerPage, int printCapacity, int downTime)
 {
     /*
      * sTime = Simluation Time
@@ -155,7 +168,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     
     
     //Create an instance of the printerList that will hold all the printers
-    printerListType printerList(/*numOfPrinters,*/printRate);
+    printerListType printerList(numOfPrinters, printRate);
 
     //Create jobQueueArray which will house all tieried 0->n-1 priority job queue's w/ tier information
     /*
@@ -169,7 +182,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     jobType job;
 
     //while loop to continue until jobQueue empty and printerList empty as well
-    while (printerList.getNumberOfBusyPrinters() != 0 || !jqArr.isEmpty()) {
+    while (jobNum < numJobs || printerList.getNumberOfBusyPrinters() != 0 || !jqArr.isEmpty()) {
 
         //increment sTime
         sTime++;
@@ -184,7 +197,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
         //create jobs while numJob < numJobs
         if (jobNum < numJobs) {
           jobNum++;
-          job.setJobInfo(jobNum, clock, 0, maxPages);
+          job.setJobInfo(jobNum, sTime, 0, maxPages);
           cout << "Job number " << job.getJobNumber() << "\nPages Created " << job.getNumPages() << endl;
           jqArr.sendJob(job);
         }
@@ -208,7 +221,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
             << "Average Wait Time: " << (float)waitTime/jobNum << endl;    
 }
 
-int poisson(double *cutoffs, int jpm) {
+int poisson(double *cutoffs, int jpm)
+{
     double totalpoisson;
     int k = 0;
     double poisson;
@@ -221,22 +235,23 @@ int poisson(double *cutoffs, int jpm) {
     return k;
 }
 
-void poissonJobs(int k, double *cutoffs,int *jobNum,*jobType job,int clock,int maxPages) {
-    double prob=(double)rand()/MAXRAND;
+void poissonJobs(int k, double *cutoffs, int *jobNum, jobType *job, int clock, int maxPages)
+{
+    double prob=(double)rand()/RAND_MAX;
     int i=0;
     int j=0;
-    for (i=0,i<k,i++) {
-        if (prob <= cutoff[i] {
-            for (j=0,j<i,j++) {
-                *jobNum++;
-                *job.setJobInfo(*jobNum,clock,0,maxPages);
+    for (i=0; i < k; i++) {
+        if (prob <= cutoffs[i]) {
+            for (j=0; j < i; j++) {
+                (*jobNum)++;
+                job->setJobInfo(*jobNum,clock,0,maxPages);
             }
             break;
         }
     }
     if (i==k) {
-        for (j=0;j<k,j++) {
-            *job.setJobInfo(*jobNum,clock,0,maxPages);
+        for ( j=0; j<k; j++) {
+            job->setJobInfo(*jobNum,clock,0,maxPages);
         }
     }
 }
