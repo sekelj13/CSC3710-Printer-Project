@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <ctime>
 #include <cstring>
+#include <cmath>
 
 #include "simulation.h"
 #include "queueAsArray.h" 
@@ -14,7 +15,11 @@ using namespace std;
  */
 void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers, int jobsPerMinute, double costPerPage, int printCapacity,int downTime);
 
+int poisson(double *cutoffs, int jpm) {
+
 void poissonJobs(int k, double *cutoffs,int *jobNum,jobType job,int clock,int maxPages);
+
+int factorial(int n);
 
 int main()
 {
@@ -210,11 +215,11 @@ int poisson(double *cutoffs, int jpm) {
     int k = 0;
     double poisson;
     do {
-        poisson = pow(jpm,k) * exp(-jpm)/fact(k);
+        poisson = pow(jpm,k) * exp(-jpm)/factorial(k);
         totalpoisson += poisson;
         cutoffs[k] = totalpoisson;
         k++;
-    } while (totalpoisson < .95)
+    } while (totalpoisson < .95);
     return k;
 }
 
@@ -236,4 +241,9 @@ void poissonJobs(int k, double *cutoffs,int *jobNum,*jobType job,int clock,int m
             *job.setJobInfo(*jobNum,clock,0,maxPages);
         }
     }
+}
+
+//Factorial function ripped directly off of cplusplus.com
+int factorial(int n) {
+    return (n == 1 || n == 0) ? 1 : factorial(n-1) * n;
 }
