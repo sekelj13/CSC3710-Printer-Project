@@ -12,19 +12,20 @@ using namespace std;
 /*
  * Run the simulation function(main will populate the run simulation parameters)
  */
-void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers, int jobsPerMinute, double costPerPage, int printCapacity,int downTime);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers, int jobsPerMinute, double costPerPage, int printCapacity,int downTime);
+
+void poissonJobs(int k, double *cutoffs,int *jobNum,jobType job,int clock,int maxPages);
 
 int main()
 {
-    int numJobs = 100, numOfPrinters = 3, printRate = 5, maxPages = 50, numTiers = 3, jobsPerMinute = 1,
+    int numJobs = 100, numOfPrinters = 3, maxPages = 50, numTiers = 3, jobsPerMinute = 1,
         printCapacity = 300, downTime = 10, pr = 0;
     
-    //Changed to double, could be some fraction of a dollar
     double costPerPage = .3;
     
     char boolPrintRate = 'x';
     
-    int jobFrequency = 0;
+    string jobFrequency = "aa";
     
     //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
 
@@ -35,8 +36,7 @@ int main()
     //Get the number of printers
     cout << "Specify the Number of Printers: " << endl;
     cin >> numOfPrinters;
-    //int printRate[numOfPrinters];
-    //@TODO: Why are we doing a printRate of an aray? When would we be passing an array as a parameter?
+    int printRate[numOfPrinters];
 
     
     //Printers print randomly or linearly
@@ -45,14 +45,15 @@ int main()
     if (toupper(boolPrintRate) == 'Y') {
         //Get Printer Rate
         cout << "Specify Print Rate: " << endl;
-	//@TODO: I think we need a dynamically-allocated array for pr as well here.
+	cin >> pr;
+	for (int i=0;i < numOfPrinters;i++)
+          printRate[i]=pr;
     } else {
         //for each printer, get print rate
         for (int i=0; i < numOfPrinters; i++) {
             cout << "Specify printer " << i+1 << "'s print rate: ";
             cin >> pr;
-            //printRate[i] = pr;
-            //@TODO: Why are we doing a printRate of an aray? When would we be passing an array as a parameter?
+            printRate[i] = pr;
         }
     }
     
@@ -72,14 +73,9 @@ int main()
     }
 
 
-    /*
-     * Check to see if their will be multiple jobs read in per minute
-     * or
-     * If their will be one job read in at a time
-     *
-     */
-    //@TODO: Why was this a while loop, I consolidated it to one statement
-    /*while (toupper(jobFrequency) != "JM" &&
+    //this while loop is a bit of error-checking to make sure jobFrequency gets one
+    //of the 2 values it needs.
+    while (toupper(jobFrequency) != "JM" &&
            toupper(jobFrequency) != "MJ")
     {
         cout << "Will there be an average of multiple jobs per minute coming in?" << endl
@@ -87,15 +83,11 @@ int main()
              << "Will there be an average of one job every several minutes?" << endl
              << "Input 'JM' for jobs per minute or 'MJ' for minutes per job: ";
         cin >> jobFrequency;
-    }*/
-    
-    
-    cout << "If you will process one job at a time enter 1" << endl
-         << "If you will process multiple jobs at a time enter 2" << endl;
-    cin  >> jobFrequency;
+    }
     
     //@TODO: Add new Var for multiple jobs or a single job(need to differentiate b/w the two)
-    if (jobFrequency == 2) {
+    //DJ - what...?
+    if (toupper(jobFrequency.c_str()) == "JM") {
         cout << "Enter the average number of jobs per minute: ";
         cin >> jobsPerMinute;
     
@@ -132,7 +124,7 @@ int main()
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate, int numTiers, int eachTier[], int jpm, int cpp, int printCapacity, int downTime)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, int eachTier[], int jpm, int cpp, int printCapacity, int downTime)
 {
     /*
      * sTime = Simluation Time
@@ -186,6 +178,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate, 
         //job queue array update
         jqArr.updateWaitingQueues();
 
+        //create jobs while numJob < numJobs
         if (jobNum < numJobs) {
           jobNum++;
           job.setJobInfo(jobNum, clock, 0, maxPages);
@@ -210,4 +203,37 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate, 
             << "Total Wait Time between all jobs: "  << waitTime << endl
             << "Total Jobs: "  << jobNum << endl
             << "Average Wait Time: " << (float)waitTime/jobNum << endl;    
+}
+
+int poisson(double *cutoffs, int jpm) {
+    double totalpoisson;
+    int k = 0;
+    double poisson;
+    do {
+        poisson = pow(jpm,k) * exp(-jpm)/fact(k);
+        totalpoisson += poisson;
+        cutoffs[k] = totalpoisson;
+        k++;
+    } while (totalpoisson < .95)
+    return k;
+}
+
+void poissonJobs(int k, double *cutoffs,int *jobNum,*jobType job,int clock,int maxPages) {
+    double prob=(double)rand()/MAXRAND;
+    int i=0;
+    int j=0;
+    for (i=0,i<k,i++) {
+        if (prob <= cutoff[i] {
+            for (j=0,j<i,j++) {
+                *jobNum++;
+                *job.setJobInfo(*jobNum,clock,0,maxPages);
+            }
+            break;
+        }
+    }
+    if (i==k) {
+        for (j=0;j<k,j++) {
+            *job.setJobInfo(*jobNum,clock,0,maxPages);
+        }
+    }
 }
