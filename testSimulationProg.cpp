@@ -9,13 +9,15 @@
 
 using namespace std;
 
-<<<<<<< HEAD
-void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers, int jobsPerMinute, double costPerPage,int printCapacity,int downTime);
+/*
+ * Run the simulation function(main will populate the run simulation parameters)
+ */
+void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers, int jobsPerMinute, double costPerPage, int printCapacity,int downTime);
 
 int main()
 {
     int numJobs = 100, numOfPrinters = 3, printRate = 5, maxPages = 50, numTiers = 3, jobsPerMinute = 1,
-        printCapacity = 300, downTime = 10;
+        printCapacity = 300, downTime = 10, pr = 0;
     
     //Changed to double, could be some fraction of a dollar
     double costPerPage = .3;
@@ -25,24 +27,17 @@ int main()
     int jobFrequency = 0;
     
     //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
+
     //Get the number of jobs
-=======
-void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers,int eachTier[],int jpm,int cpp,int printCapacity,int downTime);
-
-int main()
-{
-    int numJobs = 100, numOfPrinters = 3, maxPages = 50, numTiers = 3, jpm = 1,cpp = .3,printCapacity = 300,downTime = 10;
-    string jobFrequency = "aa";
-
-    //get numJobs
->>>>>>> e49688d6fc617e5b9dab1dc4fe248aff26b35420
     cout << "Enter Number of Jobs: " << endl;
     cin >> numJobs;
     
     //Get the number of printers
     cout << "Specify the Number of Printers: " << endl;
     cin >> numOfPrinters;
-<<<<<<< HEAD
+    //int printRate[numOfPrinters];
+    //@TODO: Why are we doing a printRate of an aray? When would we be passing an array as a parameter?
+
     
     //Printers print randomly or linearly
     cout << "Do all printers print at the same rate? (y/n) " << endl;
@@ -53,27 +48,11 @@ int main()
 	//@TODO: I think we need a dynamically-allocated array for pr as well here.
     } else {
         //for each printer, get print rate
-        for (int i = 0;i < numOfPrinters;i++) {
+        for (int i=0; i < numOfPrinters; i++) {
             cout << "Specify printer " << i+1 << "'s print rate: ";
-            //@TODO: Fill in printer array
-=======
-    int printRate[numOfPrinters];
-    //do printers all print at same rate?
-    cout << "Do all printers print at the same rate? (y/n) "; << endl;
-    char ans;
-    cin >> ans;
-    int pr;
-    if (toupper(ans) == "Y") {//get printRate
-        cout << "Specify Print Rate in pages per unit time: " << endl;
-        cin >> pr;
-	for (int i=0;i < numOfPrinters;i++)
-            printRate[i] = pr;
-    } else {//for each printer, get print rate
-        for (int i = 0;i < numOfPrinters;i++) {
-            cout << "Specify printer " << i+1 << "'s print rate in pages per unit time: ";
             cin >> pr;
-            printRate[i] = pr;
->>>>>>> e49688d6fc617e5b9dab1dc4fe248aff26b35420
+            //printRate[i] = pr;
+            //@TODO: Why are we doing a printRate of an aray? When would we be passing an array as a parameter?
         }
     }
     
