@@ -11,6 +11,8 @@ using namespace std;
 
 jobQueueArray::jobQueueArray()
 {
+    
+    
     //Create Job Queue Array
     //@TODO: Change to more modular type
     /*

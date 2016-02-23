@@ -2,79 +2,117 @@
 #include <cstdlib>
 #include <iomanip>
 #include <ctime>
+#include <cstring>
 
 #include "simulation.h"
 #include "queueAsArray.h" 
 
 using namespace std;
 
-void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers,int jpm,int cpp,int printCapacity,int downTime);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers, int jobsPerMinute, double costPerPage,int printCapacity,int downTime);
 
 int main()
 {
-    int numJobs = 100, numOfPrinters = 3,printRate = 5, maxPages = 50, numTiers = 3, jpm = 1,cpp = .3,printCapacity = 300,downTime = 10;
-    string jobFrequency = "aa";
-    //get numJobs
+    int numJobs = 100, numOfPrinters = 3, printRate = 5, maxPages = 50, numTiers = 3, jobsPerMinute = 1,
+        printCapacity = 300, downTime = 10;
+    
+    //Changed to double, could be some fraction of a dollar
+    double costPerPage = .3;
+    
+    char boolPrintRate = 'x';
+    
+    int jobFrequency = 0;
+    
+    //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
+    //Get the number of jobs
     cout << "Enter Number of Jobs: " << endl;
     cin >> numJobs;
-    //get numOfPrinters
+    
+    //Get the number of printers
     cout << "Specify the Number of Printers: " << endl;
     cin >> numOfPrinters;
-    //do printers all print at same rate?
-    cout << "Do all printers print at the same rate? (y/n) "; << endl;
-    char ans;
-    cin >> ans;
-    if (toupper(ans) == "Y") {
-        //get printRate
+    
+    //Printers print randomly or linearly
+    cout << "Do all printers print at the same rate? (y/n) " << endl;
+    cin >> boolPrintRate;
+    if (toupper(boolPrintRate) == 'Y') {
+        //Get Printer Rate
         cout << "Specify Print Rate: " << endl;
 	//@TODO: I think we need a dynamically-allocated array for pr as well here.
     } else {
         //for each printer, get print rate
         for (int i = 0;i < numOfPrinters;i++) {
             cout << "Specify printer " << i+1 << "'s print rate: ";
-	    cin >> 
-            
+            //@TODO: Fill in printer array
         }
     }
-    //get maxPages
+    
+    //Get the maximum number of pages able to printer / job
     cout << "Input the Maximum Pages Able To Print: " << endl;
     cin >> maxPages;
-    //get numTiers
-    cout << "Input number of tiers for print jobs: ";
+    
+    
+    //Get the total number of tiers in the waiting list queue
+    cout << "Enter the amount total amount of printer tiers: ";
     cin >> numTiers;
     //@TODO: need to figure out displacement of tiers as well
 
-    //Figure out the average number of jobs per minute
-    while (toupper(jobFrequency.c_str() != "JM" and toupper(jobFrequency.c_str() != "MJ") {
+
+    /*
+     * Check to see if their will be multiple jobs read in per minute
+     * or
+     * If their will be one job read in at a time
+     *
+     */
+    //@TODO: Why was this a while loop, I consolidated it to one statement
+    /*while (toupper(jobFrequency) != "JM" &&
+           toupper(jobFrequency) != "MJ")
+    {
         cout << "Will there be an average of multiple jobs per minute coming in?" << endl
-             << "OR" << endl
+             << "Or" << endl
              << "Will there be an average of one job every several minutes?" << endl
              << "Input 'JM' for jobs per minute or 'MJ' for minutes per job: ";
         cin >> jobFrequency;
-    }
-    jobFrequency = toupper(jobFrequency.c_str();
-    if (jobFrequency == "JM") {
+    }*/
+    
+    
+    cout << "If you will process one job at a time enter 1" << endl
+         << "If you will process multiple jobs at a time enter 2" << endl;
+    cin  >> jobFrequency;
+    
+    //@TODO: Add new Var for multiple jobs or a single job(need to differentiate b/w the two)
+    if (jobFrequency == 2) {
         cout << "Enter the average number of jobs per minute: ";
-        cin >> jpm;
+        cin >> jobsPerMinute;
+    
     } else {
         cout << "Enter the average number of minutes per job: ";
-	cin >> jpm;
-	jpm = 1/jpm;
+        cin >> jobsPerMinute;
+        jobsPerMinute = 1 / jobsPerMinute;
     }
-    //get cost per page in dollars
+    
+    //Get the printed page per dollar cost
     cout << "Enter the approximate cost per page in dollars: ";
-    cin >> cpp;
-    //get printing capacity before requiring maintenance
+    cin >> costPerPage;
+    
+    //Get max number pages printer can print before maintence is needed
     cout << "Enter number of pages the printers can print before requiring maintenance: ";
     cin >> printCapacity;
-    //get amount of time printer is offline
+   
+    //Get the amount of time a printer is down for maintence
     cout << "Enter amount of time printer is down for maintenance in minutes: ";
     cin >> downTime;
-    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,jpm,cpp,printCapacity,downTime);
+    
+    
+    //@TODO: Thought, could stash all data in a hash map(key => value pair) array and parse through it, would look cleaner
+    //Run the simulation now that data has all been collected
+    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,jobsPerMinute,costPerPage,printCapacity,downTime);
 
     return 0;
 }
 //--------------------------- Main Ends -----------------------------------
+
+
 /*
  * Functions Begin
  */
@@ -89,27 +127,37 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate,i
      *
      */
 
-    //seed random
-    cout << "Give a seed: ";
-    int seed;
-    cin >> seed;
-    srand(seed);
-
-    int sTime = 0;
-
-    int jobNum = 0;
-    //create printerList
+    char checkSeed;
+    
+    int seed = 0, sTime = 0, jobNum = 0, waitTime = 0, printPages = 0;
+    
+    //Seed the program
+    //@TODO: Maybe change type of seed from int to something
+        //i.e., typecast or figure out what type of seeds were possible
+    cout << "Type Y if you would like to manually seed your simulation: ";
+    cin >> checkSeed;
+    if(toupper(checkSeed) == 'Y'){
+        cout << "Enter in your seed as an integer: ";
+        cin >> seed;
+        srand(seed);
+    } else {
+        srand(time(NULL));
+    }
+    
+    
+    //Create an instance of the printerList that will hold all the printers
     printerListType printerList(/*numOfPrinters,*/printRate);
 
-    //Create a jobQueueArray Object to pass jobs
+    //Create jobQueueArray which will house all tieried 0->n-1 priority job queue's w/ tier information
+    /*
+     * @TODO: Create constructor which will tell how many tiers & explicit values for each of those tiers
+     *          could possibly be in a hashmap, or read in via for/while loop and added dynamically in the
+     *          constructor in jobQueueArrayClass
+     */
     jobQueueArray jqArr;
 
-    //create a job to give to jobQueue whenever needed
+    //Create an instance of a job
     jobType job;
-    
-    int waitTime = 0;
-    
-    int printPages = 0;
 
     //currently, all jobs are created and enqueued before any of them get printed.
     //for loop to create all new jobs
@@ -173,6 +221,5 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate,i
             << "Time between job arrivals: " << 1 << endl
             << "Total Wait Time between all jobs: "  << waitTime << endl
             << "Total Jobs: "  << jobNum << endl
-            << "Average Wait Time: " << (float)waitTime/jobNum << endl;
-    
+            << "Average Wait Time: " << (float)waitTime/jobNum << endl;    
 }
