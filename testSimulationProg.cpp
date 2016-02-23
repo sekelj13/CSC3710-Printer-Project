@@ -15,8 +15,16 @@ using namespace std;
  */
 void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers, int jobsPerMinute, double costPerPage, int printCapacity,int downTime);
 
+<<<<<<< HEAD
 void poissonJobs(int k, double *cutoffs,int *jobNum,*jobType job,int clock,int maxPages);
 int poisson(double *cutoffs, int jpm);
+=======
+int poisson(double *cutoffs, int jpm) {
+
+void poissonJobs(int k, double *cutoffs,int *jobNum,jobType job,int clock,int maxPages);
+>>>>>>> a6236f024e34341a3574d549468e915f1690cce2
+
+int factorial(int n);
 
 int main()
 {
@@ -212,7 +220,7 @@ int poisson(double *cutoffs, int jpm) {
     int k = 0;
     double poisson;
     do {
-        poisson = pow(jpm,k) * exp(-jpm)/fact(k);
+        poisson = pow(jpm,k) * exp(-jpm)/factorial(k);
         totalpoisson += poisson;
         cutoffs[k] = totalpoisson;
         k++;
@@ -238,4 +246,9 @@ void poissonJobs(int k, double *cutoffs,int *jobNum,*jobType job,int clock,int m
             *job.setJobInfo(*jobNum,clock,0,maxPages);
         }
     }
+}
+
+//Factorial function ripped directly off of cplusplus.com
+int factorial(int n) {
+    return (n == 1 || n == 0) ? 1 : factorial(n-1) * n;
 }
