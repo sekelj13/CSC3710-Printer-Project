@@ -8,7 +8,7 @@
 
 using namespace std;
 
-void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers,int jpm,int cpp,int printCapacity,int downTime);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers,int eachTier[],int jpm,int cpp,int printCapacity,int downTime);
 
 int main()
 {
@@ -27,14 +27,12 @@ int main()
     char ans;
     cin >> ans;
     int pr;
-    if (toupper(ans) == "Y") {
-        //get printRate
+    if (toupper(ans) == "Y") {//get printRate
         cout << "Specify Print Rate in pages per unit time: " << endl;
         cin >> pr;
 	for (int i=0;i < numOfPrinters;i++)
             printRate[i] = pr;
-    } else {
-        //for each printer, get print rate
+    } else {//for each printer, get print rate
         for (int i = 0;i < numOfPrinters;i++) {
             cout << "Specify printer " << i+1 << "'s print rate in pages per unit time: ";
             cin >> pr;
@@ -47,7 +45,12 @@ int main()
     //get numTiers
     cout << "Input number of tiers for print jobs: ";
     cin >> numTiers;
-    //@TODO: need to figure out displacement of tiers as well
+    //get each tier's cutoff point
+    int eachTier[numTiers];
+    for (int i=0;i < numTiers;i++) {
+        cout << "Enter the cutoff point for tier " << i+1 << ": ";
+        cin >> eachTier[i];
+    }
 
     //Figure out the average number of jobs per minute
     while (toupper(jobFrequency.c_str() != "JM" and toupper(jobFrequency.c_str() != "MJ") {
@@ -85,7 +88,7 @@ int main()
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate,int numTiers)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate, int numTiers, int eachTier[], int jpm, int cpp, int printCapacity, int downTime)
 {
     /*
      * sTime = Simluation Time
