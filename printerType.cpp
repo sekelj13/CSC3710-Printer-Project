@@ -14,14 +14,15 @@ printerType::printerType()
     status = "free";
     printTime = 0;
     failure = false;
-    maxPages = 100;
+    maxPaper = 100;
 }
 
-printerType::printerType(int maxpg,double prob) {
+printerType::printerType(int maxpg,double prob)
+{
     status = "free";
     printTime = 0;
     failure = false;
-    maxPages = maxpg;
+    maxPaper = maxpg;
     if (0 >= prob || 1 <= prob) {
         cerr << "ERROR: Invalid probability of failure" << endl
            << "probOfFailure set to .05" << endl;
@@ -100,27 +101,36 @@ int printerType::getCurrentJobPrintTime() const
     return currentJob.getPrintTime();
 }
 
-bool printerType::checkFail() {
-    if ((int check = rand() %1000 + 1) <= (probOfFailure * 1000)) {//check is a random integer between 1 and 1000
-                                                                  //if check <= probOfFailure*1000, a failure occurs
-        failure = true;
+bool printerType::checkFail()
+{
+    int check = 0;
+    if ((check = rand() % 1000 + 1) <= (probOfFailure * 1000)) {
+        /*
+         *check is a random integer between 1 and 1000
+         *if check <= probOfFailure*1000, a failure occurs
+         */
+         failure = true;
     } else
         failure = false;
     return failure;
 }
 
-int getPaperLeft() {
+int printerType::getPaperLeft()
+{
     return paperLeft;
 }
 
-void refillPrinter() {
+void printerType::refillPrinter()
+{
     paperLeft = maxPaper;
 }
 
-void setProbOfFailure(int prob {
+void printerType::setProbOfFailure(int prob)
+{
     probOfFailure = prob;
 }
 
-double getProbOfFailure {
+double printerType::getProbOfFailure()
+{
     return probOfFailure;
 }
