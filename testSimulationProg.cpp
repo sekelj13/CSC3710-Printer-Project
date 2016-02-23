@@ -159,40 +159,6 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate,i
     //Create an instance of a job
     jobType job;
 
-    //currently, all jobs are created and enqueued before any of them get printed.
-    //for loop to create all new jobs
-    for (int clock = 1; clock <= numJobs; clock++) {
-
-/*
-        sTime++;
-        cout << endl << "At time unit "<< sTime << endl;
-    	//update printer list & decrements
-        printerList.updatePrinters(cout);
-        
-        //job queue array update
-        jqArr.updateWaitingQueues();
-
-        //increment numjobs and add job
-        //want equal possibility for each tier: t1 is 0-9, t2 is 10-19, t3 is 20-29.
-*/        
-        jobNum++; //incremented job by 1
-        //Create Job -- job number and arrival time will be the same here
-        job.setJobInfo(jobNum, clock, 0, maxPages);
-        cout << "Job number " << job.getJobNumber() << "\nPages Created "<< job.getNumPages() << endl;
-        jqArr.sendJob(job);
-
-/*
-        //if printer is free and queue nonempty, pair job with printer
-        if (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
-            if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
-                waitTime += job.getWaitingTime();
-                printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob());
-            }
-        }
-*/
-        
-    }
-    cout << endl << "All jobs created and enqueued." << endl << endl;
     //while loop to continue until jobQueue empty and printerList empty as well
     while (printerList.getNumberOfBusyPrinters() != 0 || !jqArr.isEmpty()) {
 
@@ -204,6 +170,13 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate,i
         
         //job queue array update
         jqArr.updateWaitingQueues();
+
+        if (jobNum < numJobs) {
+          jobNum++;
+          job.setJobInfo(jobNum, clock, 0, maxPages);
+          cout << "Job number " << job.getJobNumber() << "\nPages Created " << job.getNumPages() << endl;
+          jqArr.sendJob(job);
+        }
         
         //if printer is free and queue nonempty, pair job with printer
         if (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){

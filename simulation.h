@@ -185,6 +185,13 @@ public:
       //               default constructor; status = "free"; and
       //               the print time is initialized to 0.
 
+    printerType(int maxpg,double prob);
+      //Sets the values of the instance variables to specified values
+      //Postcondition: currentJob is initialized by its
+      //               default constructor; status = "free"; print
+      //               time is initialized to 0; maxPages is
+      //               initialized; probOfFailure is initialized
+
     bool isFree() const;
       //Function to determine if the printer is free.
       //Postcondition: Returns true if the printer is free, 
@@ -249,12 +256,39 @@ public:
       //Postcondition: The value of printTime of the 
       //               current job is returned.
 
+    bool checkFail();
+      //Function to check if printer fails. If no prob is given, %5 chance
+      //to fail.
+      //Postcondition: Bool failure will be true if there is a failure, else
+      // failure will be false.
+
+    int getPaperLeft();
+      //Function that returns the paper left in the printer
+      //Postcondition: Returns paper left before printer runs out
+
+    void refillPrinter();
+      //Function to refill the printer when it is out of paper/ink/whatever
+      //Postcondition: Printer will have maxPaper amount of paper
+
+
+    void setProbOfFailure(int prob);
+      //Function to set probOfFailure
+      //NOTE: assumes error checking has already occurred.
+      //postcondition: probOfFailure equals prob
+
+    double getProbOfFailure();
+
 private:
     jobType currentJob;
     string status;
     int pagesLeft;
     int printRate;
     int printTime;
+    double probOfFailure; //Chance that printer fails
+    bool failure; //True if printer broke, false if still running
+    int costPerPage; //How much each page costs to print with current printer
+    int paperLeft; //Paper left in the printer
+    int maxPaper; //Maximum number of paper a printer can hold
 };
 
 
