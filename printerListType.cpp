@@ -9,14 +9,14 @@ using namespace std;
 
 /* ======================== printerListType ======================== */
 
-printerListType::printerListType(int numPrinters,int pr)
+printerListType::printerListType(int numPrinters,int pr[])
 {
     //in simulation.h, printers is delcared as printers[numOfPrinters]. This should
     //  take care of allocation.
     numOfPrinters=numPrinters;
     printers = new printerType[numPrinters];
     for (int i=0;i < numPrinters;i++) {
-        printers[i].setPrintRate(pr);
+        printers[i].setPrintRate(pr[i]);
     }
     
 }

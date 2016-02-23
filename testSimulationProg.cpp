@@ -8,32 +8,37 @@
 
 using namespace std;
 
-void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate,int numTiers,int jpm,int cpp,int printCapacity,int downTime);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers,int jpm,int cpp,int printCapacity,int downTime);
 
 int main()
 {
-    int numJobs = 100, numOfPrinters = 3,printRate = 5, maxPages = 50, numTiers = 3, jpm = 1,cpp = .3,printCapacity = 300,downTime = 10;
+    int numJobs = 100, numOfPrinters = 3, maxPages = 50, numTiers = 3, jpm = 1,cpp = .3,printCapacity = 300,downTime = 10;
     string jobFrequency = "aa";
+
     //get numJobs
     cout << "Enter Number of Jobs: " << endl;
     cin >> numJobs;
     //get numOfPrinters
     cout << "Specify the Number of Printers: " << endl;
     cin >> numOfPrinters;
+    int printRate[numOfPrinters];
     //do printers all print at same rate?
     cout << "Do all printers print at the same rate? (y/n) "; << endl;
     char ans;
     cin >> ans;
+    int pr;
     if (toupper(ans) == "Y") {
         //get printRate
-        cout << "Specify Print Rate: " << endl;
-	//@TODO: I think we need a dynamically-allocated array for pr as well here.
+        cout << "Specify Print Rate in pages per unit time: " << endl;
+        cin >> pr;
+	for (int i=0;i < numOfPrinters;i++)
+            printRate[i] = pr;
     } else {
         //for each printer, get print rate
         for (int i = 0;i < numOfPrinters;i++) {
-            cout << "Specify printer " << i+1 << "'s print rate: ";
-	    cin >> 
-            
+            cout << "Specify printer " << i+1 << "'s print rate in pages per unit time: ";
+            cin >> pr;
+            printRate[i] = pr;
         }
     }
     //get maxPages
@@ -117,6 +122,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate,i
         //increment sTime
         sTime++;
         cout << endl << "At time unit "<< sTime << endl;
+
         //update printer list & decrements
         printerList.updatePrinters(cout);
         
