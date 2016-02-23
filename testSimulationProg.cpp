@@ -3,6 +3,7 @@
 #include <iomanip>
 #include <ctime>
 #include <cstring>
+#include <cmath>
 
 #include "simulation.h"
 #include "queueAsArray.h" 
@@ -14,7 +15,8 @@ using namespace std;
  */
 void runSimulation(int numOfPrinters, int numJobs, int maxPages,int printRate[],int numTiers, int jobsPerMinute, double costPerPage, int printCapacity,int downTime);
 
-void poissonJobs(int k, double *cutoffs,int *jobNum,jobType job,int clock,int maxPages);
+void poissonJobs(int k, double *cutoffs,int *jobNum,*jobType job,int clock,int maxPages);
+int poisson(double *cutoffs, int jpm);
 
 int main()
 {
@@ -214,7 +216,7 @@ int poisson(double *cutoffs, int jpm) {
         totalpoisson += poisson;
         cutoffs[k] = totalpoisson;
         k++;
-    } while (totalpoisson < .95)
+    } while (totalpoisson < .95);
     return k;
 }
 
