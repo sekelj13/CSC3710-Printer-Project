@@ -90,8 +90,6 @@ int main()
         cin >> jobFrequency;
     }
     
-    //@TODO: Add new Var for multiple jobs or a single job(need to differentiate b/w the two)
-    //DJ - what...?
     if (toupper(jobFrequency.c_str()) == "JM") {
         cout << "Enter the average number of jobs per minute: ";
         cin >> jobsPerMinute;
