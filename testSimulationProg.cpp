@@ -6,6 +6,7 @@
 #include <cmath>
 #include <cctype>
 #include <clocale>
+#include <map> //Hash Map
 
 #include "simulation.h"
 #include "queueAsArray.h" 
@@ -14,8 +15,9 @@ using namespace std;
 
 /*
  * Run the simulation function(main will populate the run simulation parameters)
+ *
  */
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, int eachTier[], int jpm, int costPerPage, int printCapacity, int downTime);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, int costPerPage, int printCapacity, int downTime);
 
 /*
  *
@@ -45,6 +47,8 @@ int main(void)
     char boolPrintRate = 'x';
     
     char jobFrequency = 'a';
+
+    
     
     //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
 
@@ -59,6 +63,7 @@ int main(void)
 
     
     //Printers print randomly or linearly
+    //pr = print rate
     cout << "Do all printers print at the same rate? (y/n) " << endl;
     cin >> boolPrintRate;
     if (toupper(boolPrintRate) == 'Y') {
@@ -84,15 +89,33 @@ int main(void)
     //Get the total number of tiers in the waiting list queue
     cout << "Enter the amount total amount of printer tiers: ";
     cin >> numTiers;
-    //get each tier's cutoff point
-    int eachTier[numTiers];
-    for (int i=0;i < numTiers;i++) {
+    
+    /*
+     * 
+     * Used a hashmap to initalize tiers & cutoffs
+     * send hashmap to jobQueueArray & fill each array that way
+     *
+     */
+    //Get the cutoff point for each tier
+    map<string, int> tiers;
+    // map<string, int>::iterator tierIterator; //Iterate through the tiers
+    string tierName = "";
+    int tier = 0;
+
+    for (int i= 0; i < numTiers; i++) {
         cout << "Enter the cutoff point for tier " << i+1 << ": ";
-        cin >> eachTier[i];
+        cin >> tier;
+        tierName = "tier"+to_string(i);
+        tiers[tierName] = tier;
+        tierName="";
     }
+    
+    //@TODO: Remove
+    jobQueueArray newTier(tiers);
     
     //this while loop is a bit of error-checking to make sure jobFrequency gets one
     //of the 2 values it needs.
+    //@TODO: Clean up cout statement a bit?
     while (toupper(jobFrequency) != 'J' &&
            toupper(jobFrequency) != 'M')
     {
@@ -126,9 +149,8 @@ int main(void)
     cin >> downTime;
     
     
-    //@TODO: Thought, could stash all data in a hash map(key => value pair) array and parse through it, would look cleaner
     //Run the simulation now that data has all been collected
-    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,eachTier,jobsPerMinute,costPerPage,printCapacity,downTime);
+    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,tiers,jobsPerMinute,costPerPage,printCapacity,downTime);
 
     return 0;
 }
@@ -140,7 +162,7 @@ int main(void)
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, int eachTier[], int jpm, int costPerPage, int printCapacity, int downTime)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, int costPerPage, int printCapacity, int downTime)
 {
     /*
      * sTime = Simluation Time
@@ -151,6 +173,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 
     char checkSeed;
     
+    
+    //@TODO: Unused PrintPages
     int seed = 0, sTime = 0, jobNum = 0, waitTime = 0, printPages = 0;
     
     //Seed the program
@@ -176,7 +200,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
      *          could possibly be in a hashmap, or read in via for/while loop and added dynamically in the
      *          constructor in jobQueueArrayClass
      */
-    jobQueueArray jqArr;
+    
+    jobQueueArray jqArr(tiers);
 
     //Create an instance of a job
     jobType job;
@@ -184,7 +209,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     //while loop to continue until jobQueue empty and printerList empty as well
     while (jobNum < numJobs || printerList.getNumberOfBusyPrinters() != 0 || !jqArr.isEmpty()) {
 
-        //increment sTime
+        //increment Simulation Time(sTime)
         sTime++;
         cout << endl << "At time unit "<< sTime << endl;
 

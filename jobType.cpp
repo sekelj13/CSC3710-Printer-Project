@@ -19,8 +19,7 @@ jobType::jobType(int jobN, int arrvTime,
 void jobType::setJobInfo(int jobN, int arrvTime,
                          int wTime, int max)
 {
-    
-    
+        
     jobNumber = jobN;
     arrivalTime = arrvTime;
     waitingTime = wTime;
@@ -88,4 +87,8 @@ void jobType::setPages(int val) {
 
 int jobType::getNumPages() {
     return pages;
+}
+
+int jobType::getMaxPages() {
+    return maxPages;
 }

@@ -21,6 +21,8 @@
 
 #include <fstream>
 #include <string>
+#include <map>
+#include <vector>
 #include "queueAsArray.h"
 #include "linkedQueue.h"
 
@@ -96,6 +98,10 @@ public:
       //returns number of pages
       //postcondition: pages is returned
     
+    int getMaxPages();
+        //returns total number of max pages allowed
+        //postcondition: max Total Pages is returned
+    
 
 private:
     int jobNumber;
@@ -149,8 +155,12 @@ public:
     //- Take Job, Add to Tier Queue Array
     //-
     
-    //Constructor
-    jobQueueArray();
+    /*
+     * ---- Constructor
+     * When an instance is created, pass the amount of tiers
+     *    and their cutoffs. Sent via a hashmap
+     */
+    jobQueueArray(map<string, int> tiers);
     
     //Send job to Queue
     void sendJob(jobType job);
@@ -170,7 +180,8 @@ private:
     //@TODO: Make the set or get const not the actual variable?
     int maxJobs;
     int jobCounter;
-    jobQueue jobQArr[3];
+    vector<jobQueue> jobQArr;
+    map<string, int> tiers;
     jobType job;
 };
 	//*************  printerType  ****************
@@ -351,5 +362,4 @@ private:
     int numOfPrinters;
     printerType *printers;
 };
-
 #endif

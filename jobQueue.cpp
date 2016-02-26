@@ -27,8 +27,13 @@ void jobQueue::updateWaitingQueue()
     job.setWaitingTime(-1);
     int wTime = 0;
     
+    //Adds @ tail 
     addQueue(job);
-    //Doesn't process -1 job
+
+    /*
+     * Takes job out of queue, adds time to it, re-inserts it
+     * until hit's -1
+     */
     while (wTime != -1)
     {
         job = front();
