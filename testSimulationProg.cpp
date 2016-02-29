@@ -101,11 +101,13 @@ int main(void)
     // map<string, int>::iterator tierIterator; //Iterate through the tiers
     string tierName = "";
     int tier = 0;
+    stringstream temp;
 
     for (int i= 0; i < numTiers; i++) {
         cout << "Enter the cutoff point for tier " << i+1 << ": ";
         cin >> tier;
-        tierName = "tier"+to_string(i);
+        temp << "tier" << i;//temp is now tier1, tier2, etc.
+	tier = temp.str();
         tiers[tierName] = tier;
         tierName="";
     }
@@ -174,8 +176,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     char checkSeed;
     
     
-    //@TODO: Unused PrintPages
-    int seed = 0, sTime = 0, jobNum = 0, waitTime = 0, printPages = 0;
+    int seed = 0, sTime = 0, jobNum = 0, waitTime = 0;
     
     //Seed the program
     //@TODO: Maybe change type of seed from int to something
