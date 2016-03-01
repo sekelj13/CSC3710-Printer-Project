@@ -163,7 +163,7 @@ int main(void)
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string,int> tiers, int jpm, double costPerPage, int printCapacity, int downTime)
 {
     /*
      * sTime = Simluation Time
