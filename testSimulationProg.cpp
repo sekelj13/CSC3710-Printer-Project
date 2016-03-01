@@ -18,7 +18,7 @@ using namespace std;
  * Run the simulation function(main will populate the run simulation parameters)
  *
  */
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, int costPerPage, int printCapacity, int downTime);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime);
 
 /*
  *
@@ -243,7 +243,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     cout    << endl << "Simulation Completed.\n"
             << "Simulation time: " << sTime << endl
             << "Number of printers: " << numOfPrinters << endl
-	    << "Total number of pages printed: " << totalPagesPrinted << endl
+            << "Total number of pages printed: " << totalPagesPrinted << endl
             << "Total Wait Time between all jobs: " << waitTime << endl << endl;
 	    cout << "============ Tier-by-Tier Statistics ============" << endl;
 
