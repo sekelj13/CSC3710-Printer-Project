@@ -1,0 +1,552 @@
+
+At time unit 1
+Job number 1
+Pages Created 11
+
+At time unit 2
+Job number 2
+Pages Created 30
+
+At time unit 3
+Job number 3
+Pages Created 26
+
+At time unit 4
+From printer number  1 job number 1 departed.
+Job number 4
+Pages Created 28
+
+At time unit 5
+Job number 5
+Pages Created 10
+
+At time unit 6
+Job number 6
+Pages Created 14
+
+At time unit 7
+Job number 7
+Pages Created 6
+
+At time unit 8
+From printer number  2 job number 2 departed.
+Job number 8
+Pages Created 20
+
+At time unit 9
+From printer number  3 job number 3 departed.
+Job number 9
+Pages Created 5
+
+At time unit 10
+From printer number  1 job number 4 departed.
+From printer number  2 job number 5 departed.
+Job number 10
+Pages Created 19
+
+At time unit 11
+Job number 11
+Pages Created 1
+
+At time unit 12
+From printer number  1 job number 7 departed.
+From printer number  3 job number 6 departed.
+Job number 12
+Pages Created 3
+
+At time unit 13
+From printer number  1 job number 9 departed.
+Job number 13
+Pages Created 29
+
+At time unit 14
+From printer number  1 job number 11 departed.
+From printer number  2 job number 8 departed.
+Job number 14
+Pages Created 4
+
+At time unit 15
+From printer number  1 job number 12 departed.
+Job number 15
+Pages Created 1
+
+At time unit 16
+From printer number  1 job number 14 departed.
+From printer number  3 job number 10 departed.
+Job number 16
+Pages Created 3
+
+At time unit 17
+From printer number  1 job number 15 departed.
+From printer number  3 job number 16 departed.
+Job number 17
+Pages Created 11
+
+At time unit 18
+Job number 18
+Pages Created 4
+
+At time unit 19
+From printer number  3 job number 18 departed.
+Job number 19
+Pages Created 21
+
+At time unit 20
+From printer number  1 job number 17 departed.
+From printer number  2 job number 13 departed.
+Job number 20
+Pages Created 9
+
+At time unit 21
+Job number 21
+Pages Created 29
+
+At time unit 22
+From printer number  1 job number 20 departed.
+Job number 22
+Pages Created 20
+
+At time unit 23
+Job number 23
+Pages Created 18
+
+At time unit 24
+From printer number  3 job number 19 departed.
+Job number 24
+Pages Created 4
+
+At time unit 25
+Job number 25
+Pages Created 1
+
+At time unit 26
+From printer number  1 job number 22 departed.
+Job number 26
+Pages Created 29
+
+At time unit 27
+From printer number  1 job number 24 departed.
+From printer number  2 job number 21 departed.
+Job number 27
+Pages Created 30
+
+At time unit 28
+From printer number  1 job number 25 departed.
+From printer number  3 job number 23 departed.
+Job number 28
+Pages Created 4
+
+At time unit 29
+From printer number  3 job number 28 departed.
+Job number 29
+Pages Created 6
+
+At time unit 30
+Job number 30
+Pages Created 18
+
+At time unit 31
+From printer number  3 job number 29 departed.
+Job number 31
+Pages Created 11
+
+At time unit 32
+Job number 32
+Pages Created 7
+
+At time unit 33
+From printer number  2 job number 26 departed.
+Job number 33
+Pages Created 12
+
+At time unit 34
+From printer number  1 job number 27 departed.
+Job number 34
+Pages Created 9
+
+At time unit 35
+From printer number  3 job number 30 departed.
+Job number 35
+Pages Created 29
+
+At time unit 36
+From printer number  1 job number 32 departed.
+From printer number  2 job number 31 departed.
+Job number 36
+Pages Created 26
+
+At time unit 37
+Job number 37
+Pages Created 21
+
+At time unit 38
+From printer number  1 job number 34 departed.
+From printer number  3 job number 33 departed.
+Job number 38
+Pages Created 2
+
+At time unit 39
+Job number 39
+Pages Created 6
+
+At time unit 40
+Job number 40
+Pages Created 18
+
+At time unit 41
+Job number 41
+Pages Created 13
+
+At time unit 42
+From printer number  2 job number 35 departed.
+Job number 42
+Pages Created 27
+
+At time unit 43
+From printer number  2 job number 38 departed.
+From printer number  3 job number 37 departed.
+Job number 43
+Pages Created 1
+
+At time unit 44
+From printer number  1 job number 36 departed.
+Job number 44
+Pages Created 8
+
+At time unit 45
+From printer number  2 job number 39 departed.
+Job number 45
+Pages Created 14
+
+At time unit 46
+Job number 46
+Pages Created 18
+
+At time unit 47
+From printer number  1 job number 41 departed.
+From printer number  3 job number 40 departed.
+Job number 47
+Pages Created 11
+
+At time unit 48
+From printer number  1 job number 43 departed.
+Job number 48
+Pages Created 30
+
+At time unit 49
+From printer number  3 job number 44 departed.
+Job number 49
+Pages Created 6
+
+At time unit 50
+Job number 50
+Pages Created 25
+
+At time unit 51
+From printer number  1 job number 45 departed.
+From printer number  2 job number 42 departed.
+Job number 51
+Pages Created 13
+
+At time unit 52
+Job number 52
+Pages Created 26
+
+At time unit 53
+From printer number  3 job number 46 departed.
+Job number 53
+Pages Created 7
+
+At time unit 54
+From printer number  1 job number 47 departed.
+Job number 54
+Pages Created 9
+
+At time unit 55
+From printer number  3 job number 49 departed.
+Job number 55
+Pages Created 1
+
+At time unit 56
+Job number 56
+Pages Created 24
+
+At time unit 57
+From printer number  2 job number 48 departed.
+Job number 57
+Pages Created 21
+
+At time unit 58
+From printer number  3 job number 51 departed.
+Job number 58
+Pages Created 24
+
+At time unit 59
+From printer number  1 job number 50 departed.
+Job number 59
+Pages Created 18
+
+At time unit 60
+From printer number  3 job number 53 departed.
+Job number 60
+Pages Created 12
+
+At time unit 61
+From printer number  1 job number 54 departed.
+From printer number  3 job number 55 departed.
+Job number 61
+Pages Created 30
+
+At time unit 62
+Job number 62
+Pages Created 6
+
+At time unit 63
+From printer number  2 job number 52 departed.
+Job number 63
+Pages Created 14
+
+At time unit 64
+Job number 64
+Pages Created 2
+
+At time unit 65
+Job number 65
+Pages Created 15
+
+At time unit 66
+From printer number  1 job number 56 departed.
+From printer number  3 job number 57 departed.
+Job number 66
+Pages Created 25
+
+At time unit 67
+Job number 67
+Pages Created 1
+
+At time unit 68
+From printer number  2 job number 58 departed.
+Job number 68
+Pages Created 25
+
+At time unit 69
+From printer number  3 job number 60 departed.
+Job number 69
+Pages Created 2
+
+At time unit 70
+From printer number  1 job number 59 departed.
+Job number 70
+Pages Created 17
+
+At time unit 71
+From printer number  3 job number 62 departed.
+Job number 71
+Pages Created 14
+
+At time unit 72
+From printer number  3 job number 64 departed.
+Job number 72
+Pages Created 23
+
+At time unit 73
+From printer number  1 job number 63 departed.
+Job number 73
+Pages Created 19
+
+At time unit 74
+From printer number  2 job number 61 departed.
+Job number 74
+Pages Created 12
+
+At time unit 75
+From printer number  2 job number 67 departed.
+From printer number  3 job number 65 departed.
+Job number 75
+Pages Created 11
+
+At time unit 76
+From printer number  3 job number 69 departed.
+Job number 76
+Pages Created 19
+
+At time unit 77
+Job number 77
+Pages Created 30
+
+At time unit 78
+From printer number  1 job number 66 departed.
+Job number 78
+Pages Created 15
+
+At time unit 79
+Job number 79
+Pages Created 16
+
+At time unit 80
+From printer number  2 job number 68 departed.
+From printer number  3 job number 70 departed.
+Job number 80
+Pages Created 25
+
+At time unit 81
+From printer number  1 job number 71 departed.
+Job number 81
+Pages Created 19
+
+At time unit 82
+Job number 82
+Pages Created 22
+
+At time unit 83
+Job number 83
+Pages Created 26
+
+At time unit 84
+From printer number  1 job number 74 departed.
+From printer number  3 job number 73 departed.
+Job number 84
+Pages Created 13
+
+At time unit 85
+From printer number  2 job number 72 departed.
+Job number 85
+Pages Created 27
+
+At time unit 86
+Job number 86
+Pages Created 14
+
+At time unit 87
+From printer number  1 job number 75 departed.
+Job number 87
+Pages Created 14
+
+At time unit 88
+From printer number  3 job number 76 departed.
+Job number 88
+Pages Created 2
+
+At time unit 89
+Job number 89
+Pages Created 7
+
+At time unit 90
+From printer number  1 job number 78 departed.
+Job number 90
+Pages Created 30
+
+At time unit 91
+From printer number  2 job number 77 departed.
+Job number 91
+Pages Created 27
+
+At time unit 92
+From printer number  3 job number 79 departed.
+Job number 92
+Pages Created 5
+
+At time unit 93
+Job number 93
+Pages Created 21
+
+At time unit 94
+Job number 94
+Pages Created 25
+
+At time unit 95
+From printer number  1 job number 80 departed.
+From printer number  2 job number 81 departed.
+Job number 95
+Pages Created 22
+
+At time unit 96
+Job number 96
+Pages Created 3
+
+At time unit 97
+From printer number  3 job number 82 departed.
+Job number 97
+Pages Created 1
+
+At time unit 98
+From printer number  2 job number 84 departed.
+Job number 98
+Pages Created 26
+
+At time unit 99
+Job number 99
+Pages Created 24
+
+At time unit 100
+Job number 100
+Pages Created 26
+
+At time unit 101
+From printer number  1 job number 83 departed.
+From printer number  2 job number 86 departed.
+
+At time unit 102
+From printer number  2 job number 88 departed.
+
+At time unit 103
+From printer number  3 job number 85 departed.
+
+At time unit 104
+From printer number  1 job number 87 departed.
+From printer number  2 job number 89 departed.
+
+At time unit 105
+From printer number  2 job number 92 departed.
+
+At time unit 106
+
+At time unit 107
+
+At time unit 108
+
+At time unit 109
+From printer number  3 job number 90 departed.
+
+At time unit 110
+From printer number  1 job number 91 departed.
+From printer number  2 job number 93 departed.
+
+At time unit 111
+From printer number  2 job number 96 departed.
+
+At time unit 112
+From printer number  2 job number 97 departed.
+
+At time unit 113
+
+At time unit 114
+From printer number  3 job number 94 departed.
+
+At time unit 115
+From printer number  1 job number 95 departed.
+
+At time unit 116
+
+At time unit 117
+
+At time unit 118
+From printer number  2 job number 98 departed.
+
+At time unit 119
+From printer number  3 job number 99 departed.
+
+At time unit 120
+
+At time unit 121
+From printer number  1 job number 100 departed.
+
+Simulation Completed.
+Simulation time: 121
+Number of printers: 3
+Total number of pages printed: 1538
+Total Wait Time between all jobs: 0
+
+============ Tier-by-Tier Statistics ============
+Total Jobs: 100
+Average Wait Time between all jobs: 0

@@ -72,13 +72,13 @@ int printerListType::getNumberOfFreePrinters()
 }
 
 void printerListType::setPrinterBusy(int printerID,
-                                     jobType cJob)
+                                     jobType cJob,ofstream& outfile)
 {
     int time;
     
     time = cJob.getPrintTime();
     
-    cout << "Printer " << printerID+1 << " gets job " << cJob.getJobNumber() << endl;
+    outfile << "Printer " << printerID+1 << " gets job " << cJob.getJobNumber() << endl;
     
     printers[printerID].setCurrentJob(cJob);
     printers[printerID].setBusy();
