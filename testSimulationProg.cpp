@@ -193,7 +193,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     
     
     //Create an instance of the printerList that will hold all the printers
-    printerListType printerList(numOfPrinters, printRate);
+    printerListType printerList(numOfPrinters, printRate,downTime);
 
     //Create jobQueueArray which will house all tieried 0->n-1 priority job queue's w/ tier information
     /*

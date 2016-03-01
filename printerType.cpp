@@ -29,8 +29,8 @@ printerType::printerType(int maxpg,double prob,int down)
         probOfFailure = .05;
     } else
         probOfFailure = prob;
+    fixTime = 0;
     downTime = down;
-    remainingDownTime = 0;
 }
 
 bool printerType::isFree() const
@@ -117,6 +117,7 @@ bool printerType::checkFail()
          failure = true;
     } else if(paperLeft>=0){
         failure = true;
+        setFixTime();
     } else
         failure = false;
     return failure;
@@ -147,31 +148,17 @@ double printerType::getProbOfFailure()
     return probOfFailure;
 }
 
+void printerType::setFixTime(int time)
+{
+    fixTime = time;
+}
+
+int printerType::getFixTime()
+{
+    return fixTime;
+}
+
 void printerType::setDownTime(int time)
 {
     downTime = time;
-}
-
-void printerType::getDownTime()
-{
-    return downTime;
-}
-
-void printerType::setRemainingDownTime()
-{
-    remainingDownTime = downTime;
-}
-
-int printerType::getRemainingDownTime()
-{
-    return remainingDownTime;
-}
-
-void printerType::fixPrinter()
-{
-    if(remainingDownTime < 1) {
-        failure = false;
-    } else {
-        remainingDownTime -= 1;
-    }
 }

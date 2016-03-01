@@ -277,11 +277,12 @@ public:
       //Postcondition: The value of printTime of the 
       //               current job is returned.
 
-    bool checkFail();
+    bool checkFail(int time);
       //Function to check if printer fails. If no prob is given, %5 chance
       //to fail.
       //Postcondition: Bool failure will be true if there is a failure, else
       // failure will be false.
+      // if a failure occurs, fixTime will be set to time
 
     int getPaperLeft();
       //Function that returns the paper left in the printer
@@ -299,18 +300,11 @@ public:
 
     double getProbOfFailure();
 
-    void setDownTime(int time);
-    
-    int getDownTime();
+    void setFixTime(int time = 0);
 
-    void setRemainingDownTime();
-      //sets remainingDownTime to downTime
+    void setDownTime(int time = 10);
 
-    int getRemainingDownTime();
-
-    void fixPrinter();
-      //decrements remainingDownTime by 1 with each call
-      //when remainingDownTime is 0, failure is set to false
+    int getFixTime();
 
 private:
     jobType currentJob;
@@ -323,8 +317,8 @@ private:
     int costPerPage; //How much each page costs to print with current printer
     int paperLeft; //Paper left in the printer
     int maxPaper; //Maximum number of paper a printer can hold
-    int downTime;
-    int remainingDownTime;
+    int fixTime;  //time left before printer is operable
+    int downTime;  //when printer fails, fixTime is set to this
 };
 
 
