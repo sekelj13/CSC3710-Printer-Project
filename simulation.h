@@ -139,6 +139,8 @@ public:
       //increments waiting time of every job in the queue
 
     int queueWaitTime(int& waitTime);
+    
+    int getWaitTime();
 
     
 private:
@@ -177,11 +179,11 @@ public:
 
     int getMaxJobs();
 
-    //Returns pointer to array containing all jobQueue numJobsCreated vars -- DJ PLS HALP
-    int* getJobQArrNumJobsCreated();
+    //Returns pointer to array containing all jobQueue numJobsCreated vars
+    map<string, int> getJobQArrNumJobsCreated();
 
-    //Returns pointer to array containing all jobQueue waitTime vars -- DJ PLS HALP
-    int* getJobQArrWaitTimes();
+    //Returns pointer to array containing all jobQueue waitTime vars
+    map<string, int> getJobQArrWaitTimes();
     
 
 private:
