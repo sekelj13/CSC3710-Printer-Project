@@ -7,6 +7,7 @@
 #include <cctype>
 #include <clocale>
 #include <map> //Hash Map
+#include <sstream>
 
 #include "simulation.h"
 #include "queueAsArray.h" 
@@ -101,13 +102,14 @@ int main(void)
     // map<string, int>::iterator tierIterator; //Iterate through the tiers
     string tierName = "";
     int tier = 0;
+    
     stringstream temp;
 
     for (int i= 0; i < numTiers; i++) {
         cout << "Enter the cutoff point for tier " << i+1 << ": ";
         cin >> tier;
-        temp << "tier" << i;//temp is now tier1, tier2, etc.
-	tier = temp.str();
+        temp << "tier" << i;
+        tierName = temp.str();
         tiers[tierName] = tier;
         tierName="";
     }
