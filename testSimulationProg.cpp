@@ -24,12 +24,12 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 /*
  *
  */
-int poisson(double *cutoffs, int jpm);
+int poisson(double cutoffs[], double jpm);
 
 /*
  *
  */
-void poissonJobs(int k, double *cutoffs, int *jobNum, jobType *job, int clock, int maxPages);
+void poissonJobs(int k, double cutoffs[], int *jobNum, jobQueueArray *jqArr, int sTime, int maxPages, int *totalPagesPrinted,ofstream &outfile);
 
 
 /*
@@ -142,7 +142,7 @@ int main(void)
 
 //Runs Simulation
 
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime,ofstream &outfile)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, double jpm, double costPerPage, int printCapacity, int downTime,ofstream &outfile)
 {
     /*
      * sTime = Simluation Time
@@ -153,6 +153,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 
     char checkSeed;
     
+    double *cutoffs;
     
     int seed = 0, sTime = 0, jobNum = 0, waitTime = 0;
     int totalPagesPrinted = 0; //total number of pages printed
@@ -168,7 +169,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
         srand(time(NULL));
     }
     
-    
+    int k=poisson(cutoffs,jpm);
     //Create an instance of the printerList that will hold all the printers
     printerListType printerList(numOfPrinters, printRate, downTime);
 
@@ -199,13 +200,11 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 
         //create jobs while jobNum < numJobs
         if (jobNum < numJobs) {
-          jobNum++;
-          job.setJobInfo(jobNum, sTime, 0, maxPages);
-          outfile << "Job number " << job.getJobNumber() << "\nPages Created " << job.getNumPages() << endl;
-          totalPagesPrinted += job.getNumPages();
-          jqArr.sendJob(job);
+            cout<<cutoffs[0]<<endl;
+            poissonJobs(k,cutoffs,&jobNum,&jqArr,sTime,maxPages,&totalPagesPrinted,outfile);
+            cout<<jobNum<<endl;
         }
-        
+        break;
         //if printer is free and queue nonempty, pair job with printer
         while (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
             if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
@@ -218,9 +217,11 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     
     //Output Statistics
     outfile    << endl << "Simulation Completed.\n"
+            << "Total number of jobs: " << jobNum << endl
             << "Simulation time: " << sTime << endl
             << "Number of printers: " << numOfPrinters << endl
             << "Total number of pages printed: " << totalPagesPrinted << endl
+            << "Total cost of printing: " << totalPagesPrinted*costPerPage << endl
             << "Total Wait Time between all jobs: " << waitTime << endl << endl;
 	    outfile << "============ Tier-by-Tier Statistics ============" << endl;
 
@@ -246,7 +247,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
             << "Average Wait Time between all jobs: " << (float)waitTime/jobNum << endl;
 }
 
-int poisson(double *cutoffs, int jpm)
+int poisson(double *cutoffs, double jpm)
 {
     double totalpoisson=0;
     int k = 0;
@@ -255,22 +256,28 @@ int poisson(double *cutoffs, int jpm)
         poisson = pow(jpm,k) * exp(-jpm)/factorial(k);
         totalpoisson += poisson;
         cutoffs[k] = totalpoisson;
+        cout<<cutoffs[k]<<endl;
         k++;
     }
     cutoffs[k]=1;
     return k;
 }
 
-void poissonJobs(int k, double *cutoffs, int *jobNum, jobType *job, int clock, int maxPages)
+void poissonJobs(int k, double *cutoffs, int *jobNum, jobQueueArray *jqArr, int sTime, int maxPages,int *totalPagesPrinted,ofstream &outfile)
 {
     double prob=(double)rand()/RAND_MAX;
     int i=0;
     int j=0;
+    jobType job;
     for (i=0; i <= k; i++) {
+        cout << cutoffs[i] << endl;
         if (prob <= cutoffs[i]) {
             for (j=0; j < i; j++) {
                 (*jobNum)++;
-                job->setJobInfo(*jobNum,clock,0,maxPages);
+                job.setJobInfo(*jobNum,sTime,0,maxPages);
+                outfile << "Job number " << job.getJobNumber() << "\nPages Created " << job.getNumPages() << endl;
+                *totalPagesPrinted=(*totalPagesPrinted)+job.getNumPages();
+                jqArr->sendJob(job);
             }
         }
     }
