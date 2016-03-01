@@ -249,10 +249,18 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 	    << "Total number of pages printed: " << totalPagesPrinted << endl
             << "Total Wait Time between all jobs: " << waitTime << endl << endl;
 	    cout << "============ Tier-by-tier Statistics ============" << endl;
-    for(int i=0;i < numTiers;i++) {
-        cout << "Tier " << i+1 << " number of jobs: " << ????????? << endl;
-	cout << "Tier " << i+1 << " number of pages printed: " << ?????? << endl;
-	cout << "Tier " << i+1 << " average job wait time: " << ????????? << endl;
+
+    map<string::int> queueJobsCreated;
+    map<string::int> queueWaitTimes;
+
+    map<string, int>::iterator tierIterator
+    int prev = 1;
+    int i = 1;      
+    for(tierIterator = tiers.begin(); tierIterator != tiers.end(); tierIterator++) {
+        cout << "Tier " << i << " number of jobs: " << queueJobsCreated->second << endl;
+        cout << "Tier " << i << " number of pages printed: " << ????????? << endl;
+        cout << "Tier " << i << " average job wait time: " << (double)(queueWaitTimes->second / queueJobsCreated->second) << endl;
+        i++;
     }
     cout    << "Total Jobs: "  << jobNum << endl
             << "Average Wait Time between all jobs: " << (float)waitTime/jobNum << endl;
