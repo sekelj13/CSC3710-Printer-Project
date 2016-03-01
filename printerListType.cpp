@@ -9,7 +9,7 @@ using namespace std;
 
 /* ======================== printerListType ======================== */
 
-printerListType::printerListType(int numPrinters,int pr[],int down)
+printerListType::printerListType(int numPrinters,int pr[], int down)
 {
     //in simulation.h, printers is delcared as printers[numOfPrinters]. This should
     //  take care of allocation.
@@ -94,13 +94,13 @@ void printerListType::updatePrinters(ostream& outFile)
         if (!printers[i].isFree())
         {
             printers[i].decreasePrintTime();
-            fail=printers[i].checkFail();
+            fail=printers[i].checkFail(); //@TODO: Fix checkFail for parameters(too few)
             if (printers[i].getRemainingPrintTime() <= 0)
             {
                 if(fail){
                     printers[i].refillPrinter();
                     outFile << "Printer "<<i<<" failed. Time till fixed: "
-                    <<printers[i].getFixTime()<<endl;
+                    << printers[i].getFixTime() << endl;
                 }else{
                     outFile << "From printer number  " << (i + 1)
                     << " job number "
