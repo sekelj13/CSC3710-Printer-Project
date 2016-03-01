@@ -195,6 +195,8 @@ private:
     jobType job;
 };
 	//*************  printerType  ****************
+
+static const ofstream NULL_STREAM;
 class printerType
 {
 public:
@@ -234,7 +236,7 @@ public:
       //Function to set the status of the printer to "free".
       //Postcondition: status = "free";
 
-    void setPrintTime(int t=1);
+    void setPrintTime(int t, ofstream& outfile);
       //Function to set the print time according to the 
       //parameter t.
       //Postcondition: printTime = t;
@@ -243,7 +245,7 @@ public:
       //Function to return the remaining print time.
       //Postcondition: The value of printTime is returned.
 
-    void decreasePrintTime();
+    void decreasePrintTime(ofstream& outfile);
       //Function to decrease the printTime by 1 unit.
       //Postcondition: printTime--;
 
@@ -348,7 +350,7 @@ public:
     int getNumberOfFreePrinters() ;
     //Returns number of Free Printers available
 
-    //void setPrinterBusy(int printerID, jobType cJob, int tTime);
+    void setPrinterBusy(int printerID, jobType cJob, int tTime,ofstream& outfile);
       //Function to set a printer as busy. 
       //Postcondition: The printer specified by serverID is set
       //               to "busy", to serve the job 
@@ -356,13 +358,13 @@ public:
       //               print time is set according to the 
       //               parameter tTime.
 
-    void setPrinterBusy(int printerID, jobType cJob);
+    void setPrinterBusy(int printerID, jobType cJob,ofstream& outfile);
       //Function to set a printer as busy.
       //Postcondition: The printer specified by serverID is set
       //               to "busy", to serve the job 
       //               specified by cJob. 
 
-    void updatePrinters(ostream& outFile);
+    void updatePrinters(ofstream& outFile);
       //Function to update the status of a printer.
       //Postcondition: The print time of each busy 
       //               printer is decremented by one unit. If 

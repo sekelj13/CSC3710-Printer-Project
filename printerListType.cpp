@@ -72,20 +72,20 @@ int printerListType::getNumberOfFreePrinters()
 }
 
 void printerListType::setPrinterBusy(int printerID,
-                                     jobType cJob)
+                                     jobType cJob,ofstream& outfile)
 {
     int time;
     
     time = cJob.getPrintTime();
     
-    cout << "Printer " << printerID+1 << " gets job " << cJob.getJobNumber() << endl;
+    outfile << "Printer " << printerID+1 << " gets job " << cJob.getJobNumber() << endl;
     
     printers[printerID].setCurrentJob(cJob);
     printers[printerID].setBusy();
-    printers[printerID].setPrintTime(time);
+    printers[printerID].setPrintTime(time,outfile);
 }
 
-void printerListType::updatePrinters(ostream& outFile)
+void printerListType::updatePrinters(ofstream& outfile)
 {
     int i;
     bool fail;
@@ -93,16 +93,16 @@ void printerListType::updatePrinters(ostream& outFile)
     for (i = 0; i < numOfPrinters; i++)
         if (!printers[i].isFree())
         {
-            printers[i].decreasePrintTime();
+            printers[i].decreasePrintTime(outfile);
             fail=printers[i].checkFail(); //@TODO: Fix checkFail for parameters(too few)
             if (printers[i].getRemainingPrintTime() <= 0)
             {
                 if(fail){
                     printers[i].refillPrinter();
-                    outFile << "Printer "<<i<<" failed. Time till fixed: "
+                    outfile << "Printer "<<i<<" failed. Time till fixed: "
                     << printers[i].getFixTime() << endl;
                 }else{
-                    outFile << "From printer number  " << (i + 1)
+                    outfile << "From printer number  " << (i + 1)
                     << " job number "
                     << printers[i].getCurrentJobNumber()
                     << " departed."
