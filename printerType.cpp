@@ -162,3 +162,7 @@ void printerType::setDownTime(int time)
 {
     downTime = time;
 }
+
+int getFixTime(){
+    return fixTime;
+}

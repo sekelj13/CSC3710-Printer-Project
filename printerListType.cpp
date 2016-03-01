@@ -97,21 +97,18 @@ void printerListType::updatePrinters(ostream& outFile)
             fail=printers[i].checkFail();
             if (printers[i].getRemainingPrintTime() <= 0)
             {
-                outFile << "From printer number  " << (i + 1)
-                << " job number "
-                << printers[i].getCurrentJobNumber()
-                << "\n     departed at time unit "
-                << printers[i].
-                getCurrentJobArrivalTime()
-                + printers[i].
-                getCurrentJobWaitingTime()
-                + printers[i].
-                getCurrentJobPrintTime()
-                << endl;
-                if(fail)
+                if(fail){
                     printers[i].refillPrinter();
-                else
+                    outFile << "Printer "<<i<<" failed. Time till fixed: "
+                    <<printers[i].getFixTime();<<endl;
+                }else{
+                    outFile << "From printer number  " << (i + 1)
+                    << " job number "
+                    << printers[i].getCurrentJobNumber()
+                    << " departed."
+                    << endl;
                     printers[i].setFree();
+                }
             }
         }
 }
