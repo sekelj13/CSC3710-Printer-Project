@@ -277,6 +277,8 @@ public:
       //Postcondition: The value of printTime of the 
       //               current job is returned.
 
+    bool checkFail();
+    
     bool checkFail(int time);
       //Function to check if printer fails. If no prob is given, %5 chance
       //to fail.
@@ -326,7 +328,7 @@ private:
 class printerListType
 {
 public:
-    printerListType(int numPrinters = 3, int pr[] = 0,int down);
+    printerListType(int numPrinters = 3, int pr[] = 0, int down = 0);
       //Constructor to initialize a list of printers
       //Postcondition: numOfPrinters = num
       //               A list of printers, specified by num, 

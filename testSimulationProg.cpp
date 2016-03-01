@@ -193,7 +193,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     
     
     //Create an instance of the printerList that will hold all the printers
-    printerListType printerList(numOfPrinters, printRate,downTime);
+    printerListType printerList(numOfPrinters, printRate, downTime);
 
     //Create jobQueueArray which will house all tieried 0->n-1 priority job queue's w/ tier information
     /*
@@ -256,7 +256,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     
     for(tierIterator = tiers.begin(); tierIterator != tiers.end(); tierIterator++) {
         cout << "Tier " << i << " number of jobs: " << tierIterator->second << endl;
-        cout << "Tier " << i << " number of pages printed: " << ????????? << endl;
+        cout << "Tier " << i << " number of pages printed: " << 1  << endl; //Change
         cout << "Tier " << i << " average job wait time: " << (double)(queueWaitTimes->second / queueJobsCreated->second) << endl;
         i++;
     }
