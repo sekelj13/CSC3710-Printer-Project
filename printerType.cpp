@@ -17,7 +17,7 @@ printerType::printerType()
     maxPaper = 100;
 }
 
-printerType::printerType(int maxpg,double prob)
+printerType::printerType(int maxpg,double prob,int down)
 {
     status = "free";
     printTime = 0;
@@ -29,6 +29,8 @@ printerType::printerType(int maxpg,double prob)
         probOfFailure = .05;
     } else
         probOfFailure = prob;
+    downTime = down;
+    remainingDownTime = 0;
 }
 
 bool printerType::isFree() const
@@ -143,4 +145,33 @@ void printerType::setProbOfFailure(int prob)
 double printerType::getProbOfFailure()
 {
     return probOfFailure;
+}
+
+void printerType::setDownTime(int time)
+{
+    downTime = time;
+}
+
+void printerType::getDownTime()
+{
+    return downTime;
+}
+
+void printerType::setRemainingDownTime()
+{
+    remainingDownTime = downTime;
+}
+
+int printerType::getRemainingDownTime()
+{
+    return remainingDownTime;
+}
+
+void printerType::fixPrinter()
+{
+    if(remainingDownTime < 1) {
+        failure = false;
+    } else {
+        remainingDownTime -= 1;
+    }
 }

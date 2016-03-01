@@ -204,7 +204,7 @@ public:
       //               default constructor; status = "free"; and
       //               the print time is initialized to 0.
 
-    printerType(int maxpg,double prob);
+    printerType(int maxpg,double prob,int down);
       //Sets the values of the instance variables to specified values
       //Postcondition: currentJob is initialized by its
       //               default constructor; status = "free"; print
@@ -297,6 +297,19 @@ public:
 
     double getProbOfFailure();
 
+    void setDownTime(int time);
+    
+    int getDownTime();
+
+    void setRemainingDownTime();
+      //sets remainingDownTime to downTime
+
+    int getRemainingDownTime();
+
+    void fixPrinter();
+      //decrements remainingDownTime by 1 with each call
+      //when remainingDownTime is 0, failure is set to false
+
 private:
     jobType currentJob;
     string status;
@@ -308,6 +321,8 @@ private:
     int costPerPage; //How much each page costs to print with current printer
     int paperLeft; //Paper left in the printer
     int maxPaper; //Maximum number of paper a printer can hold
+    int downTime;
+    int remainingDownTime;
 };
 
 
@@ -315,7 +330,7 @@ private:
 class printerListType
 {
 public:
-    printerListType(int numPrinters = 3, int pr[] = 0);
+    printerListType(int numPrinters = 3, int pr[] = 0,int down);
       //Constructor to initialize a list of printers
       //Postcondition: numOfPrinters = num
       //               A list of printers, specified by num, 
