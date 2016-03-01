@@ -251,15 +251,16 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 
 int poisson(double *cutoffs, int jpm)
 {
-    double totalpoisson;
+    double totalpoisson=0;
     int k = 0;
     double poisson;
-    do {
+    while (totalpoisson < .95){
         poisson = pow(jpm,k) * exp(-jpm)/factorial(k);
         totalpoisson += poisson;
         cutoffs[k] = totalpoisson;
         k++;
-    } while (totalpoisson < .95);
+    }
+    cutoffs[k]=1;
     return k;
 }
 
@@ -268,18 +269,12 @@ void poissonJobs(int k, double *cutoffs, int *jobNum, jobType *job, int clock, i
     double prob=(double)rand()/RAND_MAX;
     int i=0;
     int j=0;
-    for (i=0; i < k; i++) {
+    for (i=0; i <= k; i++) {
         if (prob <= cutoffs[i]) {
             for (j=0; j < i; j++) {
                 (*jobNum)++;
                 job->setJobInfo(*jobNum,clock,0,maxPages);
             }
-            break;
-        }
-    }
-    if (i==k) {
-        for ( j=0; j<k; j++) {
-            job->setJobInfo(*jobNum,clock,0,maxPages);
         }
     }
 }
