@@ -89,18 +89,18 @@ void printerListType::updatePrinters(ofstream& outfile)
 {
     int i;
     bool fail;
-    
     for (i = 0; i < numOfPrinters; i++)
         if (!printers[i].isFree())
         {
             printers[i].decreasePrintTime(outfile);
             fail=printers[i].checkFail(); //@TODO: Fix checkFail for parameters(too few)
+            cout<<fail<<endl;
             if (printers[i].getRemainingPrintTime() <= 0)
             {
                 if(fail){
-                    printers[i].refillPrinter();
-                    outfile << "Printer "<<i<<" failed. Time till fixed: "
+                    outfile << "Printer "<<(i+1)<<" failed. Time till fixed: "
                     << printers[i].getFixTime() << endl;
+                    printers[i].refillPrinter();
                 } else {
                     outfile << "From printer number  " << (i + 1)
                     << " job number "
