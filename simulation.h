@@ -181,7 +181,7 @@ public:
     int* getJobQArrNumJobsCreated();
 
     //Returns pointer to array containing all jobQueue waitTime vars -- DJ PLS HALP
-    int* getJobQArrNumJobsCreated();
+    int* getJobQArrWaitTimes();
     
 
 private:
