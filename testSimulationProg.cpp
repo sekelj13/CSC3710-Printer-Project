@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iostream>
 #include <cstdlib>
 #include <iomanip>
@@ -49,7 +50,11 @@ int main(void)
     
     char jobFrequency = 'a';
 
-    
+    ofstream outfile;
+    string outfileName;
+    cout << "Enter the name of the file you wish to write to: ";
+    cin >> outfileName;
+    outfile.open(outfileName);
     
     //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
 
@@ -212,10 +217,10 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 
         //increment Simulation Time(sTime)
         sTime++;
-        cout << endl << "At time unit "<< sTime << endl;
+        outfile << endl << "At time unit "<< sTime << endl;
 
         //update printer list & decrements
-        printerList.updatePrinters(cout);
+        printerList.updatePrinters(outfile);
         
         //job queue array update
         jqArr.updateWaitingQueues();
@@ -224,7 +229,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
         if (jobNum < numJobs) {
           jobNum++;
           job.setJobInfo(jobNum, sTime, 0, maxPages);
-          cout << "Job number " << job.getJobNumber() << "\nPages Created " << job.getNumPages() << endl;
+          outfile << "Job number " << job.getJobNumber() << "\nPages Created " << job.getNumPages() << endl;
           totalPagesPrinted += job.getNumPages();
           jqArr.sendJob(job);
         }
@@ -240,12 +245,12 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     }
     
     //Output Statistics
-    cout    << endl << "Simulation Completed.\n"
+    outfile    << endl << "Simulation Completed.\n"
             << "Simulation time: " << sTime << endl
             << "Number of printers: " << numOfPrinters << endl
             << "Total number of pages printed: " << totalPagesPrinted << endl
             << "Total Wait Time between all jobs: " << waitTime << endl << endl;
-	    cout << "============ Tier-by-Tier Statistics ============" << endl;
+	    outfile << "============ Tier-by-Tier Statistics ============" << endl;
 
     //@TODO: Need to assign these via the return functions implemented in jobQueueArray
     map<string, int> queueJobsCreated;
@@ -257,15 +262,15 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     
     
     for(tierIterator = queueJobsCreated.begin(); tierIterator != queueJobsCreated.end(); tierIterator++){
-        cout << "Tier " << i << "number of jobs: " << tierIterator->second << endl;
-        cout << "Tier " << i << "number of pages printed: " << 1 << endl; //@TODO: Implement
+        outfile << "Tier " << i << "number of jobs: " << tierIterator->second << endl;
+        outfile << "Tier " << i << "number of pages printed: " << 1 << endl; //@TODO: Implement
         i++;
     }
     for(tierIterator = queueWaitTimes.begin(); tierIterator != queueWaitTimes.end(); tierIterator++){
-        cout << "Tier " << i << " average job wait time: " << 1 << endl; //@TODO: Implement subdivison
+        outfile << "Tier " << i << " average job wait time: " << 1 << endl; //@TODO: Implement subdivison
     }
     
-    cout    << "Total Jobs: "  << jobNum << endl
+    outfile    << "Total Jobs: "  << jobNum << endl
             << "Average Wait Time between all jobs: " << (float)waitTime/jobNum << endl;
 }
 
