@@ -19,7 +19,7 @@ using namespace std;
  * Run the simulation function(main will populate the run simulation parameters)
  *
  */
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime,ofstream &outfile);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, double jpm, double costPerPage, int printCapacity, int downTime,ofstream &outfile);
 
 /*
  *
@@ -41,10 +41,10 @@ int factorial(int n);
 /*  ============================ Main Starts ============================ */
 int main(void)
 {
-    int numJobs = 100, numOfPrinters = 3, maxPages = 50, numTiers = 3, jobsPerMinute = 1,
+    int numJobs = 100, numOfPrinters = 3, maxPages = 50, numTiers = 3,
         printCapacity = 300, downTime = 10, pr = 0;
     
-    double costPerPage = .3;
+    double costPerPage = .3,jobsPerMinute = 1;
     
     char boolPrintRate = 'x';
     
