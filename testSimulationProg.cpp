@@ -24,12 +24,12 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 /*
  *
  */
-int poisson(double cutoffs[], double jpm);
+int poisson(double *cutoffs, double jpm);
 
 /*
  *
  */
-void poissonJobs(int k, double cutoffs[], int *jobNum, jobQueueArray *jqArr, int sTime, int maxPages, int *totalPagesPrinted,ofstream &outfile);
+void poissonJobs(int k, double *cutoffs, int *jobNum, jobQueueArray *jqArr, int sTime, int maxPages, int *totalPagesPrinted,ofstream &outfile);
 
 
 /*
@@ -170,6 +170,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     }
     
     int k=poisson(cutoffs,jpm);
+    double cutOffs[k]
+    poissonQuickFix(cutOffs,jpm);
     //Create an instance of the printerList that will hold all the printers
     printerListType printerList(numOfPrinters, printRate, downTime);
 
