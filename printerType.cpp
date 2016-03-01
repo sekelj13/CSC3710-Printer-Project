@@ -72,7 +72,7 @@ void printerType::decreasePrintTime(ofstream& outfile)
     printTime-=printRate;
     paperLeft-=printRate;
     outfile << "Print time left in job number " << currentJob.getJobNumber() << ": " << printTime << endl;
-    if(time>0)
+    if(time<0&&!failure)
         pagesLeft-=printTime; //Don't want to waste paper
 
 }
@@ -117,7 +117,7 @@ bool printerType::checkFail()
          *if check <= probOfFailure*1000, a failure occurs
          */
          failure = true;
-	 setFixTime(downTime)
+	     setFixTime(downTime)
     } else if(paperLeft<=0){
         failure = true;
         setFixTime(downTime);
