@@ -116,8 +116,8 @@ bool printerType::checkFail()
          *check is a random integer between 1 and 1000
          *if check <= probOfFailure*1000, a failure occurs
          */
-<<<<<<< HEAD
          failure = true;
+	 setFixTime(downTime)
     } else if(paperLeft<=0){
         failure = true;
         setFixTime(downTime);
@@ -135,7 +135,6 @@ void printerType::refillPrinter()
 {
     if(fixTime<=0){
         paperLeft = maxPaper;
-        this->setFree();
         failure=false;
     }else
         fixTime--;
