@@ -247,19 +247,24 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
             << "Total Wait Time between all jobs: " << waitTime << endl << endl;
 	    cout << "============ Tier-by-Tier Statistics ============" << endl;
 
+    //@TODO: Need to assign these via the return functions implemented in jobQueueArray
     map<string, int> queueJobsCreated;
     map<string, int> queueWaitTimes;
 
     map<string, int>::iterator tierIterator;
-    int prev = 1;
     int i = 1;
+
     
-    for(tierIterator = tiers.begin(); tierIterator != tiers.end(); tierIterator++) {
-        cout << "Tier " << i << " number of jobs: " << tierIterator->second << endl;
-        cout << "Tier " << i << " number of pages printed: " << 1  << endl; //Change
-        cout << "Tier " << i << " average job wait time: " << (double)(queueWaitTimes->second / queueJobsCreated->second) << endl;
+    
+    for(tierIterator = queueJobsCreated.begin(); tierIterator != queueJobsCreated.end(); tierIterator++){
+        cout << "Tier " << i << "number of jobs: " << tierIterator->second << endl;
+        cout << "Tier " << i << "number of pages printed: " << 1 << endl; //@TODO: Implement
         i++;
     }
+    for(tierIterator = queueWaitTimes.begin(); tierIterator != queueWaitTimes.end(); tierIterator++){
+        cout << "Tier " << i << " average job wait time: " << 1 << endl; //@TODO: Implement subdivison
+    }
+    
     cout    << "Total Jobs: "  << jobNum << endl
             << "Average Wait Time between all jobs: " << (float)waitTime/jobNum << endl;
 }
