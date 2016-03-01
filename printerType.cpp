@@ -56,24 +56,24 @@ int printerType::getPrintRate() {
     return printRate;
 }
 
-void printerType::setPrintTime(int t)
+void printerType::setPrintTime(int t,ofstream& outfile)
 {
     int time;
     
     time = currentJob.getNumPages();
     
-    cout << "In job " << currentJob.getJobNumber() << " Pages left to print: " << time << endl;
+    outfile << "In job " << currentJob.getJobNumber() << " Pages left to print: " << time << endl;
     
     printTime = time;
     if(time>0)
         pagesLeft-=time; //Don't want to waste paper
 }
 
-void printerType::decreasePrintTime()
+void printerType::decreasePrintTime(ofstream& outfile)
 {
     printTime-=printRate;
     paperLeft-=printRate;
-    cout << "Print time left in job number " << currentJob.getJobNumber() << ": " << printTime << endl;
+    outfile << "Print time left in job number " << currentJob.getJobNumber() << ": " << printTime << endl;
 }
 
 int printerType::getRemainingPrintTime() const
