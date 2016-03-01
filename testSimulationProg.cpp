@@ -54,16 +54,13 @@ int main(void)
     string outfileName;
     cin >> outfileName;
     outfile.open(outfileName.c_str());
-    
     //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
 
     //Get the number of jobs
     cin >> numJobs;
-    
     //Get the number of printers
     cin >> numOfPrinters;
     int printRate[numOfPrinters];
-
     
     //Printers print randomly or linearly
     //pr = print rate
@@ -84,10 +81,8 @@ int main(void)
     //Get the maximum number of pages able to printer / job
     cin >> maxPages;
     
-    
     //Get the total number of tiers in the waiting list queue
     cin >> numTiers;
-    
     /*
      * 
      * Used a hashmap to initalize tiers & cutoffs
@@ -99,14 +94,12 @@ int main(void)
     // map<string, int>::iterator tierIterator; //Iterate through the tiers
     int tier = 0;
     stringstream temp;
-
     for (int i= 0; i < numTiers; i++) {
         cin >> tier;
         temp << "tier" << i;
         tiers[temp.str()] = tier;
         temp.clear();
     }
-    
     //@TODO: Remove
     jobQueueArray newTier(tiers);
     
@@ -129,17 +122,12 @@ int main(void)
         cin >> jobsPerMinute;
         jobsPerMinute = 1 / jobsPerMinute;
     }
-    
     //Get the printed page per dollar cost
     cin >> costPerPage;
-    
     //Get max number pages printer can print before maintence is needed
     cin >> printCapacity;
-   
     //Get the amount of time a printer is down for maintence
     cin >> downTime;
-    
-    
     //Run the simulation now that data has all been collected
     runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,tiers,jobsPerMinute,costPerPage,printCapacity,downTime,outfile);
 
