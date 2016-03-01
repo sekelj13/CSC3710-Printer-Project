@@ -123,7 +123,7 @@ bool printerType::checkFail()
         setFixTime(downTime);
     } else
         failure = false;
-    return failure;
+    }return failure;
 }
 
 int printerType::getPaperLeft()
