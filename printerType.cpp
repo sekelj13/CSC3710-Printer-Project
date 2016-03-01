@@ -29,7 +29,7 @@ printerType::printerType(int maxpg,double prob,int down)
         probOfFailure = .05;
     } else
         probOfFailure = prob;
-    fixTime = 0;
+    fixTime = down;
     downTime = down;
 }
 
@@ -110,18 +110,20 @@ int printerType::getCurrentJobPrintTime() const
 bool printerType::checkFail()
 {
     int check = 0;
-    if ((check = rand() % 1000 + 1) <= (probOfFailure * 1000)) {
+    if(!failure){
+        if ((check = rand() % 1000 + 1) <= (probOfFailure * 1000)) {
         /*
          *check is a random integer between 1 and 1000
          *if check <= probOfFailure*1000, a failure occurs
          */
-         failure = true;
-    } else if(paperLeft<=0){
-        failure = true;
-        setFixTime();
-    } else
-        failure = false;
-    return failure;
+             failure = true;
+             setFixTime(down);
+        } else if(paperLeft<=0){
+            failure = true;
+            setFixTime(down);
+        } else
+            failure = false;
+    }return failure;
 }
 
 int printerType::getPaperLeft()
@@ -131,7 +133,7 @@ int printerType::getPaperLeft()
 
 void printerType::refillPrinter()
 {
-    if(fixTime>=0){
+    if(fixTime<=0){
         paperLeft = maxPaper;
         this->setFree();
         failure=false;
