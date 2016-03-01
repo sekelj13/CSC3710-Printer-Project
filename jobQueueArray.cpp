@@ -89,3 +89,18 @@ void jobQueueArray::updateWaitingQueues()
         jobQArr[i].updateWaitingQueue();
     }
 }
+
+int jobQueueArray::getMaxJobs()
+{
+    return maxJobs;
+}
+
+int* jobQueueArray::getJobQArrNumJobsCreated()
+{
+
+}
+
+int* jobQueueArray::getjobQArrWaitTimes()
+{
+
+}

@@ -166,7 +166,7 @@ int main(void)
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, int costPerPage, int printCapacity, int downTime)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime)
 {
     /*
      * sTime = Simluation Time
@@ -179,6 +179,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     
     
     int seed = 0, sTime = 0, jobNum = 0, waitTime = 0;
+    int totalPagesPrinted = 0; //total number of pages printed
     
     //Seed the program
     //@TODO: Maybe change type of seed from int to something
@@ -222,11 +223,12 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
         //job queue array update
         jqArr.updateWaitingQueues();
 
-        //create jobs while numJob < numJobs
+        //create jobs while jobNum < numJobs
         if (jobNum < numJobs) {
           jobNum++;
           job.setJobInfo(jobNum, sTime, 0, maxPages);
           cout << "Job number " << job.getJobNumber() << "\nPages Created " << job.getNumPages() << endl;
+          totalPagesPrinted += job.getNumPages();
           jqArr.sendJob(job);
         }
         
@@ -244,11 +246,11 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     cout    << endl << "Simulation Completed.\n"
             << "Simulation time: " << sTime << endl
             << "Number of printers: " << numOfPrinters << endl
-	    << "Total number of pages printed: " << /*@TODO: make total pages printed*/ << endl
+	    << "Total number of pages printed: " << totalPagesPrinted << endl
             << "Total Wait Time between all jobs: " << waitTime << endl << endl;
 	    cout << "============ Tier-by-tier Statistics ============" << endl;
     for(int i=0;i < numTiers;i++) {
-        cout << "Tier " << i+1 << " number of jobs: " << ?????? << endl;
+        cout << "Tier " << i+1 << " number of jobs: " << ????????? << endl;
 	cout << "Tier " << i+1 << " number of pages printed: " << ?????? << endl;
 	cout << "Tier " << i+1 << " average job wait time: " << ????????? << endl;
     }

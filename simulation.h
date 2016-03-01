@@ -174,6 +174,14 @@ public:
     bool isEmpty();
     
     jobType checkNextJob();
+
+    int getMaxJobs();
+
+    //Returns pointer to array containing all jobQueue numJobsCreated vars -- DJ PLS HALP
+    int* getJobQArrNumJobsCreated();
+
+    //Returns pointer to array containing all jobQueue waitTime vars -- DJ PLS HALP
+    int* getJobQArrNumJobsCreated();
     
 
 private:
