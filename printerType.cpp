@@ -132,7 +132,6 @@ void printerType::refillPrinter()
 {
     if(fixTime>=0){
         paperLeft = maxPaper;
-        this->setFree();
         fail=false;
     }else
         fixTime--;
