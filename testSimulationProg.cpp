@@ -233,7 +233,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
         }
         
         //if printer is free and queue nonempty, pair job with printer
-        if (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
+        while (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
             if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
                 jobType job;
                 waitTime += job.getWaitingTime();
