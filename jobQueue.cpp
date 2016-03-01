@@ -101,3 +101,8 @@ int jobQueue::getNumJobsCreated()
 {
     return numJobsCreated;
 }
+
+int jobQueue::getWaitTime()
+{
+    return waitTime;
+}

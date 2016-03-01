@@ -2,6 +2,7 @@
 #include <string>
 #include <cstdlib>
 #include <map> //Hash Map
+#include <sstream>
 
 #include "simulation.h"
 #include "queueAsArray.h"
@@ -95,12 +96,52 @@ int jobQueueArray::getMaxJobs()
     return maxJobs;
 }
 
-int* jobQueueArray::getJobQArrNumJobsCreated()
+map<string, int> jobQueueArray::getJobQArrNumJobsCreated()
 {
-
+    map<string, int> numJobsCreated;
+    stringstream curTier;
+    
+    for(int i=0; i < jobQArr.size(); i++){
+        curTier << "tier" << i;
+        numJobsCreated[curTier.str()] = jobQArr[i].getNumJobsCreated();
+        curTier.clear();
+    }
+    
+    /*
+     * Return hashmap of the number of jobs created
+     * if it is not empty
+     * if it is empty, return -1 
+     */
+    if(!(numJobsCreated.empty())){
+        return numJobsCreated;
+    
+    } else {
+        numJobsCreated["tier0"] = -1;
+        return numJobsCreated;
+    }
 }
 
-int* jobQueueArray::getJobQArrWaitTimes()
+map<string, int> jobQueueArray::getJobQArrWaitTimes()
 {
-
+    map<string, int> numWaitTimes;
+    stringstream curTier;
+    
+    for(int i=0; i < jobQArr.size(); i++){
+        curTier << "tier" << i;
+        numWaitTimes[curTier.str()] = jobQArr[i].getWaitTime();
+        curTier.clear();
+    }
+    
+    /*
+     * Return hashmap of the number of jobs created
+     * if it is not empty
+     * if it is empty, return -1
+     */
+    if(!(numWaitTimes.empty())){
+        return numWaitTimes;
+        
+    } else {
+        numWaitTimes["tier0"] = -1;
+        return numWaitTimes;
+    }
 }

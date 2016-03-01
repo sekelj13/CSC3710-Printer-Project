@@ -100,18 +100,15 @@ int main(void)
     //Get the cutoff point for each tier
     map<string, int> tiers;
     // map<string, int>::iterator tierIterator; //Iterate through the tiers
-    string tierName = "";
     int tier = 0;
-    
     stringstream temp;
 
     for (int i= 0; i < numTiers; i++) {
         cout << "Enter the cutoff point for tier " << i+1 << ": ";
         cin >> tier;
         temp << "tier" << i;
-        tierName = temp.str();
-        tiers[tierName] = tier;
-        tierName="";
+        tiers[temp.str()] = tier;
+        temp.clear();
     }
     
     //@TODO: Remove
