@@ -52,48 +52,40 @@ int main(void)
 
     ofstream outfile;
     string outfileName;
-    cout << "Enter the name of the file you wish to write to: ";
     cin >> outfileName;
     outfile.open(outfileName.c_str());
     
     //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
 
     //Get the number of jobs
-    cout << "Enter Number of Jobs: " << endl;
     cin >> numJobs;
     
     //Get the number of printers
-    cout << "Specify the Number of Printers: " << endl;
     cin >> numOfPrinters;
     int printRate[numOfPrinters];
 
     
     //Printers print randomly or linearly
     //pr = print rate
-    cout << "Do all printers print at the same rate? (y/n) " << endl;
     cin >> boolPrintRate;
     if (toupper(boolPrintRate) == 'Y') {
         //Get Printer Rate
-        cout << "Specify Print Rate: " << endl;
 	cin >> pr;
 	for (int i=0;i < numOfPrinters;i++)
           printRate[i]=pr;
     } else {
         //for each printer, get print rate
         for (int i=0; i < numOfPrinters; i++) {
-            cout << "Specify printer " << i+1 << "'s print rate: ";
             cin >> pr;
             printRate[i] = pr;
         }
     }
     
     //Get the maximum number of pages able to printer / job
-    cout << "Input the Maximum Pages Able To Print: " << endl;
     cin >> maxPages;
     
     
     //Get the total number of tiers in the waiting list queue
-    cout << "Enter the amount total amount of printer tiers: ";
     cin >> numTiers;
     
     /*
@@ -109,7 +101,6 @@ int main(void)
     stringstream temp;
 
     for (int i= 0; i < numTiers; i++) {
-        cout << "Enter the cutoff point for tier " << i+1 << ": ";
         cin >> tier;
         temp << "tier" << i;
         tiers[temp.str()] = tier;
@@ -125,7 +116,6 @@ int main(void)
     while (toupper(jobFrequency) != 'J' &&
            toupper(jobFrequency) != 'M')
     {
-        cout << "Will there be an average of multiple jobs per minute coming in?" << endl
              << "Or" << endl
              << "Will there be an average of one job every several minutes?" << endl
              << "Input 'J' for jobs per minute or 'M' for minutes per job: ";
@@ -133,25 +123,20 @@ int main(void)
     }
     
     if (toupper(jobFrequency) == 'J') {
-        cout << "Enter the average number of jobs per minute: ";
         cin >> jobsPerMinute;
     
     } else {
-        cout << "Enter the average number of minutes per job: ";
         cin >> jobsPerMinute;
         jobsPerMinute = 1 / jobsPerMinute;
     }
     
     //Get the printed page per dollar cost
-    cout << "Enter the approximate cost per page in dollars: ";
     cin >> costPerPage;
     
     //Get max number pages printer can print before maintence is needed
-    cout << "Enter number of pages the printers can print before requiring maintenance: ";
     cin >> printCapacity;
    
     //Get the amount of time a printer is down for maintence
-    cout << "Enter amount of time printer is down for maintenance in minutes: ";
     cin >> downTime;
     
     
@@ -186,10 +171,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     //Seed the program
     //@TODO: Maybe change type of seed from int to something
         //i.e., typecast or figure out what type of seeds were possible
-    cout << "Type Y if you would like to manually seed your simulation: ";
     cin >> checkSeed;
     if(toupper(checkSeed) == 'Y'){
-        cout << "Enter in your seed as an integer: ";
         cin >> seed;
         srand(seed);
     } else {
