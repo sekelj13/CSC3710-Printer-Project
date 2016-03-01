@@ -195,6 +195,8 @@ private:
     jobType job;
 };
 	//*************  printerType  ****************
+
+static const ofstream NULL_STREAM;
 class printerType
 {
 public:
@@ -234,7 +236,7 @@ public:
       //Function to set the status of the printer to "free".
       //Postcondition: status = "free";
 
-    void setPrintTime(int t=1, ofstream& outfile);
+    void setPrintTime(int t=1, ofstream& outfile = NULL_STREAM);
       //Function to set the print time according to the 
       //parameter t.
       //Postcondition: printTime = t;

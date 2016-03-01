@@ -239,7 +239,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
             if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
                 jobType job;
                 waitTime += job.getWaitingTime();
-                printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob());
+                printerList.setPrinterBusy(printerList.getFreePrinterID(), jqArr.getNextJob(),outfile);
             }
         }
     }
