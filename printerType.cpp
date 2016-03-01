@@ -63,11 +63,14 @@ void printerType::setPrintTime(int t)
     cout << "In job " << currentJob.getJobNumber() << " Pages left to print: " << time << endl;
     
     printTime = time;
+    if(time>0)
+        pagesLeft-=time; //Don't want to waste paper
 }
 
 void printerType::decreasePrintTime()
 {
     printTime-=printRate;
+    paperleft-=printRate;
     cout << "Print time left in job number " << currentJob.getJobNumber() << ": " << printTime << endl;
 }
 
@@ -110,6 +113,8 @@ bool printerType::checkFail()
          *if check <= probOfFailure*1000, a failure occurs
          */
          failure = true;
+    } else if(paperLeft>=0){
+        failure = true;
     } else
         failure = false;
     return failure;
@@ -122,7 +127,12 @@ int printerType::getPaperLeft()
 
 void printerType::refillPrinter()
 {
-    paperLeft = maxPaper;
+    if(fixTime>=0){
+        paperLeft = maxPaper;
+        this.setFree();
+        fail=false;
+    }else
+        fixTime--;
 }
 
 void printerType::setProbOfFailure(int prob)

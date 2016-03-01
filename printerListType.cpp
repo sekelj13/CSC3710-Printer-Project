@@ -87,12 +87,13 @@ void printerListType::setPrinterBusy(int printerID,
 void printerListType::updatePrinters(ostream& outFile)
 {
     int i;
+    bool fail;
     
     for (i = 0; i < numOfPrinters; i++)
         if (!printers[i].isFree())
         {
             printers[i].decreasePrintTime();
-            
+            fail=printers[i].checkFail();
             if (printers[i].getRemainingPrintTime() <= 0)
             {
                 outFile << "From printer number  " << (i + 1)
@@ -106,7 +107,10 @@ void printerListType::updatePrinters(ostream& outFile)
                 + printers[i].
                 getCurrentJobPrintTime()
                 << endl;
-                printers[i].setFree();
+                if(fail)
+                    printers[i].refillPrinter();
+                else
+                    printers[i].setFree();
             }
         }
 }
