@@ -19,7 +19,7 @@ using namespace std;
  * Run the simulation function(main will populate the run simulation parameters)
  *
  */
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime);
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime,ofstream &outfile);
 
 /*
  *
@@ -54,7 +54,7 @@ int main(void)
     string outfileName;
     cout << "Enter the name of the file you wish to write to: ";
     cin >> outfileName;
-    outfile.open(outfileName);
+    outfile.open(outfileName.c_str());
     
     //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
 
@@ -156,7 +156,7 @@ int main(void)
     
     
     //Run the simulation now that data has all been collected
-    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,tiers,jobsPerMinute,costPerPage,printCapacity,downTime);
+    runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,tiers,jobsPerMinute,costPerPage,printCapacity,downTime,outfile);
 
     return 0;
 }
@@ -168,7 +168,7 @@ int main(void)
  */
 
 //Runs Simulation
-void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime)
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime,ofstream &outfile)
 {
     /*
      * sTime = Simluation Time
