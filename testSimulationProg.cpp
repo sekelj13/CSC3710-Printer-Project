@@ -255,9 +255,9 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     int i = 1;
     
     for(tierIterator = tiers.begin(); tierIterator != tiers.end(); tierIterator++) {
-        cout << "Tier " << i << " number of jobs: " << tierIterator->second << endl;
+        cout << "Tier " << i << " number of jobs: " << tierIterator.second << endl;
         cout << "Tier " << i << " number of pages printed: " << 1  << endl; //Change
-        cout << "Tier " << i << " average job wait time: " << (double)(queueWaitTimes->second / queueJobsCreated->second) << endl;
+        cout << "Tier " << i << " average job wait time: " << (double)(queueWaitTimes.second / queueJobsCreatedsecond) << endl;
         i++;
     }
     cout    << "Total Jobs: "  << jobNum << endl
