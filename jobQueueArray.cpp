@@ -100,7 +100,7 @@ int* jobQueueArray::getJobQArrNumJobsCreated()
 
 }
 
-int* jobQueueArray::getjobQArrWaitTimes()
+int* jobQueueArray::getJobQArrWaitTimes()
 {
 
 }
