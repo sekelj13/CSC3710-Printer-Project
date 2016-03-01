@@ -117,7 +117,7 @@ bool printerType::checkFail()
          *if check <= probOfFailure*1000, a failure occurs
          */
          failure = true;
-	     setFixTime(downTime)
+	     setFixTime(downTime);
     } else if(paperLeft<=0){
         failure = true;
         setFixTime(downTime);
