@@ -65,8 +65,6 @@ void printerType::setPrintTime(int t,ofstream& outfile)
     outfile << "In job " << currentJob.getJobNumber() << " Pages left to print: " << time << endl;
     
     printTime = time;
-    if(time>0)
-        pagesLeft-=time; //Don't want to waste paper
 }
 
 void printerType::decreasePrintTime(ofstream& outfile)
@@ -74,6 +72,9 @@ void printerType::decreasePrintTime(ofstream& outfile)
     printTime-=printRate;
     paperLeft-=printRate;
     outfile << "Print time left in job number " << currentJob.getJobNumber() << ": " << printTime << endl;
+    if(time>0)
+        pagesLeft-=printTime; //Don't want to waste paper
+
 }
 
 int printerType::getRemainingPrintTime() const
@@ -115,7 +116,7 @@ bool printerType::checkFail()
          *if check <= probOfFailure*1000, a failure occurs
          */
          failure = true;
-    } else if(paperLeft>=0){
+    } else if(paperLeft<=0){
         failure = true;
         setFixTime();
     } else

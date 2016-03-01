@@ -101,7 +101,7 @@ void printerListType::updatePrinters(ofstream& outfile)
                     printers[i].refillPrinter();
                     outfile << "Printer "<<i<<" failed. Time till fixed: "
                     << printers[i].getFixTime() << endl;
-                }else{
+                } else {
                     outfile << "From printer number  " << (i + 1)
                     << " job number "
                     << printers[i].getCurrentJobNumber()

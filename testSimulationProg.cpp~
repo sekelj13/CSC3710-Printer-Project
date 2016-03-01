@@ -116,9 +116,9 @@ int main(void)
     while (toupper(jobFrequency) != 'J' &&
            toupper(jobFrequency) != 'M')
     {
-            // << "Or" << endl
-            // << "Will there be an average of one job every several minutes?" << endl
-            // << "Input 'J' for jobs per minute or 'M' for minutes per job: ";
+             << "Or" << endl
+             << "Will there be an average of one job every several minutes?" << endl
+             << "Input 'J' for jobs per minute or 'M' for minutes per job: ";
         cin >> jobFrequency;
     }
     
@@ -153,8 +153,11 @@ int main(void)
  */
 
 //Runs Simulation
-
+<<<<<<< HEAD
+void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string,int> tiers, int jpm, double costPerPage, int printCapacity, int downTime)
+=======
 void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[], int numTiers, map<string, int> tiers, int jpm, double costPerPage, int printCapacity, int downTime,ofstream &outfile)
+>>>>>>> d1b8f41c889b93008ece3a626ee32343e0fff8ea
 {
     /*
      * sTime = Simluation Time
