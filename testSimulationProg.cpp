@@ -238,13 +238,20 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
         }
     }
     
+    //Output Statistics
     cout    << endl << "Simulation Completed.\n"
             << "Simulation time: " << sTime << endl
             << "Number of printers: " << numOfPrinters << endl
-            << "Time between job arrivals: " << 1 << endl
-            << "Total Wait Time between all jobs: "  << waitTime << endl
-            << "Total Jobs: "  << jobNum << endl
-            << "Average Wait Time: " << (float)waitTime/jobNum << endl;    
+	    << "Total number of pages printed: " << /*@TODO: make total pages printed*/ << endl
+            << "Total Wait Time between all jobs: " << waitTime << endl << endl;
+	    cout << "============ Tier-by-tier Statistics ============" << endl;
+    for(int i=0;i < numTiers;i++) {
+        cout << "Tier " << i+1 << " number of jobs: " << ?????? << endl;
+	cout << "Tier " << i+1 << " number of pages printed: " << ?????? << endl;
+	cout << "Tier " << i+1 << " average job wait time: " << ????????? << endl;
+    }
+    cout    << "Total Jobs: "  << jobNum << endl
+            << "Average Wait Time between all jobs: " << (float)waitTime/jobNum << endl;
 }
 
 int poisson(double *cutoffs, int jpm)
