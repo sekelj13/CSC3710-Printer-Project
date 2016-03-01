@@ -234,7 +234,7 @@ public:
       //Function to set the status of the printer to "free".
       //Postcondition: status = "free";
 
-    void setPrintTime(int t=1);
+    void setPrintTime(int t=1, ofstream& outfile);
       //Function to set the print time according to the 
       //parameter t.
       //Postcondition: printTime = t;
@@ -243,7 +243,7 @@ public:
       //Function to return the remaining print time.
       //Postcondition: The value of printTime is returned.
 
-    void decreasePrintTime();
+    void decreasePrintTime(ofstream& outifle);
       //Function to decrease the printTime by 1 unit.
       //Postcondition: printTime--;
 
@@ -348,7 +348,7 @@ public:
     int getNumberOfFreePrinters() ;
     //Returns number of Free Printers available
 
-    //void setPrinterBusy(int printerID, jobType cJob, int tTime);
+    void setPrinterBusy(int printerID, jobType cJob, int tTime,ofstream& outfile);
       //Function to set a printer as busy. 
       //Postcondition: The printer specified by serverID is set
       //               to "busy", to serve the job 
