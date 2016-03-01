@@ -94,7 +94,6 @@ void printerListType::updatePrinters(ofstream& outfile)
         {
             printers[i].decreasePrintTime(outfile);
             fail=printers[i].checkFail(); //@TODO: Fix checkFail for parameters(too few)
-            cout<<fail<<endl;
             if (printers[i].getRemainingPrintTime() <= 0)
             {
                 if(fail){
