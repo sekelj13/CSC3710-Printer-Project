@@ -72,7 +72,7 @@ void printerType::setPrintTime(int t)
 void printerType::decreasePrintTime()
 {
     printTime-=printRate;
-    paperleft-=printRate;
+    paperLeft-=printRate;
     cout << "Print time left in job number " << currentJob.getJobNumber() << ": " << printTime << endl;
 }
 
@@ -133,7 +133,7 @@ void printerType::refillPrinter()
     if(fixTime>=0){
         paperLeft = maxPaper;
         fail=false;
-    }else
+    } else
         fixTime--;
 }
 
