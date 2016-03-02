@@ -31,7 +31,7 @@ vector<double> poissonQuickFix(vector<double> cutOffs, double jpm);
 /*
  *
  */
-void poissonJobs(int k, double *cutoffs, int *jobNum, jobQueueArray *jqArr, int sTime, int maxPages, int *totalPagesPrinted,ofstream &outfile);
+void poissonJobs(int k, vector<double> cutoffs, int *jobNum, jobQueueArray *jqArr, int sTime, int maxPages,int *totalPagesPrinted,ofstream &outfile);
 
 
 /*
@@ -56,10 +56,10 @@ int main(void)
     string outfileName;
     cin >> outfileName;
     outfile.open(outfileName.c_str());
-    //@TODO: Change cins to istream(read all data inputs / info from a file or from cmdline)
 
     //Get the number of jobs
     cin >> numJobs;
+    
     //Get the number of printers
     cin >> numOfPrinters;
     int printRate[numOfPrinters];
@@ -85,17 +85,12 @@ int main(void)
     
     //Get the total number of tiers in the waiting list queue
     cin >> numTiers;
-    /*
-     * 
-     * Used a hashmap to initalize tiers & cutoffs
-     * send hashmap to jobQueueArray & fill each array that way
-     *
-     */
-    //Get the cutoff point for each tier
+
+    //Initalize & Setup Tiers
     map<string, int> tiers;
-    // map<string, int>::iterator tierIterator; //Iterate through the tiers
     int tier = 0;
     stringstream temp;
+    
     for (int i= 0; i < numTiers; i++) {
         cin >> tier;
         temp << "tier" << i;
@@ -103,11 +98,10 @@ int main(void)
         temp.clear();
     }
     //@TODO: Remove
-    jobQueueArray newTier(tiers);
+    //jobQueueArray newTier(tiers);
     
-    //this while loop is a bit of error-checking to make sure jobFrequency gets one
-    //of the 2 values it needs.
-    //@TODO: Clean up cout statement a bit?
+
+    //@TODO: Clean Up
     while (toupper(jobFrequency) != 'J' &&
            toupper(jobFrequency) != 'M')
     {
@@ -124,12 +118,16 @@ int main(void)
         cin >> jobsPerMinute;
         jobsPerMinute = 1 / jobsPerMinute;
     }
+    
     //Get the printed page per dollar cost
     cin >> costPerPage;
+    
     //Get max number pages printer can print before maintence is needed
     cin >> printCapacity;
+    
     //Get the amount of time a printer is down for maintence
     cin >> downTime;
+    
     //Run the simulation now that data has all been collected
     runSimulation(numOfPrinters,numJobs,maxPages,printRate,numTiers,tiers,jobsPerMinute,costPerPage,printCapacity,downTime,outfile);
 
@@ -154,15 +152,10 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
      */
 
     char checkSeed;
-    
-    vector<double> cutoffs;
-    
     int seed = 0, sTime = 0, jobNum = 0, waitTime = 0;
-    int totalPagesPrinted = 0; //total number of pages printed
+    int totalPagesPrinted = 0;
     
-    //Seed the program
-    //@TODO: Maybe change type of seed from int to something
-        //i.e., typecast or figure out what type of seeds were possible
+    //Set or Use time Seed
     cin >> checkSeed;
     if(toupper(checkSeed) == 'Y'){
         cin >> seed;
@@ -171,28 +164,16 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
         srand(time(NULL));
     }
     
+    //Initalize cuttoffs with 0, otherwise cause seg fault because ! filled
+    vector<double> cutoffs;
+    cutoffs.push_back(0);
+    
     int k=poisson(cutoffs,jpm);
-    double cutOffs[k];          //could not figure out how to make this a working function, so it remains here.
-    double poisson;
-    double totalpoisson=0;
-    for(int l=0;l<(k-1);l++){
-        poisson = pow(jpm,l) * exp(-jpm)/factorial(l);
-        totalpoisson += poisson;
-        cutOffs[l] = totalpoisson;
-        cout<<cutOffs[l]<<endl;
-    }
-    cutOffs[k]=1;
-//    cutOffs=poissonQuickFix(cutoffs,jpm);
+
     //Create an instance of the printerList that will hold all the printers
     printerListType printerList(numOfPrinters, printRate, downTime);
 
     //Create jobQueueArray which will house all tieried 0->n-1 priority job queue's w/ tier information
-    /*
-     * @TODO: Create constructor which will tell how many tiers & explicit values for each of those tiers
-     *          could possibly be in a hashmap, or read in via for/while loop and added dynamically in the
-     *          constructor in jobQueueArrayClass
-     */
-    
     jobQueueArray jqArr(tiers);
 
     //Create an instance of a job
@@ -201,23 +182,21 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     //while loop to continue until jobQueue empty and printerList empty as well
     while (jobNum < numJobs || printerList.getNumberOfBusyPrinters() != 0 || !jqArr.isEmpty()) {
 
-        //increment Simulation Time(sTime)
         sTime++;
         outfile << endl << "At time unit "<< sTime << endl;
 
         //update printer list & decrements
         printerList.updatePrinters(outfile);
         
-        //job queue array update
         jqArr.updateWaitingQueues();
 
-        //create jobs while jobNum < numJobs
         if (jobNum < numJobs) {
-            cout<<cutOffs[0]<<endl;
-            poissonJobs(k,cutOffs,&jobNum,&jqArr,sTime,maxPages,&totalPagesPrinted,outfile);
-            cout<<jobNum<<endl;
+            cout << "Cuttoff index 0 is: " << cutoffs[0] << endl;
+            poissonJobs(k,cutoffs,&jobNum,&jqArr,sTime,maxPages,&totalPagesPrinted,outfile);
+            cout << "Current Job Number: " << jobNum << endl;
+            cout << "Current Number of Jobs: " << numJobs << endl;
         }
-        break;
+
         //if printer is free and queue nonempty, pair job with printer
         while (printerList.getFreePrinterID()!= -1 && !jqArr.isEmpty()){
             if (jqArr.checkNextJob().getWaitingTime() != -1 ) {
@@ -227,9 +206,10 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
             }
         }
     }
+
     
     //Output Statistics
-    outfile    << endl << "Simulation Completed.\n"
+    outfile << endl << "Simulation Completed.\n"
             << "Total number of jobs: " << jobNum << endl
             << "Simulation time: " << sTime << endl
             << "Number of printers: " << numOfPrinters << endl
@@ -265,19 +245,16 @@ int poisson(vector<double> cutoffs, double jpm)
     double totalpoisson=0;
     int k = 0;
     double poisson;
+    cutoffs.resize(1);
     
     while (totalpoisson < .95){
-        cout << "Seg Fault 4" << endl;
         poisson = pow(jpm,k) * exp(-jpm)/factorial(k);
-        cout << " Seg Fault 3" << endl;
         totalpoisson += poisson;
-        cout << "Seg Fault 2 " << endl;
-        //cutoffs[k] = totalpoisson;
-        //cout<<cutoffs[k]<<endl;
+        cutoffs[k] = totalpoisson;
+        cout<<cutoffs[k]<<endl;
         k++;
-        cout << "Hi" << endl;
+        cutoffs.resize(k);
     }
-    cout << "Hit This Seg Fault 1 " << endl;
     cutoffs[k]=1;
     return k;
 }
@@ -297,7 +274,7 @@ vector<double> poissonQuickFix(vector<double> cutOffs, double jpm){
     return cutOffs;
 }
 
-void poissonJobs(int k, double *cutoffs, int *jobNum, jobQueueArray *jqArr, int sTime, int maxPages,int *totalPagesPrinted,ofstream &outfile)
+void poissonJobs(int k, vector<double> cutoffs, int *jobNum, jobQueueArray *jqArr, int sTime, int maxPages,int *totalPagesPrinted,ofstream &outfile)
 {
     double prob=(double)rand()/RAND_MAX;
     int i=0;
