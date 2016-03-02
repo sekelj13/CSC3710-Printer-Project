@@ -170,7 +170,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     }
     
     int k=poisson(cutoffs,jpm);
-    double cutOffs[k]
+    double cutOffs[k];
     poissonQuickFix(cutOffs,jpm);
     //Create an instance of the printerList that will hold all the printers
     printerListType printerList(numOfPrinters, printRate, downTime);
