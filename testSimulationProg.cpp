@@ -31,7 +31,6 @@ int poisson(vector<double> &cutoffs, double jpm);
  */
 void poissonJobs(int k, const vector<double> &cutoffs, int &jobNum, jobQueueArray &jqArr, int sTime, int maxPages,int &totalPagesPrinted,ofstream &outfile);
 
-
 /*
  *
  */
