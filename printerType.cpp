@@ -107,20 +107,18 @@ int printerType::getCurrentJobPrintTime() const
     return currentJob.getPrintTime();
 }
 
-bool printerType::checkFail()
+bool printerType::checkFail(ofstream &outfile)
 {
-    int check = 0;
     if(!failure){
-        if ((check = rand() % 1000 + 1) <= (probOfFailure * 1000)) {
-        /*
-         *check is a random integer between 1 and 1000
-         *if check <= probOfFailure*1000, a failure occurs
-         */
+        double check = ((double)rand())/RAND_MAX;
+        if (check <= probOfFailure) {
          failure = true;
-	     setFixTime(downTime);
+         setFixTime(downTime);
+         outfile << "PRINTER JAMMED.\n";
     } else if(paperLeft<=0){
          failure = true;
          setFixTime(downTime);
+         outfile << "PRINTER RAN OUT OF PAPER.\n";
     } else
         failure = false;
     }return failure;

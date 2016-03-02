@@ -97,19 +97,18 @@ public:
     int getNumPages();
       //returns number of pages
       //postcondition: pages is returned
-    
-    int getMaxPages();
-        //returns total number of max pages allowed
-        //postcondition: max Total Pages is returned
-    
 
+    void setMaxPages(int max=30);
+
+    int getMaxPages();
+    
 private:
+    int maxPages;
     int jobNumber;
     int arrivalTime;
     int waitingTime; 
     int printTime; //Time it takes to print
     int pages;     //pages in job
-    int maxPages;  //Maximum pages allowed
     int tier;
 };
 
@@ -279,7 +278,7 @@ public:
       //Postcondition: The value of printTime of the 
       //               current job is returned.
 
-    bool checkFail();
+    bool checkFail(ofstream &outfile);
       //Function to check if printer fails. If no prob is given, %5 chance
       //to fail.
       //Postcondition: Bool failure will be true if there is a failure, else
@@ -327,7 +326,7 @@ private:
 class printerListType
 {
 public:
-    printerListType(int numPrinters = 3, int pr[] = 0,int down = 10);
+    printerListType(int numPrinters = 3, int pr[] = 0,int down = 10,double probOfFailure=.05);
       //Constructor to initialize a list of printers
       //Postcondition: numOfPrinters = num
       //               A list of printers, specified by num, 

@@ -26,10 +26,9 @@ void jobType::setJobInfo(int jobN, int arrvTime,
     
     if(max==0){
         maxPages=30;
-        
     }else
         maxPages = max;
-    
+    //@TODO: NO RANDS IN JOBTYPE - THE NUMBER OF PAGES IS NOW SPECIFIC.
     pages = (rand() % maxPages) + 1;
 }
 
