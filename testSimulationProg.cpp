@@ -24,9 +24,9 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 /*
  *
  */
-int poisson(double *cutoffs, double jpm);
+int poisson(vector<double> cutoffs, double jpm);
 
-double* poissonQuickFix(double *cutOffs, double jpm);
+vector<double> poissonQuickFix(vector<double> cutOffs, double jpm);
 
 /*
  *
@@ -155,7 +155,7 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 
     char checkSeed;
     
-    double *cutoffs;
+    vector<double> cutoffs;
     
     int seed = 0, sTime = 0, jobNum = 0, waitTime = 0;
     int totalPagesPrinted = 0; //total number of pages printed
@@ -260,23 +260,28 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
             << "Average Wait Time between all jobs: " << (float)waitTime/jobNum << endl;
 }
 
-int poisson(double *cutoffs, double jpm)
+int poisson(vector<double> cutoffs, double jpm)
 {
     double totalpoisson=0;
     int k = 0;
     double poisson;
+    
     while (totalpoisson < .95){
+        cout << "Seg Fault 4" << endl;
         poisson = pow(jpm,k) * exp(-jpm)/factorial(k);
+        cout << " Seg Fault 3" << endl;
         totalpoisson += poisson;
         cutoffs[k] = totalpoisson;
+        cout << "Seg Fault 2 " << endl;
         cout<<cutoffs[k]<<endl;
         k++;
     }
+    cout << "Hit This Seg Fault 1 " << endl;
     cutoffs[k]=1;
     return k;
 }
 
-double* poissonQuickFix(double *cutOffs, double jpm){
+vector<double> poissonQuickFix(vector<double> cutOffs, double jpm){
     double totalpoisson=0;
     int k = 0;
     double poisson;

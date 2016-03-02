@@ -17,7 +17,11 @@ jobQueueArray::jobQueueArray(map<string, int> mainTiers)
      * Initalize the vector size(jobQArr)
      * @TODO: Forgetting something here....
      */
-    //map<string, int>::iterator tierIterator;
+    map<string, int>::iterator tierIterator;
+    for(tierIterator = mainTiers.begin(); tierIterator != mainTiers.end(); tierIterator++){
+        cout << tierIterator->second << endl;
+    }
+    cout << "No Segfault Yet" << endl;
     tiers = mainTiers;
     jobQArr.resize(tiers.size());
     
