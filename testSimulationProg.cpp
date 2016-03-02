@@ -24,12 +24,20 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 /*
  *
  */
+<<<<<<< HEAD
 int poisson(vector<double> &cutoffs, double jpm);
+=======
+int poisson(vector<double> cutoffs, double jpm);
+>>>>>>> 1166c4d9a9540a05d523e38d4fe0193cf2303421
 
 /*
  *
  */
+<<<<<<< HEAD
 void poissonJobs(int k, const vector<double> &cutoffs, int &jobNum, jobQueueArray &jqArr, int sTime, int maxPages,int &totalPagesPrinted,ofstream &outfile);
+=======
+void poissonJobs(int k, vector<double> cutoffs, int &jobNum, jobQueueArray &jqArr, int sTime, int maxPages,int &totalPagesPrinted,ofstream &outfile);
+>>>>>>> 1166c4d9a9540a05d523e38d4fe0193cf2303421
 
 
 /*
