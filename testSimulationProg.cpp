@@ -26,6 +26,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
  */
 int poisson(double *cutoffs, double jpm);
 
+double* poissonQuickFix(double *cutOffs, double jpm);
+
 /*
  *
  */
@@ -170,8 +172,17 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
     }
     
     int k=poisson(cutoffs,jpm);
-    double cutOffs[k]
-    poissonQuickFix(cutOffs,jpm);
+    double cutOffs[k];          //could not figure out how to make this a working function, so it remains here.
+    double poisson;
+    double totalpoisson=0;
+    for(int l=0;l<(k-1);l++){
+        poisson = pow(jpm,l) * exp(-jpm)/factorial(l);
+        totalpoisson += poisson;
+        cutOffs[l] = totalpoisson;
+        cout<<cutOffs[l]<<endl;
+    }
+    cutOffs[k]=1;
+//    cutOffs=poissonQuickFix(cutoffs,jpm);
     //Create an instance of the printerList that will hold all the printers
     printerListType printerList(numOfPrinters, printRate, downTime);
 
@@ -202,8 +213,8 @@ void runSimulation(int numOfPrinters, int numJobs, int maxPages, int printRate[]
 
         //create jobs while jobNum < numJobs
         if (jobNum < numJobs) {
-            cout<<cutoffs[0]<<endl;
-            poissonJobs(k,cutoffs,&jobNum,&jqArr,sTime,maxPages,&totalPagesPrinted,outfile);
+            cout<<cutOffs[0]<<endl;
+            poissonJobs(k,cutOffs,&jobNum,&jqArr,sTime,maxPages,&totalPagesPrinted,outfile);
             cout<<jobNum<<endl;
         }
         break;
@@ -263,6 +274,21 @@ int poisson(double *cutoffs, double jpm)
     }
     cutoffs[k]=1;
     return k;
+}
+
+double* poissonQuickFix(double *cutOffs, double jpm){
+    double totalpoisson=0;
+    int k = 0;
+    double poisson;
+    while (totalpoisson < .95){
+        poisson = pow(jpm,k) * exp(-jpm)/factorial(k);
+        totalpoisson += poisson;
+        cutOffs[k] = totalpoisson;
+        cout<<cutOffs[k]<<endl;
+        k++;
+    }
+    cutOffs[k]=1;
+    return cutOffs;
 }
 
 void poissonJobs(int k, double *cutoffs, int *jobNum, jobQueueArray *jqArr, int sTime, int maxPages,int *totalPagesPrinted,ofstream &outfile)
