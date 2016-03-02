@@ -271,10 +271,11 @@ int poisson(vector<double> cutoffs, double jpm)
         poisson = pow(jpm,k) * exp(-jpm)/factorial(k);
         cout << " Seg Fault 3" << endl;
         totalpoisson += poisson;
-        cutoffs[k] = totalpoisson;
         cout << "Seg Fault 2 " << endl;
-        cout<<cutoffs[k]<<endl;
+        //cutoffs[k] = totalpoisson;
+        //cout<<cutoffs[k]<<endl;
         k++;
+        cout << "Hi" << endl;
     }
     cout << "Hit This Seg Fault 1 " << endl;
     cutoffs[k]=1;
